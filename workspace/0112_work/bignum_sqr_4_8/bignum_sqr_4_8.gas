@@ -1,0 +1,253 @@
+bignum_sqr_4_8:
+
+# address patterns
+
+#! [sp, $1c]! = %%EA
+#! [sp, $1c] = %%EA
+#! [sp], $1c = %%EA
+#! [sp] = %%EA
+#! [x$1c, $2c] = %%EA
+#! [x$1c], $2c = %%EA
+#! [x$1c] = %%EA
+
+# registers
+
+#! sp = %%sp
+#! v$1c = %%v$1c
+#! w$1c = %%w$1c
+#! x$1c = %%x$1c
+
+# scalar instructions
+
+#! adc $1v, $2v, $3v -> adc $1v $2v $3v carry
+#! adc $1v, $2c, $3v -> adc $1v $2c@uint64 $3v carry
+#! adc $1v, $2v, $3c -> adc $1v $2v $3c@uint64 carry
+#! adc $1v, $2v, xzr -> adc $1v $2v 0@uint64 carry
+#! adc $1v, xzr, $2v -> adc $1v 0@uint64 $2v carry
+#! adc $1v, xzr, xzr -> adc $1v 0@uint64 0@uint64 carry
+#! adcs $1v, $2v, $3v -> adcs carry $1v $2v $3v carry
+#! adcs $1v, $2c, $3v -> adcs carry $1v $2c@uint64 $3v carry
+#! adcs $1v, $2v, $3c -> adcs carry $1v $2v $3c@uint64 carry
+#! adcs $1v, $2v, xzr -> adcs carry $1v $2v 0@uint64 carry
+#! add $1v, $2v, $3v -> add $1v $2v $3v
+#! add $1v, $2c, $3v -> add $1v $2c@uint63 $3v
+#! add $1v, $2v, $3c -> add $1v $2v $3c@uint64
+#! adds $1v, $2v, $3v, lsl $4c -> split dcH $3v_t $3v `64 - $4c`; shl $3v_t $3v_t $4c; adds carry $1v $2v $3v_t
+#! adds $1v, $2v, $3v, lsr $4c -> split $3v_t dcL $3v $4c; adds carry $1v $2v $3v_t
+#! adds $1v, $2v, $3v -> adds carry $1v $2v $3v
+#! adds $1v, $2c, $3v -> adds carry $1v $2c@uint64 $3v
+#! adds $1v, $2v, $3c -> adds carry $1v $2v $3c@uint64
+#! and $1v, $2v, $3v -> and $1v@uint64 $2v $3v
+#! ands $1v, $2v, $3c -> and $1v@uint64 $2v $3c@uint64; subc zero dc 0@uint64 $1v
+#! bic $1v, $2v, $3v -> not $3v_n@uint64 $3v; and $1v@uint64 $2v $3v_n
+#! cmp $1v, xzr -> subc zero dc 0@uint64 $1v
+#! csel $1v, $2v, $3v, cc  // .* -> cmov $1v carry $3v $2v
+#! csel $1v, $2v, $3v, cs  // .* -> cmov $1v carry $2v $3v
+#! csel $1v, $2v, $3v, eq // .*  -> cmov $1v zero $2v $3v
+#! csel $1v, $2v, xzr, eq // .*  -> cmov $1v zero $2v 0@uint64
+#! csel $1v, xzr, $2v, eq // .*  -> cmov $1v zero 0@uint64 $2v
+#! eor $1v, $2v, $3v, lsl $4c -> split dc $3v_L $3v `64 - $4c`; shl $3v_S $3v_L $4c; xor $1v@uint64 $2v $3v_L
+#! eor $1v, $2v, $3v, ror $4c -> ror $3v_R@uint64 $3v $4c; xor $1v@uint64 $2v $3v_R
+#! eor $1v, $2v, $3v -> xor $1v@uint64 $2v $3v
+#! extr $1v, $2v, $3v, $4c -> spl dc extr_H $2v $4c; spl extr_L dc $3v $4c; join $1v extr_H extr_L
+#! ldp $1v, $2v, $3ea -> mov $1v $3ea; mov $2v $3ea[+8]
+#! ld1 {$1v.8h}, $2ea -> mov %$1v [$2ea[+0],$2ea[+2],$2ea[+4],$2ea[+6],$2ea[+8],$2ea[+10],$2ea[+12],$2ea[+14]]
+#! ld1 { $1v.4s }, $2ea -> mov %$1v [$2ea, $2ea[+4], $2ea[+8], $2ea[+12]]
+#! ld1 { $1v.4s, $2v.4s }, $3ea -> mov %$1v [$3ea[+0], $3ea[+4], $3ea[+8], $3ea[+12]];\nmov %$2v [$3ea[+16], $3ea[+20], $3ea[+24], $3ea[+28]]
+#! ld2 { $1v.4s, $2v.4s }, $3ea -> mov %$1v [$3ea[+0], $3ea[+8], $3ea[+16], $3ea[+24]];\nmov %$2v [$3ea[+4], $3ea[+12], $3ea[+20], $3ea[+28]]
+#! ldr $1v, $2ea -> mov $1v $2ea
+#! ldur $1v, $2ea -> mov $1v $2ea
+#! lsl $1v, $2v, $3c -> split dcH $1v $2v (64-$3c); shl $1v $1v $3c
+#! lsr $1v, $2v, $3c -> split $1v dcL $2v $3c
+#! mov $1v, wzr -> mov $1v 0@uint32
+#! mov $1v, xzr -> mov $1v 0@uint64
+#! mov $1v, $2v -> mov $1v $2v
+#! mov $1v, $2c // -> mov $1v $2c@uint64
+#! mov $1v, $2c -> mov $1v $2c@uint64
+#! mul $1v, $2v, $3v -> mull dcH $1v $2v $3v
+#! ngc $1v, $2v -> sbcs dc $1v 0@uint64 $2v carry
+#! ngc $1v, xzr -> sbcs dc $1v 0@uint64 0@uint64 carry
+#! ngcs $1v, $2v -> sbcs carry $1v 0@uint64 $2v carry
+#! umulh $1v, $2v, $3v -> mull $1v dcL $2v $3v
+#! orr $1v, $2v, $3v -> or $1v@uint64 $2v $3v
+#! orr $1v, $2v, $3c -> or $1v@uint64 $2v $3c@uint64
+#! orr $1v, xzr, $2c -> mov $1v $2c@uint64
+#! ror $1v, $2v, $3c -> ror $1v@uint64 $2v $3c
+#! sub $1v, $2v, $3v -> sub $1v $2v $3v
+#! sub $1v, $2c, $3v -> sub $1v $2c@uint64 $3v
+#! sub $1v, $2v, $3c -> sub $1v $2v $3c@uint64
+#! subs $1v, $2v, $3v -> subc carry $1v $2v $3v
+#! subs $1v, $2c, $3v -> subc carry $1v $2c@uint64 $3v
+#! subs $1v, $2v, $3c -> subc carry $1v $2v $3c@uint64
+#! sbc $1v, $2v, $3v -> sbc $1v $2v $3v carry
+#! sbc $1v, $2c, $3v -> sbc $1v $2c@uint64 $3v carry
+#! sbc $1v, $2v, $3c -> sbc $1v $2v $3c@uint64 carry
+#! sbcs $1v, $2v, $3v -> sbcs carry $1v $2v $3v carry
+#! sbcs $1v, $2c, $3v -> sbcs carry $1v $2c@uint64 $3v carry
+#! sbcs $1v, $2v, $3c -> sbcs carry $1v $2v $3c@uint64 carry
+#! sbcs $1v, $2v, xzr -> sbcs carry $1v $2v 0@uint64 carry
+#! sbcs $1v, xzr, $2v -> sbcs carry $1v $2v 0@uint64 carry
+#! sbcs xzr, $1v, xzr -> sbcs carry dontcare $1v 0@uint64 carry
+#! stp $1v, $2v, $3ea -> mov $3ea $1v; mov $3ea[+8] $2v
+#! str $1v, $2ea -> mov $2ea $1v
+#! stur $1v, $2ea -> mov $2ea $1v
+#! tst $1v, $2c -> and tst_t@uint64 $1v $2c@uint64; subc zero dc 0@uint64 tst_t
+
+# vector instructions
+# b = 8 bits, s = 32 bits, d = 64 bits
+
+#! add $1v.4s, $2v.4s, $3v.4s -> add %$1v %$2v %$3v
+#! add $1v.8h, $2v.8h, $3v.8h -> add %$1v %$2v %$3v
+#! dup $1v.4s, %%w$2c -> mov %$1v [w$2c,w$2c,w$2c,w$2c]
+#! dup $1v.2d, %%x$2c -> mov %$1v [x$2c,x$2c]
+#! eor $1v.16b, $2v.16b, $3v.16b -> xor %$1v@uint8[16] %$2v %$3v
+#! ext $1v.16b, $2v.16b, $3v.16b, \#4 -> mov %$1v [%$2v[4],%$2v[5],%$2v[6],%$2v[7],%$2v[8],%$2v[9],%$2v[10],%$2v[11],\n        %$2v[12],%$2v[13],%$2v[14],%$2v[15],%$3v[0],%$3v[1],%$3v[2],%$3v[3]]
+#! ld1	{$1v.16b}, $2ea -> mov %$1v [$2ea[+0],$2ea[+1],$2ea[+2],$2ea[+3],\n        $2ea[+4],$2ea[+5],$2ea[+6],$2ea[+7],\n        $2ea[+8],$2ea[+9],$2ea[+10],$2ea[+11],\n        $2ea[+12],$2ea[+13],$2ea[+14],$2ea[+15]]
+#! ld1	{$1v.4s}, $2ea -> mov %$1v [$2ea[+0],$2ea[+4],$2ea[+8],$2ea[+12]]
+#! ld1	{$1v.4s}, $2ea -> mov %$1v [$2ea[+0],$2ea[+4],$2ea[+8],$2ea[+12]]
+#! ld4	{$1v.4s, $2v.4s, $3v.4s, $4v.4s}, $5ea -> mov %$1v [$5ea[+0],$5ea[+16],$5ea[+32],$5ea[+48]];\n mov %$2v [$5ea[+4],$5ea[+20],$5ea[+36],$5ea[+52]];\n mov %$3v [$5ea[+8],$5ea[+24],$5ea[+40],$5ea[+56]];\n mov %$3v [$5ea[+12],$5ea[+28],$5ea[+44],$5ea[+60]]
+#! mov $1v.d\[1\], $2v.d\[0\] -> mov %$1v[1] %$2v[0]
+#! rev32 $1v.16b, $2v.16b -> mov %$1v [%$2v[3],%$2v[2],%$2v[1],%$2v[0],%$2v[7],%$2v[6],%$2v[5],%$2v[4],\n        %$2v[11],%$2v[10],%$2v[9],%$2v[8],%$2v[15],%$2v[14],%$2v[13],%$2v[12]]
+#! sli $1v.4s, $2v.4s, $3c -> split %dc %slil %$2v (32-$3c); shl %slih $3c;\nsplit %dc %$1v %$1v $3c; or %$1v@uint32[4] %slih %$1v
+#! st1 {$1v.4s}, $2ea -> mov [$2ea,$2ea[+4],$2ea[+8],$2ea[+12]] %$1v
+#! st1 {$1v.4s, $2v.4s}, $3ea -> mov [$3ea,$3ea[+4],$3ea[+8],$3ea[+12]] %$1v;\nmov [$3ea[+16],$3ea[+20],$3ea[+24],$3ea[+12]] %$2v
+#! st4	{$1v.4s, $2v.4s, $3v.4s, $4v.4s}, $5ea -> mov [$5ea[+0],$5ea[+16],$5ea[+32],$5ea[+48]], %$1v;\n mov [$5ea[+4],$5ea[+20],$5ea[+36],$5ea[+52]] %$2v;\n mov [$5ea[+8],$5ea[+24],$5ea[+40],$5ea[+56]] %$3v;\n mov [$5ea[+12],$5ea[+28],$5ea[+44],$5ea[+60]] %$4v
+#! sub $1v.8h, $2v.8h, $3v.8h -> sub %$1v %$2v %$3v
+#! sub $1v.4s, $2v.4s, $3v.4s -> sub %$1v %$2v %$3v
+#! ushr $1v.4s, $2v.4s, $3c -> split %$1v %dc %$2v $3c
+#! sshr $1v.4s, $2v.4s, $3c -> split %$1v %dc %$2v $3c
+#! trn1 $1v.4s, $2v.4s, $3v.4s -> mov %$1v@sint32[4] [%$2v[0],%$3v[0],%$2v[2],%$3v[2]]
+#! trn2 $1v.4s, $2v.4s, $3v.4s -> mov %$1v@sint32[4] [%$2v[1],%$3v[1],%$2v[3],%$3v[3]]
+#! trn1 $1v.2d, $2v.2d, $3v.2d -> mov %$1v@sint64[2] [%$2v[0],%$3v[0]]
+#! trn2 $1v.2d, $2v.2d, $3v.2d -> mov %$1v@sint64[2] [%$2v[1],%$3v[1]]
+#! mls $1v.8h, $2v.8h, $3v.h\[$4c\] -> broadcast %mls 8 [%$3v[$4c]]; mull %dc %mls %$2v %mls; sub %$1v %$1v %mls
+#! mls $1v.8h, $2v.8h, $3v.8h -> mull %dc %mls %$2v %$3v; sub %$1v %$1v %mls
+#! mls $1v.4s, $2v.4s, $3v.4s -> mull %dc %mls %$2v %$3v; sub %$1v %$1v %mls
+#! mls $1v.4s, $2v.4s, $3v.s\[$4c\] -> broadcast %mls 4 [%$3v[$4c]]; mull %dc %mls %$2v %mls; sub %$1v %$1v %mls
+#! mla $1v.8h, $2v.8h, $3v.8h -> mull %dc %mla %$2v %$3v; add %$1v %$1v %mla
+#! mla $1v.4s, $2v.4s, $3v.4s -> mull %dc %mla %$2v %$3v; add %$1v %$1v %mla
+#! mul $1v.16b, $2v.16b, $3v.16b -> mul %$1v %$2v %$3v
+#! mul $1v.8h, $2v.8h, $3v.h\[$4c\] -> broadcast %mul 8 [%$3v[$4c]]; mul %$1v %$2v %mul
+#! mul $1v.8h, $2v.8h, $3v.8h -> mul %$1v %$2v %$3v
+#! mul $1v.4s, $2v.4s, $3v.4s -> mul %$1v %$2v %$3v
+#! mul $1v.4s, $2v.4s, $3v.s\[$4c\] -> broadcast %mul 4 [%$3v[$4c]]; mul %$1v %$2v %mul
+#! sqrdmulh $1v.4s, $2v.4s, $3v.s\[$4c\] -> broadcast %sqrdmulh 4 [%$3v[$4c]]; smulj %LO %$2v %sqrdmulh;\nssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;\nvpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;\nadd %$1v %LO11 %LO01
+#! sqrdmulh $1v.4s, $2v.4s, $3v.4s -> smulj %LO %$2v %$3v; ssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;\nvpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;\nadd %$1v %LO11 %LO01
+#! sqrdmulh $1v.8h, $2v.8h, $3v.h\[$4c\] -> broadcast %sqrdmulh 8 [%$3v[$4c]]; smulj %LO %$2v %sqrdmulh;\nssplit %LO1 %LO0 %LO 15; usplit %LO00 %dc %LO0 14;\nvpc %LO01@sint16[8] %LO00; vpc %LO11@sint16[8] %LO1;\nadd %$1v %LO11 %LO01
+#! sqrdmulh $1v.8h, $2v.8h, $3v.8h -> smulj %LO %$2v %$3v;\nssplit %LO1 %LO0 %LO 15; usplit %LO00 %dc %LO0 14;\nvpc %LO01@sint16[8] %LO00; vpc %LO11@sint16[8] %LO1;\nadd %$1v %LO11 %LO01
+#! sqdmulh $1v.4s, $2v.4s, $3v.4s -> smulj %LO %$2v %$3v;\nssplit %LO0 %dc %LO 31; vpc %$1v@sint32[4] %LO0
+#! sqdmulh $1v.8h, $2v.8h, $3v.h\[$4c\] -> broadcast %sqdmulh 8 [%$3v[$4c]]; smulj %LO %$2v %sqdmulh;\nssplit %LO0 %dc %LO 15; vpc %$1v@sint16[8] %LO0
+#! sqdmulh $1v.8h, $2v.8h, $3v.8h -> smulj %LO %$2v %$3v;\nssplit %LO0 %dc %LO 15; vpc %$1v@sint16[8] %LO0
+#! srshr $1v.4s, $2v.4s, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint32[4] %LO1; add %$1v %HI %LO0
+#! srshr $1v.8h, $2v.8h, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint16[8] %LO1; add %$1v %HI %LO0
+#! srsra $1v.4s, $2v.4s, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint32[4] %LO1;\nadd %$1v %$1v %LO0; add %$1v %$1v %HI
+#! srsra $1v.8h, $2v.8h, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint16[8] %LO1;\nadd %$1v %$1v %LO0; add %$1v %$1v %HI
+#! umull %%x$1c, %%w$2c, %%w$3c -> split HI2 LO2 x$2c `32`; split HI3 LO3 x$3c `32`; cast w$2c@uint32 LO2; cast w$3c@uint32 LO3; mulj x$1c w$2c w$3c
+#! csetm $1v, cc -> cmov $1v carry 0@uint64 0xffffffffffffffff@uint64;
+
+
+# x0 = 0x7fffffffe910
+# x1 = 0x7fffffffe950
+# x2 = 0x0
+# x3 = 0x1
+# x4 = 0x7ffff7e69e40
+# x5 = 0x5555555742e9
+# x6 = 0x0
+# x7 = 0x0
+	#! -> SP = 0x7fffffffe900
+	ldp	x2, x3, [x1]                                #! EA = L0x7fffffffe950; Value = 0xddddeeeeffff0000; PC = 0x555555550918
+	ldp	x4, x5, [x1, #16]                           #! EA = L0x7fffffffe960; Value = 0x5555666677778888; PC = 0x55555555091c
+	umull	x6, w2, w2                                #! PC = 0x555555550920
+	lsr	x16, x2, #32                                #! PC = 0x555555550924
+	umull	x7, w16, w16                              #! PC = 0x555555550928
+	umull	x16, w2, w16                              #! PC = 0x55555555092c
+	adds	x6, x6, x16, lsl #33                       #! PC = 0x555555550930
+	lsr	x16, x16, #31                               #! PC = 0x555555550934
+	adc	x7, x7, x16                                 #! PC = 0x555555550938
+	umull	x8, w3, w3                                #! PC = 0x55555555093c
+	lsr	x16, x3, #32                                #! PC = 0x555555550940
+	umull	x9, w16, w16                              #! PC = 0x555555550944
+	umull	x16, w3, w16                              #! PC = 0x555555550948
+	mul	x15, x2, x3                                 #! PC = 0x55555555094c
+	umulh	x14, x2, x3                               #! PC = 0x555555550950
+	adds	x8, x8, x16, lsl #33                       #! PC = 0x555555550954
+	lsr	x16, x16, #31                               #! PC = 0x555555550958
+	adc	x9, x9, x16                                 #! PC = 0x55555555095c
+	adds	x15, x15, x15                              #! PC = 0x555555550960
+	adcs	x14, x14, x14                              #! PC = 0x555555550964
+	adc	x9, x9, xzr                                 #! PC = 0x555555550968
+	adds	x7, x7, x15                                #! PC = 0x55555555096c
+	adcs	x8, x8, x14                                #! PC = 0x555555550970
+	adc	x9, x9, xzr                                 #! PC = 0x555555550974
+	umull	x10, w4, w4                               #! PC = 0x555555550978
+	lsr	x16, x4, #32                                #! PC = 0x55555555097c
+	umull	x11, w16, w16                             #! PC = 0x555555550980
+	umull	x16, w4, w16                              #! PC = 0x555555550984
+	adds	x10, x10, x16, lsl #33                     #! PC = 0x555555550988
+	lsr	x16, x16, #31                               #! PC = 0x55555555098c
+	adc	x11, x11, x16                               #! PC = 0x555555550990
+	umull	x12, w5, w5                               #! PC = 0x555555550994
+	lsr	x16, x5, #32                                #! PC = 0x555555550998
+	umull	x13, w16, w16                             #! PC = 0x55555555099c
+	umull	x16, w5, w16                              #! PC = 0x5555555509a0
+	mul	x15, x4, x5                                 #! PC = 0x5555555509a4
+	umulh	x14, x4, x5                               #! PC = 0x5555555509a8
+	adds	x12, x12, x16, lsl #33                     #! PC = 0x5555555509ac
+	lsr	x16, x16, #31                               #! PC = 0x5555555509b0
+	adc	x13, x13, x16                               #! PC = 0x5555555509b4
+	adds	x15, x15, x15                              #! PC = 0x5555555509b8
+	adcs	x14, x14, x14                              #! PC = 0x5555555509bc
+	adc	x13, x13, xzr                               #! PC = 0x5555555509c0
+	adds	x11, x11, x15                              #! PC = 0x5555555509c4
+	adcs	x12, x12, x14                              #! PC = 0x5555555509c8
+	adc	x13, x13, xzr                               #! PC = 0x5555555509cc
+	subs	x2, x2, x4                                 #! PC = 0x5555555509d0
+	sbcs	x3, x3, x5                                 #! PC = 0x5555555509d4
+	csetm	x14, cc	// cc = lo, ul, last              #! PC = 0x5555555509d8
+	eor	x2, x2, x14                                 #! PC = 0x5555555509dc
+	subs	x2, x2, x14                                #! PC = 0x5555555509e0
+	eor	x3, x3, x14                                 #! PC = 0x5555555509e4
+	sbc	x3, x3, x14                                 #! PC = 0x5555555509e8
+	adds	x10, x10, x8                               #! PC = 0x5555555509ec
+	adcs	x11, x11, x9                               #! PC = 0x5555555509f0
+	adcs	x12, x12, xzr                              #! PC = 0x5555555509f4
+	adc	x13, x13, xzr                               #! PC = 0x5555555509f8
+	umull	x4, w2, w2                                #! PC = 0x5555555509fc
+	lsr	x9, x2, #32                                 #! PC = 0x555555550a00
+	umull	x5, w9, w9                                #! PC = 0x555555550a04
+	umull	x9, w2, w9                                #! PC = 0x555555550a08
+	adds	x4, x4, x9, lsl #33                        #! PC = 0x555555550a0c
+	lsr	x9, x9, #31                                 #! PC = 0x555555550a10
+	adc	x5, x5, x9                                  #! PC = 0x555555550a14
+	umull	x15, w3, w3                               #! PC = 0x555555550a18
+	lsr	x9, x3, #32                                 #! PC = 0x555555550a1c
+	umull	x16, w9, w9                               #! PC = 0x555555550a20
+	umull	x9, w3, w9                                #! PC = 0x555555550a24
+	mul	x8, x2, x3                                  #! PC = 0x555555550a28
+	umulh	x14, x2, x3                               #! PC = 0x555555550a2c
+	adds	x15, x15, x9, lsl #33                      #! PC = 0x555555550a30
+	lsr	x9, x9, #31                                 #! PC = 0x555555550a34
+	adc	x16, x16, x9                                #! PC = 0x555555550a38
+	adds	x8, x8, x8                                 #! PC = 0x555555550a3c
+	adcs	x14, x14, x14                              #! PC = 0x555555550a40
+	adc	x16, x16, xzr                               #! PC = 0x555555550a44
+	adds	x5, x5, x8                                 #! PC = 0x555555550a48
+	adcs	x15, x15, x14                              #! PC = 0x555555550a4c
+	adc	x16, x16, xzr                               #! PC = 0x555555550a50
+	adds	x8, x6, x10                                #! PC = 0x555555550a54
+	adcs	x9, x7, x11                                #! PC = 0x555555550a58
+	adcs	x10, x10, x12                              #! PC = 0x555555550a5c
+	adcs	x11, x11, x13                              #! PC = 0x555555550a60
+	csetm	x14, cc	// cc = lo, ul, last              #! PC = 0x555555550a64
+	subs	x8, x8, x4                                 #! PC = 0x555555550a68
+	sbcs	x9, x9, x5                                 #! PC = 0x555555550a6c
+	sbcs	x10, x10, x15                              #! PC = 0x555555550a70
+	sbcs	x11, x11, x16                              #! PC = 0x555555550a74
+	adcs	x12, x12, x14                              #! PC = 0x555555550a78
+	adc	x13, x13, x14                               #! PC = 0x555555550a7c
+	stp	x6, x7, [x0]                                #! EA = L0x7fffffffe910; PC = 0x555555550a80
+	stp	x8, x9, [x0, #16]                           #! EA = L0x7fffffffe920; PC = 0x555555550a84
+	stp	x10, x11, [x0, #32]                         #! EA = L0x7fffffffe930; PC = 0x555555550a88
+	stp	x12, x13, [x0, #48]                         #! EA = L0x7fffffffe940; PC = 0x555555550a8c
+	#! <- SP = 0x7fffffffe900
+	#ret                                            #! PC = 0x555555550a90
