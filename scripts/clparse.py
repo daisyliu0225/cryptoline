@@ -6,7 +6,7 @@
 
 import pyparsing as pp
 
-
+pp.DelimitedList = pp.delimitedList
 # ========== Forward Declarations =====
 
 pp_sca_const_exp = pp.Forward()
