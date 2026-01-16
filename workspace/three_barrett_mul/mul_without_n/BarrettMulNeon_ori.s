@@ -31,10 +31,5 @@ _BarrettMulNeon:
 
     // call the Barrett Multiplication Macro
     BarrettMul V0, V1, V2, V3, V0, V4
-
-    // the result of mls will be saved in z
-
-    // return section
-    // the result of z will be saved in v0
-    mov v0.16b, v4.16b
+    
     ret

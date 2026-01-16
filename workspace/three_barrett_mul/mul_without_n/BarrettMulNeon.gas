@@ -141,21 +141,21 @@
 #! srsra $1v.4s, $2v.4s, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint32[4] %LO1;\nadd %$1v %$1v %LO0; add %$1v %$1v %HI
 #! srsra $1v.8h, $2v.8h, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint16[8] %LO1;\nadd %$1v %$1v %LO0; add %$1v %$1v %HI
 
+
 BarrettMulNeon:
-# x0 = 0x7fffffffe848
-# x1 = 0x7fffffffea78
-# x2 = 0x7fffffffea88
+# x0 = 0x7fffffffe858
+# x1 = 0x7fffffffea88
+# x2 = 0x7fffffffea98
 # x3 = 0x5555555507d4
 # x4 = 0x7ffff7fff040
-# x5 = 0x842099c3a7d80d8b
+# x5 = 0xe3925267ad700dec
 # x6 = 0x7ffff7f92078
 # x7 = 0x4554415649
-	#! -> SP = 0x7fffffffe820
-	ldr	x3, 0x555555550938 <_BarrettMulNeon+32>     #! PC = 0x555555550918
+	#! -> SP = 0x7fffffffe830
+	ldr	x3, 0x555555550930 <_BarrettMulNeon+24>     #! PC = 0x555555550918
 	ld1	{v3.4s}, [x3]                               #! EA = L0x555555570050; Value = 0x1000140110001401; PC = 0x55555555091c
 	sqrdmulh	v4.4s, v0.4s, v2.4s                    #! PC = 0x555555550920
 	mul	v0.4s, v0.4s, v1.4s                         #! PC = 0x555555550924
 	mls	v0.4s, v4.4s, v3.4s                         #! PC = 0x555555550928
-	mov	v0.16b, v4.16b                              #! PC = 0x55555555092c
-	#! <- SP = 0x7fffffffe820
-	#ret                                            #! PC = 0x555555550930
+	#! <- SP = 0x7fffffffe830
+	#ret                                            #! PC = 0x55555555092c
