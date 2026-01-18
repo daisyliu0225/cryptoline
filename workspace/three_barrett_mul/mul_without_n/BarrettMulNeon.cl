@@ -1,11 +1,23 @@
+(*.macro BarrettMul a_reg, b_reg, mul_reg, prime_reg, output_reg, temp1
+    sqrdmulh \temp1\().4S, \a_reg\().4S, \mul_reg\().4S
+    mul \output_reg\().4S, \a_reg\().4S, \b_reg\().4S
+    mls \output_reg\().4S, \temp1\().4S, \prime_reg\().4S
+.endm*)
+
 proc main (
   %v0@int32[4], 
   %v1@int32[4], 
-  %v2@int32[4]) =
+  %v2@int32[4], 
+  %upperbound@int32[4], %lowerbound@int32[4]) =
 {
   true
   &&
-  true
+  and[
+    %upperbound = 2147483647@int32[4], 
+    %lowerbound = (-2147483648)@int32[4], 
+    %v2 = (230647808)@int32[4], 
+    %v0 <= %upperbound, %lowerbound < %v0
+  ]
 }
 
 // these are the registers of PRIME1Vec
@@ -13,6 +25,7 @@ mov L0x555555570050 (268440577)@int32;
 mov L0x555555570054 (268440577)@int32;
 mov L0x555555570058 (268440577)@int32;
 mov L0x55555557005c (268440577)@int32;
+mov %old_v0@int32[4] %v0@int32[4];
 
 (* BarrettMulNeon: *)
 // BarrettMulNeon:;
@@ -51,14 +64,22 @@ cast %mls@int32[4] %mls;
 sub %v0 %v0 %mls;
 
 
+mov %two@int32[4] (2)@int32[4];
+mov %minusthree@int32[4] (-3)@int32[4];
+mov %three@int32[4] (3)@int32[4];
+mov %twopower32@int32[4] (2**32)@int32[4];
+
 (* #! <- SP = 0x7fffffffe830 *)
 #! 0x7fffffffe830 = 0x7fffffffe830;
 (* #ret                                            #! PC = 0x55555555092c *)
 #ret                                            #! 0x55555555092c = 0x55555555092c;
 
 {
-  true
+  eqmod (%v0) (%old_v0 * %v1) %v3
   &&
-  true
+  and [ 
+    (%v3 * %minusthree) < (%v0 * %two), 
+    (%two * %v0) < (%three * %v3)
+  ]
 }
 
