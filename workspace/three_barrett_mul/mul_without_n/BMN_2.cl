@@ -9,23 +9,27 @@ proc main (
   %v1@int32[4], 
   %v2@int32[4], 
   %v3@int32[4],
-  int32 NQ, int32 Q) =
+  %upperbound@int32[4], %lowerbound@int32[4]) =
 {
-  and [Q = 268440577, NQ = -268440577, 
-  [2*NQ,2*NQ,2*NQ,2*NQ] < %v0, 
-    %v0 < [2*Q,2*Q,2*Q,2*Q]
-  ]
+  true
   &&
   and[
-    Q = 268440577@32, NQ = (-268440577)@32, 
-    [2@32*NQ,2@32*NQ,2@32*NQ,2@32*NQ] <s %v0, 
-    %v0 <s [2@32*Q,2@32*Q,2@32*Q,2@32*Q]
+    %upperbound = 2147483647@int32[4], 
+    %lowerbound = (-2147483648)@int32[4], 
+    %v2 = (230647808)@int32[4], 
+    %v3 = (268440577)@int32[4], 
+    %v0 <= %upperbound, %lowerbound < %v0
   ]
 }
 
+mov %old_v0@int32[4] %v0@int32[4];
+
 // constants
-mov %v3@int32[4] (268440577)@int32[4];
-mov %v2@int32[4] (230647808)@int32[4];
+mov %two@int32[4] (2)@int32[4];
+mov %minusthree@int32[4] (-3)@int32[4];
+mov %three@int32[4] (3)@int32[4];
+mov %one@int64[4] (1)@int64[4];
+mov %zero@int32[4] (0)@int32[4];
 
 (* BarrettMulNeon: *)
 // BarrettMulNeon:;
@@ -33,15 +37,10 @@ mov %v2@int32[4] (230647808)@int32[4];
 (* #! -> SP = 0x7fffffffe830 *)
 #! 0x7fffffffe830 = 0x7fffffffe830;
 
-ghost %v0o00@int32[4]:
-      %v0o00 = %v0 && %v0o00 = %v0;
-
 (* sqrdmulh	v4.4s, v0.4s, v2.4s                    #! PC = 0x555555550920 *)
-mulj %Pnm %v0 %v2;
-shl %Pnm2 %Pnm [1@int64, 1@int64, 1@int64, 1@int64];
-spl %H33 %dc0 %Pnm2 31;
-add %R33 %H33 [1@int33,1@int33,1@int33,1@int33];
-spl %v4 %dc1_s %R33 1;
+smulj %LO %v0 %v2; ssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;
+vpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;
+add %v4 %LO11 %LO01;
 
 (* mul	v0.4s, v0.4s, v1.4s                         #! PC = 0x555555550924 *)
 mul %v0 %v0 %v1;
@@ -59,9 +58,11 @@ sub %v0 %v0 %mls;
 #ret                                            #! 0x55555555092c = 0x55555555092c;
 
 {
-  eqmod %v0 (%v0o00*[%v1[0],%v1[1],%v1[2],%v1[3]]) [Q,Q,Q,Q] /\
-       [NQ,NQ,NQ,NQ] <  %v0 /\  %v0 < [Q,Q,Q,Q]
+  eqmod (%v0) (%old_v0 * %v1) %v3
   prove with [algebra solver isl, precondition]
   &&
-  true
+  and [ 
+    (%v3 * %minusthree) < (%v0 * %two), 
+    (%two * %v0) < (%three * %v3)
+  ]
 }
