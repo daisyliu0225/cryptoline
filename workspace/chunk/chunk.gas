@@ -1,0 +1,2111 @@
+# address patterns
+
+#! [sp, $1c]! = %%EA
+#! [sp, $1c] = %%EA
+#! [sp], $1c = %%EA
+#! [sp] = %%EA
+#! [x$1c, $2c] = %%EA
+#! [x$1c], $2c = %%EA
+#! [x$1c] = %%EA
+
+# registers
+
+#! sp = %%sp
+#! v$1c = %%v$1c
+#! w$1c = %%w$1c
+#! x$1c = %%x$1c
+
+# scalar instructions
+
+#! adc $1v, $2v, $3v -> adc $1v $2v $3v carry
+#! adc $1v, $2c, $3v -> adc $1v $2c@uint64 $3v carry
+#! adc $1v, $2v, $3c -> adc $1v $2v $3c@uint64 carry
+#! adc $1v, $2v, xzr -> adc $1v $2v 0@uint64 carry
+#! adc $1v, xzr, $2v -> adc $1v 0@uint64 $2v carry
+#! adc $1v, xzr, xzr -> adc $1v 0@uint64 0@uint64 carry
+#! adcs $1v, $2v, $3v -> adcs carry $1v $2v $3v carry
+#! adcs $1v, $2c, $3v -> adcs carry $1v $2c@uint64 $3v carry
+#! adcs $1v, $2v, $3c -> adcs carry $1v $2v $3c@uint64 carry
+#! adcs $1v, $2v, xzr -> adcs carry $1v $2v 0@uint64 carry
+#! add $1v, $2v, $3v -> add $1v $2v $3v
+#! add $1v, $2c, $3v -> add $1v $2c@uint63 $3v
+#! add $1v, $2v, $3c -> add $1v $2v $3c@uint64
+#! adds $1v, $2v, $3v, lsl $4c -> split dcH $3v_t $3v `64 - $4c`; shl $3v_t $3v_t $4c; adds carry $1v $2v $3v_t
+#! adds $1v, $2v, $3v, lsr $4c -> split $3v_t dcL $3v $4c; adds carry $1v $2v $3v_t
+#! adds $1v, $2v, $3v -> adds carry $1v $2v $3v
+#! adds $1v, $2c, $3v -> adds carry $1v $2c@uint64 $3v
+#! adds $1v, $2v, $3c -> adds carry $1v $2v $3c@uint64
+#! and $1v, $2v, $3v -> and $1v@uint64 $2v $3v
+#! ands $1v, $2v, $3c -> and $1v@uint64 $2v $3c@uint64; subc zero dc 0@uint64 $1v
+#! bic $1v, $2v, $3v -> not $3v_n@uint64 $3v; and $1v@uint64 $2v $3v_n
+#! cmp $1v, xzr -> subc zero dc 0@uint64 $1v
+#! csel $1v, $2v, $3v, cc  // .* -> cmov $1v carry $3v $2v
+#! csel $1v, $2v, $3v, cs  // .* -> cmov $1v carry $2v $3v
+#! csel $1v, $2v, $3v, eq // .*  -> cmov $1v zero $2v $3v
+#! csel $1v, $2v, xzr, eq // .*  -> cmov $1v zero $2v 0@uint64
+#! csel $1v, xzr, $2v, eq // .*  -> cmov $1v zero 0@uint64 $2v
+#! eor $1v, $2v, $3v, lsl $4c -> split dc $3v_L $3v `64 - $4c`; shl $3v_S $3v_L $4c; xor $1v@uint64 $2v $3v_L
+#! eor $1v, $2v, $3v, ror $4c -> ror $3v_R@uint64 $3v $4c; xor $1v@uint64 $2v $3v_R
+#! eor $1v, $2v, $3v -> xor $1v@uint64 $2v $3v
+#! extr $1v, $2v, $3v, $4c -> spl dc extr_H $2v $4c; spl extr_L dc $3v $4c; join $1v extr_H extr_L
+#! ldp $1v, $2v, $3ea -> mov $1v $3ea; mov $2v $3ea[+8]
+#! ld1 {$1v.8h}, $2ea -> mov %$1v [$2ea[+0],$2ea[+2],$2ea[+4],$2ea[+6],$2ea[+8],$2ea[+10],$2ea[+12],$2ea[+14]]
+#! ld1 { $1v.4s }, $2ea -> mov %$1v [$2ea, $2ea[+4], $2ea[+8], $2ea[+12]]
+#! ld1 { $1v.4s, $2v.4s }, $3ea -> mov %$1v [$3ea[+0], $3ea[+4], $3ea[+8], $3ea[+12]];\nmov %$2v [$3ea[+16], $3ea[+20], $3ea[+24], $3ea[+28]]
+#! ld2 { $1v.4s, $2v.4s }, $3ea -> mov %$1v [$3ea[+0], $3ea[+8], $3ea[+16], $3ea[+24]];\nmov %$2v [$3ea[+4], $3ea[+12], $3ea[+20], $3ea[+28]]
+#! ldr $1v, $2ea -> mov $1v $2ea
+#! ldur $1v, $2ea -> mov $1v $2ea
+#! lsl $1v, $2v, $3c -> split dcH $1v $2v (64-$3c); shl $1v $1v $3c
+#! lsr $1v, $2v, $3c -> split $1v dcL $2v $3c
+#! mov $1v, wzr -> mov $1v 0@uint32
+#! mov $1v, xzr -> mov $1v 0@uint64
+#! mov $1v, $2v -> mov $1v $2v
+#! mov $1v, $2c // -> mov $1v $2c@uint64
+#! mov $1v, $2c -> mov $1v $2c@uint64
+#! mul $1v, $2v, $3v -> mull dcH $1v $2v $3v
+#! ngc $1v, $2v -> sbcs dc $1v 0@uint64 $2v carry
+#! ngc $1v, xzr -> sbcs dc $1v 0@uint64 0@uint64 carry
+#! ngcs $1v, $2v -> sbcs carry $1v 0@uint64 $2v carry
+#! umulh $1v, $2v, $3v -> mull $1v dcL $2v $3v
+#! orr $1v, $2v, $3v -> or $1v@uint64 $2v $3v
+#! orr $1v, $2v, $3c -> or $1v@uint64 $2v $3c@uint64
+#! orr $1v, xzr, $2c -> mov $1v $2c@uint64
+#! ror $1v, $2v, $3c -> ror $1v@uint64 $2v $3c
+#! sub $1v, $2v, $3v -> sub $1v $2v $3v
+#! sub $1v, $2c, $3v -> sub $1v $2c@uint64 $3v
+#! sub $1v, $2v, $3c -> sub $1v $2v $3c@uint64
+#! subs $1v, $2v, $3v -> subc carry $1v $2v $3v
+#! subs $1v, $2c, $3v -> subc carry $1v $2c@uint64 $3v
+#! subs $1v, $2v, $3c -> subc carry $1v $2v $3c@uint64
+#! sbc $1v, $2v, $3v -> sbc $1v $2v $3v carry
+#! sbc $1v, $2c, $3v -> sbc $1v $2c@uint64 $3v carry
+#! sbc $1v, $2v, $3c -> sbc $1v $2v $3c@uint64 carry
+#! sbcs $1v, $2v, $3v -> sbcs carry $1v $2v $3v carry
+#! sbcs $1v, $2c, $3v -> sbcs carry $1v $2c@uint64 $3v carry
+#! sbcs $1v, $2v, $3c -> sbcs carry $1v $2v $3c@uint64 carry
+#! sbcs $1v, $2v, xzr -> sbcs carry $1v $2v 0@uint64 carry
+#! sbcs $1v, xzr, $2v -> sbcs carry $1v $2v 0@uint64 carry
+#! sbcs xzr, $1v, xzr -> sbcs carry dontcare $1v 0@uint64 carry
+#! stp $1v, $2v, $3ea -> mov $3ea $1v; mov $3ea[+8] $2v
+#! str $1v, $2ea -> mov $2ea $1v
+#! stur $1v, $2ea -> mov $2ea $1v
+#! tst $1v, $2c -> and tst_t@uint64 $1v $2c@uint64; subc zero dc 0@uint64 tst_t
+
+# vector instructions
+# b = 8 bits, s = 32 bits, d = 64 bits
+
+#! add $1v.4s, $2v.4s, $3v.4s -> add %$1v %$2v %$3v
+#! add $1v.8h, $2v.8h, $3v.8h -> add %$1v %$2v %$3v
+#! dup $1v.4s, %%w$2c -> mov %$1v [w$2c,w$2c,w$2c,w$2c]
+#! dup $1v.2d, %%x$2c -> mov %$1v [x$2c,x$2c]
+#! eor $1v.16b, $2v.16b, $3v.16b -> xor %$1v@uint8[16] %$2v %$3v
+#! ext $1v.16b, $2v.16b, $3v.16b, \#4 -> mov %$1v [%$2v[4],%$2v[5],%$2v[6],%$2v[7],%$2v[8],%$2v[9],%$2v[10],%$2v[11],\n        %$2v[12],%$2v[13],%$2v[14],%$2v[15],%$3v[0],%$3v[1],%$3v[2],%$3v[3]]
+#! ld1	{$1v.16b}, $2ea -> mov %$1v [$2ea[+0],$2ea[+1],$2ea[+2],$2ea[+3],\n        $2ea[+4],$2ea[+5],$2ea[+6],$2ea[+7],\n        $2ea[+8],$2ea[+9],$2ea[+10],$2ea[+11],\n        $2ea[+12],$2ea[+13],$2ea[+14],$2ea[+15]]
+#! ld1	{$1v.4s}, $2ea -> mov %$1v [$2ea[+0],$2ea[+4],$2ea[+8],$2ea[+12]]
+#! ld1	{$1v.4s}, $2ea -> mov %$1v [$2ea[+0],$2ea[+4],$2ea[+8],$2ea[+12]]
+#! ld4	{$1v.4s, $2v.4s, $3v.4s, $4v.4s}, $5ea -> mov %$1v [$5ea[+0],$5ea[+16],$5ea[+32],$5ea[+48]];\n mov %$2v [$5ea[+4],$5ea[+20],$5ea[+36],$5ea[+52]];\n mov %$3v [$5ea[+8],$5ea[+24],$5ea[+40],$5ea[+56]];\n mov %$3v [$5ea[+12],$5ea[+28],$5ea[+44],$5ea[+60]]
+#! mov $1v.d\[1\], $2v.d\[0\] -> mov %$1v[1] %$2v[0]
+#! rev32 $1v.16b, $2v.16b -> mov %$1v [%$2v[3],%$2v[2],%$2v[1],%$2v[0],%$2v[7],%$2v[6],%$2v[5],%$2v[4],\n        %$2v[11],%$2v[10],%$2v[9],%$2v[8],%$2v[15],%$2v[14],%$2v[13],%$2v[12]]
+#! sli $1v.4s, $2v.4s, $3c -> split %dc %slil %$2v (32-$3c); shl %slih $3c;\nsplit %dc %$1v %$1v $3c; or %$1v@uint32[4] %slih %$1v
+#! st1 {$1v.4s}, $2ea -> mov [$2ea,$2ea[+4],$2ea[+8],$2ea[+12]] %$1v
+#! st1 {$1v.4s, $2v.4s}, $3ea -> mov [$3ea,$3ea[+4],$3ea[+8],$3ea[+12]] %$1v;\nmov [$3ea[+16],$3ea[+20],$3ea[+24],$3ea[+12]] %$2v
+#! st4	{$1v.4s, $2v.4s, $3v.4s, $4v.4s}, $5ea -> mov [$5ea[+0],$5ea[+16],$5ea[+32],$5ea[+48]], %$1v;\n mov [$5ea[+4],$5ea[+20],$5ea[+36],$5ea[+52]] %$2v;\n mov [$5ea[+8],$5ea[+24],$5ea[+40],$5ea[+56]] %$3v;\n mov [$5ea[+12],$5ea[+28],$5ea[+44],$5ea[+60]] %$4v
+#! sub $1v.8h, $2v.8h, $3v.8h -> sub %$1v %$2v %$3v
+#! sub $1v.4s, $2v.4s, $3v.4s -> sub %$1v %$2v %$3v
+#! ushr $1v.4s, $2v.4s, $3c -> split %$1v %dc %$2v $3c
+#! sshr $1v.4s, $2v.4s, $3c -> split %$1v %dc %$2v $3c
+#! trn1 $1v.4s, $2v.4s, $3v.4s -> mov %$1v@sint32[4] [%$2v[0],%$3v[0],%$2v[2],%$3v[2]]
+#! trn2 $1v.4s, $2v.4s, $3v.4s -> mov %$1v@sint32[4] [%$2v[1],%$3v[1],%$2v[3],%$3v[3]]
+#! trn1 $1v.2d, $2v.2d, $3v.2d -> mov %$1v@sint64[2] [%$2v[0],%$3v[0]]
+#! trn2 $1v.2d, $2v.2d, $3v.2d -> mov %$1v@sint64[2] [%$2v[1],%$3v[1]]
+#! mls $1v.8h, $2v.8h, $3v.h\[$4c\] -> broadcast %mls 8 [%$3v[$4c]]; mull %dc %mls %$2v %mls; sub %$1v %$1v %mls
+#! mls $1v.8h, $2v.8h, $3v.8h -> mull %dc %mls %$2v %$3v; sub %$1v %$1v %mls
+#! mls $1v.4s, $2v.4s, $3v.4s -> mull %dc %mls %$2v %$3v; sub %$1v %$1v %mls
+#! mls $1v.4s, $2v.4s, $3v.s\[$4c\] -> broadcast %mls 4 [%$3v[$4c]]; mull %dc %mls %$2v %mls; sub %$1v %$1v %mls
+#! mla $1v.8h, $2v.8h, $3v.8h -> mull %dc %mla %$2v %$3v; add %$1v %$1v %mla
+#! mla $1v.4s, $2v.4s, $3v.4s -> mull %dc %mla %$2v %$3v; add %$1v %$1v %mla
+#! mul $1v.16b, $2v.16b, $3v.16b -> mul %$1v %$2v %$3v
+#! mul $1v.8h, $2v.8h, $3v.h\[$4c\] -> broadcast %mul 8 [%$3v[$4c]]; mul %$1v %$2v %mul
+#! mul $1v.8h, $2v.8h, $3v.8h -> mul %$1v %$2v %$3v
+#! mul $1v.4s, $2v.4s, $3v.4s -> mul %$1v %$2v %$3v
+#! mul $1v.4s, $2v.4s, $3v.s\[$4c\] -> broadcast %mul 4 [%$3v[$4c]]; mul %$1v %$2v %mul
+#! sqrdmulh $1v.4s, $2v.4s, $3v.s\[$4c\] -> broadcast %sqrdmulh 4 [%$3v[$4c]]; smulj %LO %$2v %sqrdmulh;\nssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;\nvpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;\nadd %$1v %LO11 %LO01
+#! sqrdmulh $1v.4s, $2v.4s, $3v.4s -> smulj %LO %$2v %$3v; ssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;\nvpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;\nadd %$1v %LO11 %LO01
+#! sqrdmulh $1v.8h, $2v.8h, $3v.h\[$4c\] -> broadcast %sqrdmulh 8 [%$3v[$4c]]; smulj %LO %$2v %sqrdmulh;\nssplit %LO1 %LO0 %LO 15; usplit %LO00 %dc %LO0 14;\nvpc %LO01@sint16[8] %LO00; vpc %LO11@sint16[8] %LO1;\nadd %$1v %LO11 %LO01
+#! sqrdmulh $1v.8h, $2v.8h, $3v.8h -> smulj %LO %$2v %$3v;\nssplit %LO1 %LO0 %LO 15; usplit %LO00 %dc %LO0 14;\nvpc %LO01@sint16[8] %LO00; vpc %LO11@sint16[8] %LO1;\nadd %$1v %LO11 %LO01
+#! sqdmulh $1v.4s, $2v.4s, $3v.4s -> smulj %LO %$2v %$3v;\nssplit %LO0 %dc %LO 31; vpc %$1v@sint32[4] %LO0
+#! sqdmulh $1v.8h, $2v.8h, $3v.h\[$4c\] -> broadcast %sqdmulh 8 [%$3v[$4c]]; smulj %LO %$2v %sqdmulh;\nssplit %LO0 %dc %LO 15; vpc %$1v@sint16[8] %LO0
+#! sqdmulh $1v.8h, $2v.8h, $3v.8h -> smulj %LO %$2v %$3v;\nssplit %LO0 %dc %LO 15; vpc %$1v@sint16[8] %LO0
+#! srshr $1v.4s, $2v.4s, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint32[4] %LO1; add %$1v %HI %LO0
+#! srshr $1v.8h, $2v.8h, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint16[8] %LO1; add %$1v %HI %LO0
+#! srsra $1v.4s, $2v.4s, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint32[4] %LO1;\nadd %$1v %$1v %LO0; add %$1v %$1v %HI
+#! srsra $1v.8h, $2v.8h, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint16[8] %LO1;\nadd %$1v %$1v %LO0; add %$1v %$1v %HI
+
+
+chunk:
+# x0 = 0x7fffffffdb90
+# x1 = 0x7fffffffe790
+# x2 = 0x35da12b35ed3e47f
+# x3 = 0x0
+# x4 = 0x7ffff7f900b8
+# x5 = 0x7ffff7f900c4
+# x6 = 0x7ffff7f90130
+# x7 = 0x7d8bc8fe
+	#! -> SP = 0x7fffffffdb80
+	sub	sp, sp, #0x80                               #! PC = 0x55555555095c
+	stp	q8, q9, [sp]                                #! EA = L0x7fffffffdb00; PC = 0x555555550960
+	stp	q10, q11, [sp, #32]                         #! EA = L0x7fffffffdb20; PC = 0x555555550964
+	stp	q12, q13, [sp, #64]                         #! EA = L0x7fffffffdb40; PC = 0x555555550968
+	stp	q14, q15, [sp, #96]                         #! EA = L0x7fffffffdb60; PC = 0x55555555096c
+	mov	x2, #0x3fffff              	// #4194303     #! PC = 0x555555550970
+	dup	v13.2d, x2                                  #! PC = 0x555555550974
+	eor	v10.16b, v10.16b, v10.16b                   #! PC = 0x555555550978
+	eor	v11.16b, v11.16b, v11.16b                   #! PC = 0x55555555097c
+	mov	w5, #0x0                   	// #0           #! PC = 0x555555550980
+	cmp	w5, #0x6                                    #! PC = 0x555555550984
+	#b.ge	0x555555550e90 <LOOPEND>  // b.tcont      #! PC = 0x555555550988
+	add	x6, x1, #0x58                               #! PC = 0x55555555098c
+	add	x3, x0, #0x80                               #! PC = 0x555555550990
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffe790; Value = 0x399d56e2f0502607; PC = 0x555555550994
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffe7e8; Value = 0x7d89d9e3fbd61eca; PC = 0x555555550998
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x55555555099c
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a0
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x5555555509a4
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a8
+	orr	v10.16b, v10.16b, v6.16b                    #! PC = 0x5555555509ac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509b0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509b4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdb90; PC = 0x5555555509b8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc10; PC = 0x5555555509bc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509c0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509c4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509c8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509cc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509d0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509d4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdb94; PC = 0x5555555509d8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc14; PC = 0x5555555509dc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509e0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509e4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509e8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509ec
+	shl	v18.2d, v7.2d, #20                          #! PC = 0x5555555509f0
+	ushr	v19.2d, v7.2d, #44                         #! PC = 0x5555555509f4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x5555555509f8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x5555555509fc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdb98; PC = 0x555555550a08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc18; PC = 0x555555550a0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdb9c; PC = 0x555555550a28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc1c; PC = 0x555555550a2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdba0; PC = 0x555555550a48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc20; PC = 0x555555550a4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a5c
+	shl	v18.2d, v8.2d, #18                          #! PC = 0x555555550a60
+	ushr	v19.2d, v8.2d, #46                         #! PC = 0x555555550a64
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550a68
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550a6c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a70
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a74
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdba4; PC = 0x555555550a78
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc24; PC = 0x555555550a7c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a80
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a84
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a88
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a8c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a90
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a94
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdba8; PC = 0x555555550a98
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc28; PC = 0x555555550a9c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550aa0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550aa4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550aa8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550aac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ab0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ab4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbac; PC = 0x555555550ab8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc2c; PC = 0x555555550abc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ac0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ac4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ac8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550acc
+	shl	v18.2d, v9.2d, #16                          #! PC = 0x555555550ad0
+	ushr	v19.2d, v9.2d, #48                         #! PC = 0x555555550ad4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550ad8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550adc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ae0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ae4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbb0; PC = 0x555555550ae8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc30; PC = 0x555555550aec
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550af0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550af4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550af8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550afc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbb4; PC = 0x555555550b08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc34; PC = 0x555555550b0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbb8; PC = 0x555555550b28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc38; PC = 0x555555550b2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b3c
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffe7b0; Value = 0x6ac8c39c9bfd5ebe; PC = 0x555555550b40
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffe808; Value = 0x3e2b1197f11c11dd; PC = 0x555555550b44
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550b48
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550b4c
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550b50
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x555555550b54
+	shl	v18.2d, v6.2d, #14                          #! PC = 0x555555550b58
+	ushr	v19.2d, v6.2d, #50                         #! PC = 0x555555550b5c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550b60
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550b64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbbc; PC = 0x555555550b70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc3c; PC = 0x555555550b74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbc0; PC = 0x555555550b90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc40; PC = 0x555555550b94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ba0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ba4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ba8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bac
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbc4; PC = 0x555555550bb0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc44; PC = 0x555555550bb4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550bb8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bbc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bc0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bc4
+	shl	v18.2d, v7.2d, #12                          #! PC = 0x555555550bc8
+	ushr	v19.2d, v7.2d, #52                         #! PC = 0x555555550bcc
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550bd0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550bd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbc8; PC = 0x555555550be0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc48; PC = 0x555555550be4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550be8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbcc; PC = 0x555555550c00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc4c; PC = 0x555555550c04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c14
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c18
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c1c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbd0; PC = 0x555555550c20
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc50; PC = 0x555555550c24
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c28
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c2c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c30
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c34
+	shl	v18.2d, v8.2d, #10                          #! PC = 0x555555550c38
+	ushr	v19.2d, v8.2d, #54                         #! PC = 0x555555550c3c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550c40
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550c44
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c48
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c4c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbd4; PC = 0x555555550c50
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc54; PC = 0x555555550c54
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c58
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c5c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c60
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbd8; PC = 0x555555550c70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc58; PC = 0x555555550c74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbdc; PC = 0x555555550c90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc5c; PC = 0x555555550c94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ca0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ca4
+	shl	v18.2d, v9.2d, #8                           #! PC = 0x555555550ca8
+	ushr	v19.2d, v9.2d, #56                         #! PC = 0x555555550cac
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550cb0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550cb4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cb8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cbc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbe0; PC = 0x555555550cc0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc60; PC = 0x555555550cc4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550cc8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ccc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cd0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbe4; PC = 0x555555550ce0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc64; PC = 0x555555550ce4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ce8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550cec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbe8; PC = 0x555555550d00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc68; PC = 0x555555550d04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d14
+	ld2	{v2.2d, v3.2d}, [x1]                        #! EA = L0x7fffffffe7d0; Value = 0x441efd2a63142c4e; PC = 0x555555550d18
+	ld2	{v4.2d, v5.2d}, [x6]                        #! EA = L0x7fffffffe828; Value = 0x32d8d53ce8b39b04; PC = 0x555555550d1c
+	add	x1, x1, #0x18                               #! PC = 0x555555550d20
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550d24
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550d28
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550d2c
+	shl	v18.2d, v6.2d, #6                           #! PC = 0x555555550d30
+	ushr	v19.2d, v6.2d, #58                         #! PC = 0x555555550d34
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550d38
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550d3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbec; PC = 0x555555550d48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc6c; PC = 0x555555550d4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbf0; PC = 0x555555550d68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc70; PC = 0x555555550d6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d7c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d80
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d84
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbf4; PC = 0x555555550d88
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc74; PC = 0x555555550d8c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d90
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d94
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d98
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d9c
+	shl	v18.2d, v7.2d, #4                           #! PC = 0x555555550da0
+	ushr	v19.2d, v7.2d, #60                         #! PC = 0x555555550da4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550da8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550dac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550db0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550db4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbf8; PC = 0x555555550db8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc78; PC = 0x555555550dbc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550dc0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550dc4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550dc8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dcc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550dd0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550dd4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdbfc; PC = 0x555555550dd8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc7c; PC = 0x555555550ddc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550de0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550de4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550de8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dec
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550df0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550df4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdc00; PC = 0x555555550df8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc80; PC = 0x555555550dfc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e00
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e04
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e08
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e0c
+	shl	v18.2d, v8.2d, #2                           #! PC = 0x555555550e10
+	ushr	v19.2d, v8.2d, #62                         #! PC = 0x555555550e14
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550e18
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550e1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdc04; PC = 0x555555550e28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc84; PC = 0x555555550e2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdc08; PC = 0x555555550e48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc88; PC = 0x555555550e4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdc0c; PC = 0x555555550e68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdc8c; PC = 0x555555550e6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e7c
+	add	x1, x1, #0x58                               #! PC = 0x555555550e80
+	add	x0, x0, #0x80                               #! PC = 0x555555550e84
+	add	w5, w5, #0x1                                #! PC = 0x555555550e88
+	#b	0x555555550984 <LOOPSTART>                   #! PC = 0x555555550e8c
+	cmp	w5, #0x6                                    #! PC = 0x555555550984
+	#b.ge	0x555555550e90 <LOOPEND>  // b.tcont      #! PC = 0x555555550988
+	add	x6, x1, #0x58                               #! PC = 0x55555555098c
+	add	x3, x0, #0x80                               #! PC = 0x555555550990
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffe840; Value = 0x88818aea3d0076a4; PC = 0x555555550994
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffe898; Value = 0xd9c7f55ddd4413ee; PC = 0x555555550998
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x55555555099c
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a0
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x5555555509a4
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a8
+	orr	v10.16b, v10.16b, v6.16b                    #! PC = 0x5555555509ac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509b0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509b4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdc90; PC = 0x5555555509b8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd10; PC = 0x5555555509bc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509c0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509c4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509c8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509cc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509d0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509d4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdc94; PC = 0x5555555509d8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd14; PC = 0x5555555509dc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509e0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509e4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509e8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509ec
+	shl	v18.2d, v7.2d, #20                          #! PC = 0x5555555509f0
+	ushr	v19.2d, v7.2d, #44                         #! PC = 0x5555555509f4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x5555555509f8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x5555555509fc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdc98; PC = 0x555555550a08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd18; PC = 0x555555550a0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdc9c; PC = 0x555555550a28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd1c; PC = 0x555555550a2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdca0; PC = 0x555555550a48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd20; PC = 0x555555550a4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a5c
+	shl	v18.2d, v8.2d, #18                          #! PC = 0x555555550a60
+	ushr	v19.2d, v8.2d, #46                         #! PC = 0x555555550a64
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550a68
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550a6c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a70
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a74
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdca4; PC = 0x555555550a78
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd24; PC = 0x555555550a7c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a80
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a84
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a88
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a8c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a90
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a94
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdca8; PC = 0x555555550a98
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd28; PC = 0x555555550a9c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550aa0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550aa4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550aa8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550aac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ab0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ab4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcac; PC = 0x555555550ab8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd2c; PC = 0x555555550abc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ac0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ac4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ac8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550acc
+	shl	v18.2d, v9.2d, #16                          #! PC = 0x555555550ad0
+	ushr	v19.2d, v9.2d, #48                         #! PC = 0x555555550ad4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550ad8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550adc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ae0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ae4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcb0; PC = 0x555555550ae8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd30; PC = 0x555555550aec
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550af0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550af4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550af8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550afc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcb4; PC = 0x555555550b08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd34; PC = 0x555555550b0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcb8; PC = 0x555555550b28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd38; PC = 0x555555550b2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b3c
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffe860; Value = 0x60dc9eae2df4c5d8; PC = 0x555555550b40
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffe8b8; Value = 0xe92358c7f1f83fa3; PC = 0x555555550b44
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550b48
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550b4c
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550b50
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x555555550b54
+	shl	v18.2d, v6.2d, #14                          #! PC = 0x555555550b58
+	ushr	v19.2d, v6.2d, #50                         #! PC = 0x555555550b5c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550b60
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550b64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcbc; PC = 0x555555550b70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd3c; PC = 0x555555550b74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcc0; PC = 0x555555550b90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd40; PC = 0x555555550b94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ba0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ba4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ba8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bac
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcc4; PC = 0x555555550bb0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd44; PC = 0x555555550bb4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550bb8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bbc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bc0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bc4
+	shl	v18.2d, v7.2d, #12                          #! PC = 0x555555550bc8
+	ushr	v19.2d, v7.2d, #52                         #! PC = 0x555555550bcc
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550bd0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550bd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcc8; PC = 0x555555550be0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd48; PC = 0x555555550be4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550be8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdccc; PC = 0x555555550c00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd4c; PC = 0x555555550c04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c14
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c18
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c1c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcd0; PC = 0x555555550c20
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd50; PC = 0x555555550c24
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c28
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c2c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c30
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c34
+	shl	v18.2d, v8.2d, #10                          #! PC = 0x555555550c38
+	ushr	v19.2d, v8.2d, #54                         #! PC = 0x555555550c3c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550c40
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550c44
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c48
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c4c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcd4; PC = 0x555555550c50
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd54; PC = 0x555555550c54
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c58
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c5c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c60
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcd8; PC = 0x555555550c70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd58; PC = 0x555555550c74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcdc; PC = 0x555555550c90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd5c; PC = 0x555555550c94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ca0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ca4
+	shl	v18.2d, v9.2d, #8                           #! PC = 0x555555550ca8
+	ushr	v19.2d, v9.2d, #56                         #! PC = 0x555555550cac
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550cb0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550cb4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cb8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cbc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdce0; PC = 0x555555550cc0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd60; PC = 0x555555550cc4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550cc8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ccc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cd0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdce4; PC = 0x555555550ce0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd64; PC = 0x555555550ce4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ce8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550cec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdce8; PC = 0x555555550d00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd68; PC = 0x555555550d04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d14
+	ld2	{v2.2d, v3.2d}, [x1]                        #! EA = L0x7fffffffe880; Value = 0xd79d90ab859fa980; PC = 0x555555550d18
+	ld2	{v4.2d, v5.2d}, [x6]                        #! EA = L0x7fffffffe8d8; Value = 0x0db9f5a484d90280; PC = 0x555555550d1c
+	add	x1, x1, #0x18                               #! PC = 0x555555550d20
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550d24
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550d28
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550d2c
+	shl	v18.2d, v6.2d, #6                           #! PC = 0x555555550d30
+	ushr	v19.2d, v6.2d, #58                         #! PC = 0x555555550d34
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550d38
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550d3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcec; PC = 0x555555550d48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd6c; PC = 0x555555550d4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcf0; PC = 0x555555550d68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd70; PC = 0x555555550d6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d7c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d80
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d84
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcf4; PC = 0x555555550d88
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd74; PC = 0x555555550d8c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d90
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d94
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d98
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d9c
+	shl	v18.2d, v7.2d, #4                           #! PC = 0x555555550da0
+	ushr	v19.2d, v7.2d, #60                         #! PC = 0x555555550da4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550da8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550dac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550db0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550db4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcf8; PC = 0x555555550db8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd78; PC = 0x555555550dbc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550dc0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550dc4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550dc8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dcc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550dd0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550dd4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdcfc; PC = 0x555555550dd8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd7c; PC = 0x555555550ddc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550de0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550de4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550de8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dec
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550df0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550df4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdd00; PC = 0x555555550df8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd80; PC = 0x555555550dfc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e00
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e04
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e08
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e0c
+	shl	v18.2d, v8.2d, #2                           #! PC = 0x555555550e10
+	ushr	v19.2d, v8.2d, #62                         #! PC = 0x555555550e14
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550e18
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550e1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdd04; PC = 0x555555550e28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd84; PC = 0x555555550e2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdd08; PC = 0x555555550e48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd88; PC = 0x555555550e4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdd0c; PC = 0x555555550e68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdd8c; PC = 0x555555550e6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e7c
+	add	x1, x1, #0x58                               #! PC = 0x555555550e80
+	add	x0, x0, #0x80                               #! PC = 0x555555550e84
+	add	w5, w5, #0x1                                #! PC = 0x555555550e88
+	#b	0x555555550984 <LOOPSTART>                   #! PC = 0x555555550e8c
+	cmp	w5, #0x6                                    #! PC = 0x555555550984
+	#b.ge	0x555555550e90 <LOOPEND>  // b.tcont      #! PC = 0x555555550988
+	add	x6, x1, #0x58                               #! PC = 0x55555555098c
+	add	x3, x0, #0x80                               #! PC = 0x555555550990
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffe8f0; Value = 0x011c0e54518dc178; PC = 0x555555550994
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffe948; Value = 0x5cfafa7095867bcc; PC = 0x555555550998
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x55555555099c
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a0
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x5555555509a4
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a8
+	orr	v10.16b, v10.16b, v6.16b                    #! PC = 0x5555555509ac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509b0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509b4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdd90; PC = 0x5555555509b8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde10; PC = 0x5555555509bc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509c0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509c4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509c8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509cc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509d0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509d4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdd94; PC = 0x5555555509d8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde14; PC = 0x5555555509dc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509e0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509e4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509e8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509ec
+	shl	v18.2d, v7.2d, #20                          #! PC = 0x5555555509f0
+	ushr	v19.2d, v7.2d, #44                         #! PC = 0x5555555509f4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x5555555509f8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x5555555509fc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdd98; PC = 0x555555550a08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde18; PC = 0x555555550a0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdd9c; PC = 0x555555550a28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde1c; PC = 0x555555550a2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdda0; PC = 0x555555550a48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde20; PC = 0x555555550a4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a5c
+	shl	v18.2d, v8.2d, #18                          #! PC = 0x555555550a60
+	ushr	v19.2d, v8.2d, #46                         #! PC = 0x555555550a64
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550a68
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550a6c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a70
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a74
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdda4; PC = 0x555555550a78
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde24; PC = 0x555555550a7c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a80
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a84
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a88
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a8c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a90
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a94
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdda8; PC = 0x555555550a98
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde28; PC = 0x555555550a9c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550aa0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550aa4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550aa8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550aac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ab0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ab4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddac; PC = 0x555555550ab8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde2c; PC = 0x555555550abc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ac0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ac4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ac8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550acc
+	shl	v18.2d, v9.2d, #16                          #! PC = 0x555555550ad0
+	ushr	v19.2d, v9.2d, #48                         #! PC = 0x555555550ad4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550ad8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550adc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ae0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ae4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddb0; PC = 0x555555550ae8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde30; PC = 0x555555550aec
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550af0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550af4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550af8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550afc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddb4; PC = 0x555555550b08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde34; PC = 0x555555550b0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddb8; PC = 0x555555550b28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde38; PC = 0x555555550b2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b3c
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffe910; Value = 0xe3aee97801efe12e; PC = 0x555555550b40
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffe968; Value = 0x05ac3338ac2a994a; PC = 0x555555550b44
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550b48
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550b4c
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550b50
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x555555550b54
+	shl	v18.2d, v6.2d, #14                          #! PC = 0x555555550b58
+	ushr	v19.2d, v6.2d, #50                         #! PC = 0x555555550b5c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550b60
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550b64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddbc; PC = 0x555555550b70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde3c; PC = 0x555555550b74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddc0; PC = 0x555555550b90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde40; PC = 0x555555550b94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ba0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ba4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ba8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bac
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddc4; PC = 0x555555550bb0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde44; PC = 0x555555550bb4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550bb8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bbc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bc0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bc4
+	shl	v18.2d, v7.2d, #12                          #! PC = 0x555555550bc8
+	ushr	v19.2d, v7.2d, #52                         #! PC = 0x555555550bcc
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550bd0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550bd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddc8; PC = 0x555555550be0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde48; PC = 0x555555550be4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550be8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddcc; PC = 0x555555550c00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde4c; PC = 0x555555550c04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c14
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c18
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c1c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddd0; PC = 0x555555550c20
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde50; PC = 0x555555550c24
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c28
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c2c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c30
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c34
+	shl	v18.2d, v8.2d, #10                          #! PC = 0x555555550c38
+	ushr	v19.2d, v8.2d, #54                         #! PC = 0x555555550c3c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550c40
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550c44
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c48
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c4c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddd4; PC = 0x555555550c50
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde54; PC = 0x555555550c54
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c58
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c5c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c60
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddd8; PC = 0x555555550c70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde58; PC = 0x555555550c74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdddc; PC = 0x555555550c90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde5c; PC = 0x555555550c94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ca0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ca4
+	shl	v18.2d, v9.2d, #8                           #! PC = 0x555555550ca8
+	ushr	v19.2d, v9.2d, #56                         #! PC = 0x555555550cac
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550cb0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550cb4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cb8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cbc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdde0; PC = 0x555555550cc0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde60; PC = 0x555555550cc4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550cc8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ccc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cd0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdde4; PC = 0x555555550ce0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde64; PC = 0x555555550ce4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ce8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550cec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdde8; PC = 0x555555550d00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde68; PC = 0x555555550d04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d14
+	ld2	{v2.2d, v3.2d}, [x1]                        #! EA = L0x7fffffffe930; Value = 0xafe7d1ebda106c62; PC = 0x555555550d18
+	ld2	{v4.2d, v5.2d}, [x6]                        #! EA = L0x7fffffffe988; Value = 0xa92eb9384fbe11b9; PC = 0x555555550d1c
+	add	x1, x1, #0x18                               #! PC = 0x555555550d20
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550d24
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550d28
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550d2c
+	shl	v18.2d, v6.2d, #6                           #! PC = 0x555555550d30
+	ushr	v19.2d, v6.2d, #58                         #! PC = 0x555555550d34
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550d38
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550d3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddec; PC = 0x555555550d48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde6c; PC = 0x555555550d4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddf0; PC = 0x555555550d68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde70; PC = 0x555555550d6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d7c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d80
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d84
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddf4; PC = 0x555555550d88
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde74; PC = 0x555555550d8c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d90
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d94
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d98
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d9c
+	shl	v18.2d, v7.2d, #4                           #! PC = 0x555555550da0
+	ushr	v19.2d, v7.2d, #60                         #! PC = 0x555555550da4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550da8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550dac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550db0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550db4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddf8; PC = 0x555555550db8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde78; PC = 0x555555550dbc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550dc0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550dc4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550dc8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dcc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550dd0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550dd4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffddfc; PC = 0x555555550dd8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde7c; PC = 0x555555550ddc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550de0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550de4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550de8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dec
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550df0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550df4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffde00; PC = 0x555555550df8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde80; PC = 0x555555550dfc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e00
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e04
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e08
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e0c
+	shl	v18.2d, v8.2d, #2                           #! PC = 0x555555550e10
+	ushr	v19.2d, v8.2d, #62                         #! PC = 0x555555550e14
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550e18
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550e1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffde04; PC = 0x555555550e28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde84; PC = 0x555555550e2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffde08; PC = 0x555555550e48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde88; PC = 0x555555550e4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffde0c; PC = 0x555555550e68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffde8c; PC = 0x555555550e6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e7c
+	add	x1, x1, #0x58                               #! PC = 0x555555550e80
+	add	x0, x0, #0x80                               #! PC = 0x555555550e84
+	add	w5, w5, #0x1                                #! PC = 0x555555550e88
+	#b	0x555555550984 <LOOPSTART>                   #! PC = 0x555555550e8c
+	cmp	w5, #0x6                                    #! PC = 0x555555550984
+	#b.ge	0x555555550e90 <LOOPEND>  // b.tcont      #! PC = 0x555555550988
+	add	x6, x1, #0x58                               #! PC = 0x55555555098c
+	add	x3, x0, #0x80                               #! PC = 0x555555550990
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffe9a0; Value = 0x9d17e16ca98303cd; PC = 0x555555550994
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffe9f8; Value = 0x8f7bee9a022616d8; PC = 0x555555550998
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x55555555099c
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a0
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x5555555509a4
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a8
+	orr	v10.16b, v10.16b, v6.16b                    #! PC = 0x5555555509ac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509b0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509b4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffde90; PC = 0x5555555509b8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf10; PC = 0x5555555509bc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509c0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509c4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509c8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509cc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509d0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509d4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffde94; PC = 0x5555555509d8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf14; PC = 0x5555555509dc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509e0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509e4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509e8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509ec
+	shl	v18.2d, v7.2d, #20                          #! PC = 0x5555555509f0
+	ushr	v19.2d, v7.2d, #44                         #! PC = 0x5555555509f4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x5555555509f8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x5555555509fc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffde98; PC = 0x555555550a08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf18; PC = 0x555555550a0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffde9c; PC = 0x555555550a28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf1c; PC = 0x555555550a2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdea0; PC = 0x555555550a48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf20; PC = 0x555555550a4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a5c
+	shl	v18.2d, v8.2d, #18                          #! PC = 0x555555550a60
+	ushr	v19.2d, v8.2d, #46                         #! PC = 0x555555550a64
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550a68
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550a6c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a70
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a74
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdea4; PC = 0x555555550a78
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf24; PC = 0x555555550a7c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a80
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a84
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a88
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a8c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a90
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a94
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdea8; PC = 0x555555550a98
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf28; PC = 0x555555550a9c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550aa0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550aa4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550aa8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550aac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ab0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ab4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdeac; PC = 0x555555550ab8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf2c; PC = 0x555555550abc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ac0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ac4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ac8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550acc
+	shl	v18.2d, v9.2d, #16                          #! PC = 0x555555550ad0
+	ushr	v19.2d, v9.2d, #48                         #! PC = 0x555555550ad4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550ad8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550adc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ae0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ae4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdeb0; PC = 0x555555550ae8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf30; PC = 0x555555550aec
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550af0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550af4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550af8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550afc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdeb4; PC = 0x555555550b08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf34; PC = 0x555555550b0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdeb8; PC = 0x555555550b28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf38; PC = 0x555555550b2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b3c
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffe9c0; Value = 0x8a5cb59e58db78a2; PC = 0x555555550b40
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffea18; Value = 0x944f4cc1241a4ec9; PC = 0x555555550b44
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550b48
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550b4c
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550b50
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x555555550b54
+	shl	v18.2d, v6.2d, #14                          #! PC = 0x555555550b58
+	ushr	v19.2d, v6.2d, #50                         #! PC = 0x555555550b5c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550b60
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550b64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdebc; PC = 0x555555550b70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf3c; PC = 0x555555550b74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdec0; PC = 0x555555550b90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf40; PC = 0x555555550b94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ba0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ba4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ba8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bac
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdec4; PC = 0x555555550bb0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf44; PC = 0x555555550bb4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550bb8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bbc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bc0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bc4
+	shl	v18.2d, v7.2d, #12                          #! PC = 0x555555550bc8
+	ushr	v19.2d, v7.2d, #52                         #! PC = 0x555555550bcc
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550bd0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550bd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdec8; PC = 0x555555550be0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf48; PC = 0x555555550be4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550be8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdecc; PC = 0x555555550c00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf4c; PC = 0x555555550c04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c14
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c18
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c1c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffded0; PC = 0x555555550c20
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf50; PC = 0x555555550c24
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c28
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c2c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c30
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c34
+	shl	v18.2d, v8.2d, #10                          #! PC = 0x555555550c38
+	ushr	v19.2d, v8.2d, #54                         #! PC = 0x555555550c3c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550c40
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550c44
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c48
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c4c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffded4; PC = 0x555555550c50
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf54; PC = 0x555555550c54
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c58
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c5c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c60
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffded8; PC = 0x555555550c70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf58; PC = 0x555555550c74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdedc; PC = 0x555555550c90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf5c; PC = 0x555555550c94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ca0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ca4
+	shl	v18.2d, v9.2d, #8                           #! PC = 0x555555550ca8
+	ushr	v19.2d, v9.2d, #56                         #! PC = 0x555555550cac
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550cb0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550cb4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cb8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cbc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdee0; PC = 0x555555550cc0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf60; PC = 0x555555550cc4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550cc8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ccc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cd0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdee4; PC = 0x555555550ce0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf64; PC = 0x555555550ce4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ce8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550cec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdee8; PC = 0x555555550d00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf68; PC = 0x555555550d04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d14
+	ld2	{v2.2d, v3.2d}, [x1]                        #! EA = L0x7fffffffe9e0; Value = 0x9b332132f5184585; PC = 0x555555550d18
+	ld2	{v4.2d, v5.2d}, [x6]                        #! EA = L0x7fffffffea38; Value = 0xa232675ad2084731; PC = 0x555555550d1c
+	add	x1, x1, #0x18                               #! PC = 0x555555550d20
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550d24
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550d28
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550d2c
+	shl	v18.2d, v6.2d, #6                           #! PC = 0x555555550d30
+	ushr	v19.2d, v6.2d, #58                         #! PC = 0x555555550d34
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550d38
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550d3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdeec; PC = 0x555555550d48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf6c; PC = 0x555555550d4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdef0; PC = 0x555555550d68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf70; PC = 0x555555550d6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d7c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d80
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d84
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdef4; PC = 0x555555550d88
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf74; PC = 0x555555550d8c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d90
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d94
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d98
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d9c
+	shl	v18.2d, v7.2d, #4                           #! PC = 0x555555550da0
+	ushr	v19.2d, v7.2d, #60                         #! PC = 0x555555550da4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550da8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550dac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550db0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550db4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdef8; PC = 0x555555550db8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf78; PC = 0x555555550dbc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550dc0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550dc4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550dc8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dcc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550dd0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550dd4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdefc; PC = 0x555555550dd8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf7c; PC = 0x555555550ddc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550de0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550de4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550de8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dec
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550df0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550df4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdf00; PC = 0x555555550df8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf80; PC = 0x555555550dfc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e00
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e04
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e08
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e0c
+	shl	v18.2d, v8.2d, #2                           #! PC = 0x555555550e10
+	ushr	v19.2d, v8.2d, #62                         #! PC = 0x555555550e14
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550e18
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550e1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdf04; PC = 0x555555550e28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf84; PC = 0x555555550e2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdf08; PC = 0x555555550e48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf88; PC = 0x555555550e4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdf0c; PC = 0x555555550e68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffdf8c; PC = 0x555555550e6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e7c
+	add	x1, x1, #0x58                               #! PC = 0x555555550e80
+	add	x0, x0, #0x80                               #! PC = 0x555555550e84
+	add	w5, w5, #0x1                                #! PC = 0x555555550e88
+	#b	0x555555550984 <LOOPSTART>                   #! PC = 0x555555550e8c
+	cmp	w5, #0x6                                    #! PC = 0x555555550984
+	#b.ge	0x555555550e90 <LOOPEND>  // b.tcont      #! PC = 0x555555550988
+	add	x6, x1, #0x58                               #! PC = 0x55555555098c
+	add	x3, x0, #0x80                               #! PC = 0x555555550990
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffea50; Value = 0x8739df901585386f; PC = 0x555555550994
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffeaa8; Value = 0xa9a5e0a6e547a867; PC = 0x555555550998
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x55555555099c
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a0
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x5555555509a4
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a8
+	orr	v10.16b, v10.16b, v6.16b                    #! PC = 0x5555555509ac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509b0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509b4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdf90; PC = 0x5555555509b8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe010; PC = 0x5555555509bc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509c0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509c4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509c8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509cc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509d0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509d4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdf94; PC = 0x5555555509d8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe014; PC = 0x5555555509dc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509e0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509e4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509e8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509ec
+	shl	v18.2d, v7.2d, #20                          #! PC = 0x5555555509f0
+	ushr	v19.2d, v7.2d, #44                         #! PC = 0x5555555509f4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x5555555509f8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x5555555509fc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdf98; PC = 0x555555550a08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe018; PC = 0x555555550a0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdf9c; PC = 0x555555550a28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe01c; PC = 0x555555550a2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfa0; PC = 0x555555550a48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe020; PC = 0x555555550a4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a5c
+	shl	v18.2d, v8.2d, #18                          #! PC = 0x555555550a60
+	ushr	v19.2d, v8.2d, #46                         #! PC = 0x555555550a64
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550a68
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550a6c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a70
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a74
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfa4; PC = 0x555555550a78
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe024; PC = 0x555555550a7c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a80
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a84
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a88
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a8c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a90
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a94
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfa8; PC = 0x555555550a98
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe028; PC = 0x555555550a9c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550aa0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550aa4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550aa8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550aac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ab0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ab4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfac; PC = 0x555555550ab8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe02c; PC = 0x555555550abc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ac0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ac4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ac8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550acc
+	shl	v18.2d, v9.2d, #16                          #! PC = 0x555555550ad0
+	ushr	v19.2d, v9.2d, #48                         #! PC = 0x555555550ad4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550ad8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550adc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ae0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ae4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfb0; PC = 0x555555550ae8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe030; PC = 0x555555550aec
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550af0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550af4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550af8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550afc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfb4; PC = 0x555555550b08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe034; PC = 0x555555550b0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfb8; PC = 0x555555550b28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe038; PC = 0x555555550b2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b3c
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffea70; Value = 0x486f8a8cfdcd013e; PC = 0x555555550b40
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffeac8; Value = 0x86e9d1c36a6f9ce6; PC = 0x555555550b44
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550b48
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550b4c
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550b50
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x555555550b54
+	shl	v18.2d, v6.2d, #14                          #! PC = 0x555555550b58
+	ushr	v19.2d, v6.2d, #50                         #! PC = 0x555555550b5c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550b60
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550b64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfbc; PC = 0x555555550b70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe03c; PC = 0x555555550b74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfc0; PC = 0x555555550b90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe040; PC = 0x555555550b94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ba0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ba4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ba8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bac
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfc4; PC = 0x555555550bb0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe044; PC = 0x555555550bb4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550bb8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bbc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bc0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bc4
+	shl	v18.2d, v7.2d, #12                          #! PC = 0x555555550bc8
+	ushr	v19.2d, v7.2d, #52                         #! PC = 0x555555550bcc
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550bd0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550bd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfc8; PC = 0x555555550be0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe048; PC = 0x555555550be4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550be8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfcc; PC = 0x555555550c00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe04c; PC = 0x555555550c04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c14
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c18
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c1c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfd0; PC = 0x555555550c20
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe050; PC = 0x555555550c24
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c28
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c2c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c30
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c34
+	shl	v18.2d, v8.2d, #10                          #! PC = 0x555555550c38
+	ushr	v19.2d, v8.2d, #54                         #! PC = 0x555555550c3c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550c40
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550c44
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c48
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c4c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfd4; PC = 0x555555550c50
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe054; PC = 0x555555550c54
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c58
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c5c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c60
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfd8; PC = 0x555555550c70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe058; PC = 0x555555550c74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfdc; PC = 0x555555550c90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe05c; PC = 0x555555550c94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ca0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ca4
+	shl	v18.2d, v9.2d, #8                           #! PC = 0x555555550ca8
+	ushr	v19.2d, v9.2d, #56                         #! PC = 0x555555550cac
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550cb0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550cb4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cb8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cbc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfe0; PC = 0x555555550cc0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe060; PC = 0x555555550cc4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550cc8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ccc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cd0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfe4; PC = 0x555555550ce0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe064; PC = 0x555555550ce4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ce8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550cec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfe8; PC = 0x555555550d00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe068; PC = 0x555555550d04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d14
+	ld2	{v2.2d, v3.2d}, [x1]                        #! EA = L0x7fffffffea90; Value = 0x23a3d5bf3825ea03; PC = 0x555555550d18
+	ld2	{v4.2d, v5.2d}, [x6]                        #! EA = L0x7fffffffeae8; Value = 0x99095f41e3bab5f4; PC = 0x555555550d1c
+	add	x1, x1, #0x18                               #! PC = 0x555555550d20
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550d24
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550d28
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550d2c
+	shl	v18.2d, v6.2d, #6                           #! PC = 0x555555550d30
+	ushr	v19.2d, v6.2d, #58                         #! PC = 0x555555550d34
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550d38
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550d3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdfec; PC = 0x555555550d48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe06c; PC = 0x555555550d4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdff0; PC = 0x555555550d68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe070; PC = 0x555555550d6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d7c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d80
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d84
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdff4; PC = 0x555555550d88
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe074; PC = 0x555555550d8c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d90
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d94
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d98
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d9c
+	shl	v18.2d, v7.2d, #4                           #! PC = 0x555555550da0
+	ushr	v19.2d, v7.2d, #60                         #! PC = 0x555555550da4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550da8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550dac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550db0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550db4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdff8; PC = 0x555555550db8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe078; PC = 0x555555550dbc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550dc0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550dc4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550dc8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dcc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550dd0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550dd4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffdffc; PC = 0x555555550dd8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe07c; PC = 0x555555550ddc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550de0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550de4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550de8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dec
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550df0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550df4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe000; PC = 0x555555550df8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe080; PC = 0x555555550dfc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e00
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e04
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e08
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e0c
+	shl	v18.2d, v8.2d, #2                           #! PC = 0x555555550e10
+	ushr	v19.2d, v8.2d, #62                         #! PC = 0x555555550e14
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550e18
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550e1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe004; PC = 0x555555550e28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe084; PC = 0x555555550e2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe008; PC = 0x555555550e48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe088; PC = 0x555555550e4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe00c; PC = 0x555555550e68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe08c; PC = 0x555555550e6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e7c
+	add	x1, x1, #0x58                               #! PC = 0x555555550e80
+	add	x0, x0, #0x80                               #! PC = 0x555555550e84
+	add	w5, w5, #0x1                                #! PC = 0x555555550e88
+	#b	0x555555550984 <LOOPSTART>                   #! PC = 0x555555550e8c
+	cmp	w5, #0x6                                    #! PC = 0x555555550984
+	#b.ge	0x555555550e90 <LOOPEND>  // b.tcont      #! PC = 0x555555550988
+	add	x6, x1, #0x58                               #! PC = 0x55555555098c
+	add	x3, x0, #0x80                               #! PC = 0x555555550990
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffeb00; Value = 0xaa431e6e8e100d5d; PC = 0x555555550994
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffeb58; Value = 0x47c523a615cdcf34; PC = 0x555555550998
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x55555555099c
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a0
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x5555555509a4
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x5555555509a8
+	orr	v10.16b, v10.16b, v6.16b                    #! PC = 0x5555555509ac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509b0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509b4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe090; PC = 0x5555555509b8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe110; PC = 0x5555555509bc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509c0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509c4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509c8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509cc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x5555555509d0
+	xtn	v14.2s, v12.2d                              #! PC = 0x5555555509d4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe094; PC = 0x5555555509d8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe114; PC = 0x5555555509dc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x5555555509e0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x5555555509e4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x5555555509e8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x5555555509ec
+	shl	v18.2d, v7.2d, #20                          #! PC = 0x5555555509f0
+	ushr	v19.2d, v7.2d, #44                         #! PC = 0x5555555509f4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x5555555509f8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x5555555509fc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe098; PC = 0x555555550a08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe118; PC = 0x555555550a0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe09c; PC = 0x555555550a28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe11c; PC = 0x555555550a2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0a0; PC = 0x555555550a48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe120; PC = 0x555555550a4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a5c
+	shl	v18.2d, v8.2d, #18                          #! PC = 0x555555550a60
+	ushr	v19.2d, v8.2d, #46                         #! PC = 0x555555550a64
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550a68
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550a6c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a70
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a74
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0a4; PC = 0x555555550a78
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe124; PC = 0x555555550a7c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550a80
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550a84
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550a88
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550a8c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550a90
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550a94
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0a8; PC = 0x555555550a98
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe128; PC = 0x555555550a9c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550aa0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550aa4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550aa8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550aac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ab0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ab4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0ac; PC = 0x555555550ab8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe12c; PC = 0x555555550abc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ac0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ac4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ac8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550acc
+	shl	v18.2d, v9.2d, #16                          #! PC = 0x555555550ad0
+	ushr	v19.2d, v9.2d, #48                         #! PC = 0x555555550ad4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550ad8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550adc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ae0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550ae4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0b0; PC = 0x555555550ae8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe130; PC = 0x555555550aec
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550af0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550af4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550af8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550afc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b00
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b04
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0b4; PC = 0x555555550b08
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe134; PC = 0x555555550b0c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b10
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b14
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b18
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0b8; PC = 0x555555550b28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe138; PC = 0x555555550b2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b3c
+	ld2	{v2.2d, v3.2d}, [x1], #32                   #! EA = L0x7fffffffeb20; Value = 0x2e85bf8c08ad7890; PC = 0x555555550b40
+	ld2	{v4.2d, v5.2d}, [x6], #32                   #! EA = L0x7fffffffeb78; Value = 0x82bf0fa749b5911f; PC = 0x555555550b44
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550b48
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550b4c
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550b50
+	zip2	v9.2d, v3.2d, v5.2d                        #! PC = 0x555555550b54
+	shl	v18.2d, v6.2d, #14                          #! PC = 0x555555550b58
+	ushr	v19.2d, v6.2d, #50                         #! PC = 0x555555550b5c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550b60
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550b64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0bc; PC = 0x555555550b70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe13c; PC = 0x555555550b74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550b80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550b84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550b88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550b8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0c0; PC = 0x555555550b90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe140; PC = 0x555555550b94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550b98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550b9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ba0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ba4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550ba8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bac
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0c4; PC = 0x555555550bb0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe144; PC = 0x555555550bb4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550bb8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bbc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bc0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bc4
+	shl	v18.2d, v7.2d, #12                          #! PC = 0x555555550bc8
+	ushr	v19.2d, v7.2d, #52                         #! PC = 0x555555550bcc
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550bd0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550bd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0c8; PC = 0x555555550be0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe148; PC = 0x555555550be4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550be8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550bec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550bf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550bf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550bf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550bfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0cc; PC = 0x555555550c00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe14c; PC = 0x555555550c04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c14
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c18
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c1c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0d0; PC = 0x555555550c20
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe150; PC = 0x555555550c24
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c28
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c2c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c30
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c34
+	shl	v18.2d, v8.2d, #10                          #! PC = 0x555555550c38
+	ushr	v19.2d, v8.2d, #54                         #! PC = 0x555555550c3c
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550c40
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550c44
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c48
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c4c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0d4; PC = 0x555555550c50
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe154; PC = 0x555555550c54
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c58
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c5c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c60
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c64
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c68
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c6c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0d8; PC = 0x555555550c70
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe158; PC = 0x555555550c74
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c78
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c7c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550c80
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550c84
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550c88
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550c8c
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0dc; PC = 0x555555550c90
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe15c; PC = 0x555555550c94
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550c98
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550c9c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550ca0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550ca4
+	shl	v18.2d, v9.2d, #8                           #! PC = 0x555555550ca8
+	ushr	v19.2d, v9.2d, #56                         #! PC = 0x555555550cac
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550cb0
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550cb4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cb8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cbc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0e0; PC = 0x555555550cc0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe160; PC = 0x555555550cc4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550cc8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550ccc
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cd0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cd4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cd8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cdc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0e4; PC = 0x555555550ce0
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe164; PC = 0x555555550ce4
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550ce8
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550cec
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550cf0
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550cf4
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550cf8
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550cfc
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0e8; PC = 0x555555550d00
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe168; PC = 0x555555550d04
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d08
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d0c
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d10
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d14
+	ld2	{v2.2d, v3.2d}, [x1]                        #! EA = L0x7fffffffeb40; Value = 0xea1f101757d0f1a0; PC = 0x555555550d18
+	ld2	{v4.2d, v5.2d}, [x6]                        #! EA = L0x7fffffffeb98; Value = 0x0dba305cbb5def3f; PC = 0x555555550d1c
+	add	x1, x1, #0x18                               #! PC = 0x555555550d20
+	zip1	v6.2d, v2.2d, v4.2d                        #! PC = 0x555555550d24
+	zip1	v7.2d, v3.2d, v5.2d                        #! PC = 0x555555550d28
+	zip2	v8.2d, v2.2d, v4.2d                        #! PC = 0x555555550d2c
+	shl	v18.2d, v6.2d, #6                           #! PC = 0x555555550d30
+	ushr	v19.2d, v6.2d, #58                         #! PC = 0x555555550d34
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550d38
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550d3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0ec; PC = 0x555555550d48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe16c; PC = 0x555555550d4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0f0; PC = 0x555555550d68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe170; PC = 0x555555550d6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d7c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550d80
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550d84
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0f4; PC = 0x555555550d88
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe174; PC = 0x555555550d8c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550d90
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550d94
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550d98
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550d9c
+	shl	v18.2d, v7.2d, #4                           #! PC = 0x555555550da0
+	ushr	v19.2d, v7.2d, #60                         #! PC = 0x555555550da4
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550da8
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550dac
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550db0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550db4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0f8; PC = 0x555555550db8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe178; PC = 0x555555550dbc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550dc0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550dc4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550dc8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dcc
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550dd0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550dd4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe0fc; PC = 0x555555550dd8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe17c; PC = 0x555555550ddc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550de0
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550de4
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550de8
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550dec
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550df0
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550df4
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe100; PC = 0x555555550df8
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe180; PC = 0x555555550dfc
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e00
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e04
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e08
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e0c
+	shl	v18.2d, v8.2d, #2                           #! PC = 0x555555550e10
+	ushr	v19.2d, v8.2d, #62                         #! PC = 0x555555550e14
+	orr	v10.16b, v10.16b, v18.16b                   #! PC = 0x555555550e18
+	orr	v11.16b, v11.16b, v19.16b                   #! PC = 0x555555550e1c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e20
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e24
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe104; PC = 0x555555550e28
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe184; PC = 0x555555550e2c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e30
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e34
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e38
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e3c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e40
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e44
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe108; PC = 0x555555550e48
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe188; PC = 0x555555550e4c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e50
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e54
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e58
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e5c
+	and	v12.16b, v10.16b, v13.16b                   #! PC = 0x555555550e60
+	xtn	v14.2s, v12.2d                              #! PC = 0x555555550e64
+	st1	{v14.s}[0], [x0], #4                        #! EA = L0x7fffffffe10c; PC = 0x555555550e68
+	st1	{v14.s}[1], [x3], #4                        #! EA = L0x7fffffffe18c; PC = 0x555555550e6c
+	ushr	v15.2d, v10.2d, #22                        #! PC = 0x555555550e70
+	shl	v16.2d, v11.2d, #42                         #! PC = 0x555555550e74
+	orr	v10.16b, v15.16b, v16.16b                   #! PC = 0x555555550e78
+	ushr	v11.2d, v11.2d, #22                        #! PC = 0x555555550e7c
+	add	x1, x1, #0x58                               #! PC = 0x555555550e80
+	add	x0, x0, #0x80                               #! PC = 0x555555550e84
+	add	w5, w5, #0x1                                #! PC = 0x555555550e88
+	#b	0x555555550984 <LOOPSTART>                   #! PC = 0x555555550e8c
+	cmp	w5, #0x6                                    #! PC = 0x555555550984
+	#b.ge	0x555555550e90 <LOOPEND>  // b.tcont      #! PC = 0x555555550988
+	ldp	q14, q15, [sp, #96]                         #! EA = L0x7fffffffdb60; Value = 0x0000000000000000; PC = 0x555555550e90
+	ldp	q12, q13, [sp, #64]                         #! EA = L0x7fffffffdb40; Value = 0x0000000000000000; PC = 0x555555550e94
+	ldp	q10, q11, [sp, #32]                         #! EA = L0x7fffffffdb20; Value = 0x0000000000000000; PC = 0x555555550e98
+	ldp	q8, q9, [sp]                                #! EA = L0x7fffffffdb00; Value = 0x0000000000000000; PC = 0x555555550e9c
+	add	sp, sp, #0x80                               #! PC = 0x555555550ea0
+	#! <- SP = 0x7fffffffdb80
+	#ret                                            #! PC = 0x555555550ea4
