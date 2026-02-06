@@ -1109,6 +1109,7 @@ assume [2*NQ,2*NQ,2*NQ,2*NQ] <  %v0 /\
        [2@32*NQ,2@32*NQ,2@32*NQ,2@32*NQ] <s %v13 /\
        %v13 <s [2@32*Q,2@32*Q,2@32*Q,2@32*Q];
 (* CUT 0 *)
+
 cut  Q = 8380417 /\ Q2 = 4190209 /\ NQ = -8380417 /\ NQ2 = -4190209 /\
      %v0 =  %v0o00 +  %v1 /\ %v12 =  %v0o00 -  %v1 /\
      %v2 =  %v2o00 +  %v3 /\ %v13 =  %v2o00 -  %v3 /\
@@ -1139,42 +1140,18 @@ ghost %v16o00@int32[4],%v18o00@int32[4],%v12o00@int32[4],%v13o00@int32[4]:
 mull %dc %v1 %v12 %v9; cast [] %v1@int32[4] %v1;
 (* sub	v28.4s, v16.4s, v17.4s                      #! PC = 0x414130 *)
 sub %v28 %v16 %v17;
-(* mul	v3.4s, v13.4s, v11.4s                       #! PC = 0x414134 *)
-mull %dc %v3 %v13 %v11; cast [] %v3@int32[4] %v3;
-(* sub	v29.4s, v18.4s, v19.4s                      #! PC = 0x414138 *)
-sub %v29 %v18 %v19;
-(* sqrdmulh	v12.4s, v12.4s, v8.4s                  #! PC = 0x41413c *)
-mulj %mm %v12 %v8; shl %mm %mm [1@int64, 1@int64, 1@int64, 1@int64];
-spl %mm %dc %mm 31; add %mm %mm [1@int33,1@int33,1@int33,1@int33];
-spl %v12 %dc %mm 1;
-(* add	v16.4s, v16.4s, v17.4s                      #! PC = 0x414140 *)
-add %v16 %v16 %v17;
-(* sqrdmulh	v13.4s, v13.4s, v10.4s                 #! PC = 0x414144 *)
-mulj %mm %v13 %v10; shl %mm %mm [1@int64, 1@int64, 1@int64, 1@int64];
-spl %mm %dc %mm 31; add %mm %mm [1@int33,1@int33,1@int33,1@int33];
-spl %v13 %dc %mm 1;
-(* add	v18.4s, v18.4s, v19.4s                      #! PC = 0x414148 *)
-add %v18 %v18 %v19;
-(* mls	v1.4s, v12.4s, v4.s[0]                      #! PC = 0x41414c *)
-mov [m, _, _, _] %v4; mov %mm [m, m, m, m];
-mull %dc %mm %v12 %mm; cast [] %mm@int32[4] %mm; subs %dc %v1 %v1 %mm;
-(* mls	v3.4s, v13.4s, v4.s[0]                      #! PC = 0x414150 *)
-mov [m, _, _, _] %v4; mov %mm [m, m, m, m];
-mull %dc %mm %v13 %mm; cast [] %mm@int32[4] %mm; subs %dc %v3 %v3 %mm;
 
-{
-    eqmod  %v1 (%v12o00*[ %v9[0], %v9[1], %v9[2], %v9[3]]) [Q,Q,Q,Q] /\
-    eqmod  %v3 (%v13o00*[%v11[0],%v11[1],%v11[2],%v11[3]]) [Q,Q,Q,Q] /\
-    [2*NQ,2*NQ,2*NQ,2*NQ] < %v16 /\
-    %v16 < [2*Q,2*Q,2*Q,2*Q] /\
-    [2*NQ,2*NQ,2*NQ,2*NQ] < %v28 /\
-    %v28 < [2*Q,2*Q,2*Q,2*Q] /\
-    [2*NQ,2*NQ,2*NQ,2*NQ] < %v18 /\
-    %v18 < [2*Q,2*Q,2*Q,2*Q] /\
-    [2*NQ,2*NQ,2*NQ,2*NQ] < %v29 /\
-    %v29 < [2*Q,2*Q,2*Q,2*Q] /\
-    [NQ,NQ,NQ,NQ] <  %v1 /\  %v1 < [Q,Q,Q,Q] /\
-    [NQ,NQ,NQ,NQ] <  %v3 /\  %v3 < [Q,Q,Q,Q]
-    prove with [algebra solver isl, precondition] 
-    && true
-}
+
+assert eqmod  %v1 (%v12o00*[ %v9[0], %v9[1], %v9[2], %v9[3]]) [Q,Q,Q,Q] /\
+       eqmod  %v3 (%v13o00*[%v11[0],%v11[1],%v11[2],%v11[3]]) [Q,Q,Q,Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v16 /\
+       %v16 < [2*Q,2*Q,2*Q,2*Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v28 /\
+       %v28 < [2*Q,2*Q,2*Q,2*Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v18 /\
+       %v18 < [2*Q,2*Q,2*Q,2*Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v29 /\
+       %v29 < [2*Q,2*Q,2*Q,2*Q] /\
+       [NQ,NQ,NQ,NQ] <  %v1 /\  %v1 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] <  %v3 /\  %v3 < [Q,Q,Q,Q]
+       prove with [algebra solver isl, precondition] && true;
