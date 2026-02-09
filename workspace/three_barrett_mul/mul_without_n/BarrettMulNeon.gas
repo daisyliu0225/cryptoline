@@ -142,6 +142,8 @@
 #! srsra $1v.8h, $2v.8h, $3c -> split %HI %LO %$2v $3c; split %LO1 %dc %LO ($3c-1);\ncast %LO0@sint16[8] %LO1;\nadd %$1v %$1v %LO0; add %$1v %$1v %HI
 
 
+#! ld2	{$1v.2d, $2v.2d}, $3ea -> mov %$1v [$3ea[+0],$3ea[+16]]; mov %$2v [$3ea[+8],$3ea[+24]]
+
 BarrettMulNeon:
 # x0 = 0x7fffffffe858
 # x1 = 0x7fffffffea88
