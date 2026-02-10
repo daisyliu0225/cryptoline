@@ -39,6 +39,7 @@ mov %v2 [(16)@int32, (665303294)@int32, (1266246640)@int32, (968898702)@int32];
 mov %twopow31 [(2147483648)@int64, (2147483648)@int64, (2147483648)@int64, (2147483648)@int64];
 mov %zero [(0)@int64, (0)@int64, (0)@int64, (0)@int64];
 mov %twopow32 [(4294967296)@int64, (4294967296)@int64, (4294967296)@int64, (4294967296)@int64];
+mov %two [(2)@int64, (2)@int64, (2)@int64, (2)@int64];
 
 ghost %v0o00@int32[4]:
       %v0o00 = %v0 && %v0o00 = %v0;
@@ -63,8 +64,9 @@ mull %dc %mm %v4 %mm; cast [] %mm@int32[4] %mm; subs %dc %v0 %v0 %mm;
 #ret                                            #! 0x55555555092c = 0x55555555092c;
 
 {
-  eqmod  %v0 (%v0o00*%v1) [Q, Q, Q, Q]
-  prove with [algebra solver isl, precondition, all ghosts]
+  eqmod  %v0 (%v0o00*%v1) [Q, Q, Q, Q] /\
+  [3*NQ,3*NQ,3*NQ,3*NQ] < %two*%v0 /\ %two*%v0 < [3*Q,3*Q,3*Q,3*Q]
+  prove with [algebra solver isl, precondition]
   &&
   true
 }
