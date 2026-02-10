@@ -1,0 +1,17 @@
+BarrettMulNeon:
+# x0 = 0x7fffffffe868
+# x1 = 0x7fffffffea98
+# x2 = 0x7fffffffeaa8
+# x3 = 0x5555555507d4
+# x4 = 0x7ffff7fff040
+# x5 = 0x8b8bd76afff085df
+# x6 = 0x7ffff7f92078
+# x7 = 0x4554415649
+	#! -> SP = 0x7fffffffe840
+	ldr	x3, 0x555555550938 <_BarrettMulNeon+24>     #! PC = 0x555555550920
+	ld1	{v3.4s}, [x3]                               #! EA = L0x555555570050; Value = 0x07f0770107f07701 0x07f0770107f07701; PC = 0x555555550924
+	sqrdmulh	v4.4s, v0.4s, v2.4s                    #! PC = 0x555555550928
+	mul	v0.4s, v0.4s, v1.4s                         #! PC = 0x55555555092c
+	mls	v0.4s, v4.4s, v3.4s                         #! PC = 0x555555550930
+	#! <- SP = 0x7fffffffe840
+	#ret                                            #! PC = 0x555555550934

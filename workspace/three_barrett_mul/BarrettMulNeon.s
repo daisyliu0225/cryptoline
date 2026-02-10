@@ -1,21 +1,21 @@
-.macro BarrettMul a_reg, b_reg, mul_reg, prime_reg, temp1
+.macro BarrettMul a_reg, b_reg, mul_reg, prime_reg, output_reg, temp1
     sqrdmulh \temp1\().4S, \a_reg\().4S, \mul_reg\().4S
-    mul \a_reg\().4S, \a_reg\().4S, \b_reg\().4S
-    mls \a_reg\().4S, \temp1\().4S, \prime_reg\().4S
+    mul \output_reg\().4S, \a_reg\().4S, \b_reg\().4S
+    mls \output_reg\().4S, \temp1\().4S, \prime_reg\().4S
 .endm
 
 .data
 PRIME1Vec:
-    .word 268440577
-    .word 268440577
-    .word 268440577
-    .word 268440577
+    .word 133199617
+    .word 133199617
+    .word 133199617
+    .word 133199617
 
 .text
-.global BarrettMulNeonMacro_alt
-.global _BarrettMulNeonMacro_alt
-BarrettMulNeonMacro_alt:
-_BarrettMulNeonMacro_alt:
+.global BarrettMulNeon
+.global _BarrettMulNeon
+BarrettMulNeon:
+_BarrettMulNeon:
     // inputs: a(v0), b(v1), mul(v2)
     // return Z (Zs2) -> inside v0
     // load the variables
