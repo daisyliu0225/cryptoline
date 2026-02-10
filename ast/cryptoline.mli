@@ -204,7 +204,7 @@ val emul : eexp -> eexp -> eexp
 
 val emul' : eexp -> eexp -> eexp
 (** [emul'] is the same as [emul] except that [emul' (Econst Z.zero) e = emul' e (Econst Z.zero) = Econst Z.zero],
-    [emul' (Econst Z.one) e = emul' e (Econst Z.one) = e], and and multiplication of constants is evaluated. *)
+    [emul' (Econst Z.one) e = emul' e (Econst Z.one) = e], and multiplication of constants is evaluated. *)
 
 val epow : eexp -> eexp -> eexp
 (** [epow e1 e2] is [Ebinop (Epow, e1, e2)]. *)
