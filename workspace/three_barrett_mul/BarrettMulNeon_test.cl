@@ -4,15 +4,11 @@ proc main (
   %v2@int32[4], 
   int32 NQ, int32 Q) =
 {
-  and [Q = 133199617, NQ = -133199617, 
-  [2*NQ,2*NQ,2*NQ,2*NQ] < %v0, 
-    %v0 < [2*Q,2*Q,2*Q,2*Q]
+  and [Q = 133199617, NQ = -133199617
   ]
   &&
   and[
-    Q = (133199617)@32, NQ = (-133199617)@32, 
-    [2@32*NQ,2@32*NQ,2@32*NQ,2@32*NQ] <s %v0, 
-    %v0 <s [2@32*Q,2@32*Q,2@32*Q,2@32*Q]
+    Q = (133199617)@32, NQ = (-133199617)@32
   ]
 }
 
@@ -46,7 +42,7 @@ mulj %mm %v0 %v2;
 shl %mm %mm [1@int64, 1@int64, 1@int64, 1@int64];
 spl %mm %dc %mm 31; 
 add %mm_h2 %mm [1@int33,1@int33,1@int33,1@int33];
-spl %v4 %dc %mm 1;
+spl %v4 %dc %mm_h2 1;
 
 (* mul	v0.4s, v0.4s, v1.4s                         #! PC = 0x55555555092c *)
 mull %dc %tmp_v0 %v0 %v1; cast [] %v0@int32[4] %tmp_v0;
