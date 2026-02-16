@@ -329,6 +329,181 @@ int32 Q, int32 NQ
 }
 
 (**************** initialization ****************)
+// Initialize A array
+mov L0x7fffffffdc40 A00; mov L0x7fffffffdc44 A01; mov L0x7fffffffdc48 A02;
+mov L0x7fffffffdc4c A03; mov L0x7fffffffdc50 A04; mov L0x7fffffffdc54 A05;
+mov L0x7fffffffdc58 A06; mov L0x7fffffffdc5c A07; mov L0x7fffffffdc60 A08;
+mov L0x7fffffffdc64 A09; mov L0x7fffffffdc68 A0a; mov L0x7fffffffdc6c A0b;
+mov L0x7fffffffdc70 A0c; mov L0x7fffffffdc74 A0d; mov L0x7fffffffdc78 A0e;
+mov L0x7fffffffdc7c A0f; mov L0x7fffffffdc80 A10; mov L0x7fffffffdc84 A11;
+mov L0x7fffffffdc88 A12; mov L0x7fffffffdc8c A13; mov L0x7fffffffdc90 A14;
+mov L0x7fffffffdc94 A15; mov L0x7fffffffdc98 A16; mov L0x7fffffffdc9c A17;
+mov L0x7fffffffdca0 A18; mov L0x7fffffffdca4 A19; mov L0x7fffffffdca8 A1a;
+mov L0x7fffffffdcac A1b; mov L0x7fffffffdcb0 A1c; mov L0x7fffffffdcb4 A1d;
+mov L0x7fffffffdcb8 A1e; mov L0x7fffffffdcbc A1f; mov L0x7fffffffdcc0 A20;
+mov L0x7fffffffdcc4 A21; mov L0x7fffffffdcc8 A22; mov L0x7fffffffdccc A23;
+mov L0x7fffffffdcd0 A24; mov L0x7fffffffdcd4 A25; mov L0x7fffffffdcd8 A26;
+mov L0x7fffffffdcdc A27; mov L0x7fffffffdce0 A28; mov L0x7fffffffdce4 A29;
+mov L0x7fffffffdce8 A2a; mov L0x7fffffffdcec A2b; mov L0x7fffffffdcf0 A2c;
+mov L0x7fffffffdcf4 A2d; mov L0x7fffffffdcf8 A2e; mov L0x7fffffffdcfc A2f;
+mov L0x7fffffffdd00 A30; mov L0x7fffffffdd04 A31; mov L0x7fffffffdd08 A32;
+mov L0x7fffffffdd0c A33; mov L0x7fffffffdd10 A34; mov L0x7fffffffdd14 A35;
+mov L0x7fffffffdd18 A36; mov L0x7fffffffdd1c A37; mov L0x7fffffffdd20 A38;
+mov L0x7fffffffdd24 A39; mov L0x7fffffffdd28 A3a; mov L0x7fffffffdd2c A3b;
+mov L0x7fffffffdd30 A3c; mov L0x7fffffffdd34 A3d; mov L0x7fffffffdd38 A3e;
+mov L0x7fffffffdd3c A3f; mov L0x7fffffffdd40 A40; mov L0x7fffffffdd44 A41;
+mov L0x7fffffffdd48 A42; mov L0x7fffffffdd4c A43; mov L0x7fffffffdd50 A44;
+mov L0x7fffffffdd54 A45; mov L0x7fffffffdd58 A46; mov L0x7fffffffdd5c A47;
+mov L0x7fffffffdd60 A48; mov L0x7fffffffdd64 A49; mov L0x7fffffffdd68 A4a;
+mov L0x7fffffffdd6c A4b; mov L0x7fffffffdd70 A4c; mov L0x7fffffffdd74 A4d;
+mov L0x7fffffffdd78 A4e; mov L0x7fffffffdd7c A4f; mov L0x7fffffffdd80 A50;
+mov L0x7fffffffdd84 A51; mov L0x7fffffffdd88 A52; mov L0x7fffffffdd8c A53;
+mov L0x7fffffffdd90 A54; mov L0x7fffffffdd94 A55; mov L0x7fffffffdd98 A56;
+mov L0x7fffffffdd9c A57; mov L0x7fffffffdda0 A58; mov L0x7fffffffdda4 A59;
+mov L0x7fffffffdda8 A5a; mov L0x7fffffffddac A5b; mov L0x7fffffffddb0 A5c;
+mov L0x7fffffffddb4 A5d; mov L0x7fffffffddb8 A5e; mov L0x7fffffffddbc A5f;
+mov L0x7fffffffddc0 A60; mov L0x7fffffffddc4 A61; mov L0x7fffffffddc8 A62;
+mov L0x7fffffffddcc A63; mov L0x7fffffffddd0 A64; mov L0x7fffffffddd4 A65;
+mov L0x7fffffffddd8 A66; mov L0x7fffffffdddc A67; mov L0x7fffffffdde0 A68;
+mov L0x7fffffffdde4 A69; mov L0x7fffffffdde8 A6a; mov L0x7fffffffddec A6b;
+mov L0x7fffffffddf0 A6c; mov L0x7fffffffddf4 A6d; mov L0x7fffffffddf8 A6e;
+mov L0x7fffffffddfc A6f; mov L0x7fffffffde00 A70; mov L0x7fffffffde04 A71;
+mov L0x7fffffffde08 A72; mov L0x7fffffffde0c A73; mov L0x7fffffffde10 A74;
+mov L0x7fffffffde14 A75; mov L0x7fffffffde18 A76; mov L0x7fffffffde1c A77;
+mov L0x7fffffffde20 A78; mov L0x7fffffffde24 A79; mov L0x7fffffffde28 A7a;
+mov L0x7fffffffde2c A7b; mov L0x7fffffffde30 A7c; mov L0x7fffffffde34 A7d;
+mov L0x7fffffffde38 A7e; mov L0x7fffffffde3c A7f; mov L0x7fffffffde40 A80;
+mov L0x7fffffffde44 A81; mov L0x7fffffffde48 A82; mov L0x7fffffffde4c A83;
+mov L0x7fffffffde50 A84; mov L0x7fffffffde54 A85; mov L0x7fffffffde58 A86;
+mov L0x7fffffffde5c A87; mov L0x7fffffffde60 A88; mov L0x7fffffffde64 A89;
+mov L0x7fffffffde68 A8a; mov L0x7fffffffde6c A8b; mov L0x7fffffffde70 A8c;
+mov L0x7fffffffde74 A8d; mov L0x7fffffffde78 A8e; mov L0x7fffffffde7c A8f;
+mov L0x7fffffffde80 A90; mov L0x7fffffffde84 A91; mov L0x7fffffffde88 A92;
+mov L0x7fffffffde8c A93; mov L0x7fffffffde90 A94; mov L0x7fffffffde94 A95;
+mov L0x7fffffffde98 A96; mov L0x7fffffffde9c A97; mov L0x7fffffffdea0 A98;
+mov L0x7fffffffdea4 A99; mov L0x7fffffffdea8 A9a; mov L0x7fffffffdeac A9b;
+mov L0x7fffffffdeb0 A9c; mov L0x7fffffffdeb4 A9d; mov L0x7fffffffdeb8 A9e;
+mov L0x7fffffffdebc A9f; mov L0x7fffffffdec0 Aa0; mov L0x7fffffffdec4 Aa1;
+mov L0x7fffffffdec8 Aa2; mov L0x7fffffffdecc Aa3; mov L0x7fffffffded0 Aa4;
+mov L0x7fffffffded4 Aa5; mov L0x7fffffffded8 Aa6; mov L0x7fffffffdedc Aa7;
+mov L0x7fffffffdee0 Aa8; mov L0x7fffffffdee4 Aa9; mov L0x7fffffffdee8 Aaa;
+mov L0x7fffffffdeec Aab; mov L0x7fffffffdef0 Aac; mov L0x7fffffffdef4 Aad;
+mov L0x7fffffffdef8 Aae; mov L0x7fffffffdefc Aaf; mov L0x7fffffffdf00 Ab0;
+mov L0x7fffffffdf04 Ab1; mov L0x7fffffffdf08 Ab2; mov L0x7fffffffdf0c Ab3;
+mov L0x7fffffffdf10 Ab4; mov L0x7fffffffdf14 Ab5; mov L0x7fffffffdf18 Ab6;
+mov L0x7fffffffdf1c Ab7; mov L0x7fffffffdf20 Ab8; mov L0x7fffffffdf24 Ab9;
+mov L0x7fffffffdf28 Aba; mov L0x7fffffffdf2c Abb; mov L0x7fffffffdf30 Abc;
+mov L0x7fffffffdf34 Abd; mov L0x7fffffffdf38 Abe; mov L0x7fffffffdf3c Abf;
+mov L0x7fffffffdf40 Ac0; mov L0x7fffffffdf44 Ac1; mov L0x7fffffffdf48 Ac2;
+mov L0x7fffffffdf4c Ac3; mov L0x7fffffffdf50 Ac4; mov L0x7fffffffdf54 Ac5;
+mov L0x7fffffffdf58 Ac6; mov L0x7fffffffdf5c Ac7; mov L0x7fffffffdf60 Ac8;
+mov L0x7fffffffdf64 Ac9; mov L0x7fffffffdf68 Aca; mov L0x7fffffffdf6c Acb;
+mov L0x7fffffffdf70 Acc; mov L0x7fffffffdf74 Acd; mov L0x7fffffffdf78 Ace;
+mov L0x7fffffffdf7c Acf; mov L0x7fffffffdf80 Ad0; mov L0x7fffffffdf84 Ad1;
+mov L0x7fffffffdf88 Ad2; mov L0x7fffffffdf8c Ad3; mov L0x7fffffffdf90 Ad4;
+mov L0x7fffffffdf94 Ad5; mov L0x7fffffffdf98 Ad6; mov L0x7fffffffdf9c Ad7;
+mov L0x7fffffffdfa0 Ad8; mov L0x7fffffffdfa4 Ad9; mov L0x7fffffffdfa8 Ada;
+mov L0x7fffffffdfac Adb; mov L0x7fffffffdfb0 Adc; mov L0x7fffffffdfb4 Add;
+mov L0x7fffffffdfb8 Ade; mov L0x7fffffffdfbc Adf; mov L0x7fffffffdfc0 Ae0;
+mov L0x7fffffffdfc4 Ae1; mov L0x7fffffffdfc8 Ae2; mov L0x7fffffffdfcc Ae3;
+mov L0x7fffffffdfd0 Ae4; mov L0x7fffffffdfd4 Ae5; mov L0x7fffffffdfd8 Ae6;
+mov L0x7fffffffdfdc Ae7; mov L0x7fffffffdfe0 Ae8; mov L0x7fffffffdfe4 Ae9;
+mov L0x7fffffffdfe8 Aea; mov L0x7fffffffdfec Aeb; mov L0x7fffffffdff0 Aec;
+mov L0x7fffffffdff4 Aed; mov L0x7fffffffdff8 Aee; mov L0x7fffffffdffc Aef;
+mov L0x7fffffffe000 Af0; mov L0x7fffffffe004 Af1; mov L0x7fffffffe008 Af2;
+mov L0x7fffffffe00c Af3; mov L0x7fffffffe010 Af4; mov L0x7fffffffe014 Af5;
+mov L0x7fffffffe018 Af6; mov L0x7fffffffe01c Af7; mov L0x7fffffffe020 Af8;
+mov L0x7fffffffe024 Af9; mov L0x7fffffffe028 Afa; mov L0x7fffffffe02c Afb;
+mov L0x7fffffffe030 Afc; mov L0x7fffffffe034 Afd; mov L0x7fffffffe038 Afe;
+mov L0x7fffffffe03c Aff;
+
+// Initialize B array
+mov L0x7fffffffd040 B00; mov L0x7fffffffd044 B01; mov L0x7fffffffd048 B02;
+mov L0x7fffffffd04c B03; mov L0x7fffffffd050 B04; mov L0x7fffffffd054 B05;
+mov L0x7fffffffd058 B06; mov L0x7fffffffd05c B07; mov L0x7fffffffd060 B08;
+mov L0x7fffffffd064 B09; mov L0x7fffffffd068 B0a; mov L0x7fffffffd06c B0b;
+mov L0x7fffffffd070 B0c; mov L0x7fffffffd074 B0d; mov L0x7fffffffd078 B0e;
+mov L0x7fffffffd07c B0f; mov L0x7fffffffd080 B10; mov L0x7fffffffd084 B11;
+mov L0x7fffffffd088 B12; mov L0x7fffffffd08c B13; mov L0x7fffffffd090 B14;
+mov L0x7fffffffd094 B15; mov L0x7fffffffd098 B16; mov L0x7fffffffd09c B17;
+mov L0x7fffffffd0a0 B18; mov L0x7fffffffd0a4 B19; mov L0x7fffffffd0a8 B1a;
+mov L0x7fffffffd0ac B1b; mov L0x7fffffffd0b0 B1c; mov L0x7fffffffd0b4 B1d;
+mov L0x7fffffffd0b8 B1e; mov L0x7fffffffd0bc B1f; mov L0x7fffffffd0c0 B20;
+mov L0x7fffffffd0c4 B21; mov L0x7fffffffd0c8 B22; mov L0x7fffffffd0cc B23;
+mov L0x7fffffffd0d0 B24; mov L0x7fffffffd0d4 B25; mov L0x7fffffffd0d8 B26;
+mov L0x7fffffffd0dc B27; mov L0x7fffffffd0e0 B28; mov L0x7fffffffd0e4 B29;
+mov L0x7fffffffd0e8 B2a; mov L0x7fffffffd0ec B2b; mov L0x7fffffffd0f0 B2c;
+mov L0x7fffffffd0f4 B2d; mov L0x7fffffffd0f8 B2e; mov L0x7fffffffd0fc B2f;
+mov L0x7fffffffd100 B30; mov L0x7fffffffd104 B31; mov L0x7fffffffd108 B32;
+mov L0x7fffffffd10c B33; mov L0x7fffffffd110 B34; mov L0x7fffffffd114 B35;
+mov L0x7fffffffd118 B36; mov L0x7fffffffd11c B37; mov L0x7fffffffd120 B38;
+mov L0x7fffffffd124 B39; mov L0x7fffffffd128 B3a; mov L0x7fffffffd12c B3b;
+mov L0x7fffffffd130 B3c; mov L0x7fffffffd134 B3d; mov L0x7fffffffd138 B3e;
+mov L0x7fffffffd13c B3f; mov L0x7fffffffd140 B40; mov L0x7fffffffd144 B41;
+mov L0x7fffffffd148 B42; mov L0x7fffffffd14c B43; mov L0x7fffffffd150 B44;
+mov L0x7fffffffd154 B45; mov L0x7fffffffd158 B46; mov L0x7fffffffd15c B47;
+mov L0x7fffffffd160 B48; mov L0x7fffffffd164 B49; mov L0x7fffffffd168 B4a;
+mov L0x7fffffffd16c B4b; mov L0x7fffffffd170 B4c; mov L0x7fffffffd174 B4d;
+mov L0x7fffffffd178 B4e; mov L0x7fffffffd17c B4f; mov L0x7fffffffd180 B50;
+mov L0x7fffffffd184 B51; mov L0x7fffffffd188 B52; mov L0x7fffffffd18c B53;
+mov L0x7fffffffd190 B54; mov L0x7fffffffd194 B55; mov L0x7fffffffd198 B56;
+mov L0x7fffffffd19c B57; mov L0x7fffffffd1a0 B58; mov L0x7fffffffd1a4 B59;
+mov L0x7fffffffd1a8 B5a; mov L0x7fffffffd1ac B5b; mov L0x7fffffffd1b0 B5c;
+mov L0x7fffffffd1b4 B5d; mov L0x7fffffffd1b8 B5e; mov L0x7fffffffd1bc B5f;
+mov L0x7fffffffd1c0 B60; mov L0x7fffffffd1c4 B61; mov L0x7fffffffd1c8 B62;
+mov L0x7fffffffd1cc B63; mov L0x7fffffffd1d0 B64; mov L0x7fffffffd1d4 B65;
+mov L0x7fffffffd1d8 B66; mov L0x7fffffffd1dc B67; mov L0x7fffffffd1e0 B68;
+mov L0x7fffffffd1e4 B69; mov L0x7fffffffd1e8 B6a; mov L0x7fffffffd1ec B6b;
+mov L0x7fffffffd1f0 B6c; mov L0x7fffffffd1f4 B6d; mov L0x7fffffffd1f8 B6e;
+mov L0x7fffffffd1fc B6f; mov L0x7fffffffd200 B70; mov L0x7fffffffd204 B71;
+mov L0x7fffffffd208 B72; mov L0x7fffffffd20c B73; mov L0x7fffffffd210 B74;
+mov L0x7fffffffd214 B75; mov L0x7fffffffd218 B76; mov L0x7fffffffd21c B77;
+mov L0x7fffffffd220 B78; mov L0x7fffffffd224 B79; mov L0x7fffffffd228 B7a;
+mov L0x7fffffffd22c B7b; mov L0x7fffffffd230 B7c; mov L0x7fffffffd234 B7d;
+mov L0x7fffffffd238 B7e; mov L0x7fffffffd23c B7f; mov L0x7fffffffd240 B80;
+mov L0x7fffffffd244 B81; mov L0x7fffffffd248 B82; mov L0x7fffffffd24c B83;
+mov L0x7fffffffd250 B84; mov L0x7fffffffd254 B85; mov L0x7fffffffd258 B86;
+mov L0x7fffffffd25c B87; mov L0x7fffffffd260 B88; mov L0x7fffffffd264 B89;
+mov L0x7fffffffd268 B8a; mov L0x7fffffffd26c B8b; mov L0x7fffffffd270 B8c;
+mov L0x7fffffffd274 B8d; mov L0x7fffffffd278 B8e; mov L0x7fffffffd27c B8f;
+mov L0x7fffffffd280 B90; mov L0x7fffffffd284 B91; mov L0x7fffffffd288 B92;
+mov L0x7fffffffd28c B93; mov L0x7fffffffd290 B94; mov L0x7fffffffd294 B95;
+mov L0x7fffffffd298 B96; mov L0x7fffffffd29c B97; mov L0x7fffffffd2a0 B98;
+mov L0x7fffffffd2a4 B99; mov L0x7fffffffd2a8 B9a; mov L0x7fffffffd2ac B9b;
+mov L0x7fffffffd2b0 B9c; mov L0x7fffffffd2b4 B9d; mov L0x7fffffffd2b8 B9e;
+mov L0x7fffffffd2bc B9f; mov L0x7fffffffd2c0 Ba0; mov L0x7fffffffd2c4 Ba1;
+mov L0x7fffffffd2c8 Ba2; mov L0x7fffffffd2cc Ba3; mov L0x7fffffffd2d0 Ba4;
+mov L0x7fffffffd2d4 Ba5; mov L0x7fffffffd2d8 Ba6; mov L0x7fffffffd2dc Ba7;
+mov L0x7fffffffd2e0 Ba8; mov L0x7fffffffd2e4 Ba9; mov L0x7fffffffd2e8 Baa;
+mov L0x7fffffffd2ec Bab; mov L0x7fffffffd2f0 Bac; mov L0x7fffffffd2f4 Bad;
+mov L0x7fffffffd2f8 Bae; mov L0x7fffffffd2fc Baf; mov L0x7fffffffd300 Bb0;
+mov L0x7fffffffd304 Bb1; mov L0x7fffffffd308 Bb2; mov L0x7fffffffd30c Bb3;
+mov L0x7fffffffd310 Bb4; mov L0x7fffffffd314 Bb5; mov L0x7fffffffd318 Bb6;
+mov L0x7fffffffd31c Bb7; mov L0x7fffffffd320 Bb8; mov L0x7fffffffd324 Bb9;
+mov L0x7fffffffd328 Bba; mov L0x7fffffffd32c Bbb; mov L0x7fffffffd330 Bbc;
+mov L0x7fffffffd334 Bbd; mov L0x7fffffffd338 Bbe; mov L0x7fffffffd33c Bbf;
+mov L0x7fffffffd340 Bc0; mov L0x7fffffffd344 Bc1; mov L0x7fffffffd348 Bc2;
+mov L0x7fffffffd34c Bc3; mov L0x7fffffffd350 Bc4; mov L0x7fffffffd354 Bc5;
+mov L0x7fffffffd358 Bc6; mov L0x7fffffffd35c Bc7; mov L0x7fffffffd360 Bc8;
+mov L0x7fffffffd364 Bc9; mov L0x7fffffffd368 Bca; mov L0x7fffffffd36c Bcb;
+mov L0x7fffffffd370 Bcc; mov L0x7fffffffd374 Bcd; mov L0x7fffffffd378 Bce;
+mov L0x7fffffffd37c Bcf; mov L0x7fffffffd380 Bd0; mov L0x7fffffffd384 Bd1;
+mov L0x7fffffffd388 Bd2; mov L0x7fffffffd38c Bd3; mov L0x7fffffffd390 Bd4;
+mov L0x7fffffffd394 Bd5; mov L0x7fffffffd398 Bd6; mov L0x7fffffffd39c Bd7;
+mov L0x7fffffffd3a0 Bd8; mov L0x7fffffffd3a4 Bd9; mov L0x7fffffffd3a8 Bda;
+mov L0x7fffffffd3ac Bdb; mov L0x7fffffffd3b0 Bdc; mov L0x7fffffffd3b4 Bdd;
+mov L0x7fffffffd3b8 Bde; mov L0x7fffffffd3bc Bdf; mov L0x7fffffffd3c0 Be0;
+mov L0x7fffffffd3c4 Be1; mov L0x7fffffffd3c8 Be2; mov L0x7fffffffd3cc Be3;
+mov L0x7fffffffd3d0 Be4; mov L0x7fffffffd3d4 Be5; mov L0x7fffffffd3d8 Be6;
+mov L0x7fffffffd3dc Be7; mov L0x7fffffffd3e0 Be8; mov L0x7fffffffd3e4 Be9;
+mov L0x7fffffffd3e8 Bea; mov L0x7fffffffd3ec Beb; mov L0x7fffffffd3f0 Bec;
+mov L0x7fffffffd3f4 Bed; mov L0x7fffffffd3f8 Bee; mov L0x7fffffffd3fc Bef;
+mov L0x7fffffffd400 Bf0; mov L0x7fffffffd404 Bf1; mov L0x7fffffffd408 Bf2;
+mov L0x7fffffffd40c Bf3; mov L0x7fffffffd410 Bf4; mov L0x7fffffffd414 Bf5;
+mov L0x7fffffffd418 Bf6; mov L0x7fffffffd41c Bf7; mov L0x7fffffffd420 Bf8;
+mov L0x7fffffffd424 Bf9; mov L0x7fffffffd428 Bfa; mov L0x7fffffffd42c Bfb;
+mov L0x7fffffffd430 Bfc; mov L0x7fffffffd434 Bfd; mov L0x7fffffffd438 Bfe;
+mov L0x7fffffffd43c Bff;
 
 (*constant initialization*)
 
@@ -347,6 +522,7 @@ int32 Q, int32 NQ
 mov %v0 [L0x555555570850, L0x555555570850, L0x555555570850, L0x555555570850];
 (* mov	x4, #0x0                   	// #0           #! PC = 0x555555550b70 *)
 mov x4 0x0@uint64;
+
 (* add	x5, x4, x2                                  #! PC = 0x555555550b74 *)
 # add x5 x4 x2;
 (* ldur	q1, [x5, #4]                               #! EA = L0x555555570454; Value = 0x04ae6d3e0275ab77; PC = 0x555555550b78 *)
@@ -355,6 +531,7 @@ mov %v1 [L0x555555570454, L0x555555570454, L0x555555570454, L0x555555570454];
 mov %v3 [L0x555555570458, L0x555555570458, L0x555555570458, L0x555555570458];
 (* ldur	q5, [x5, #12]                              #! EA = L0x55555557045c; Value = 0x0030230503950133; PC = 0x555555550b80 *)
 mov %v5 [L0x55555557045c, L0x55555557045c, L0x55555557045c, L0x55555557045c];
+
 (* add	x5, x4, x3                                  #! PC = 0x555555550b84 *)
 # add x5 x4 x3;
 (* ldur	q2, [x5, #4]                               #! EA = L0x555555570654; Value = 0x4b7963f027a7b8fe; PC = 0x555555550b88 *)
@@ -568,15 +745,17 @@ mov [L0x7fffffffdfc0, L0x7fffffffdfc4, L0x7fffffffdfc8, L0x7fffffffdfcc] %v25;
 (* add	x7, x6, x7                                  #! PC = 0x555555550cec *)
 # add x7 x6 x7;
 (* ldr	q7, [x7]                                    #! EA = L0x7fffffffd040; Value = 0x0000000100000000; PC = 0x555555550cf0 *)
-mov %v7 [L0x7fffffffd040, ;
+mov %v7 [L0x7fffffffd040, L0x7fffffffd044, L0x7fffffffd048, L0x7fffffffd04c];
+
 (* add	x8, x4, #0x20                               #! PC = 0x555555550cf4 *)
-add x8 x4 0x20@uint64;
+# add x8 x4 0x20@uint64;
 (* lsl	x8, x8, #2                                  #! PC = 0x555555550cf8 *)
-split dcH x8 x8 (64-2); shl x8 x8 2;
+# split dcH x8 x8 (64-2); shl x8 x8 2;
 (* add	x8, x6, x8                                  #! PC = 0x555555550cfc *)
-add x8 x6 x8;
+# add x8 x6 x8;
 (* ldr	q8, [x8]                                    #! EA = L0x7fffffffd0c0; Value = 0x0000002100000020; PC = 0x555555550d00 *)
-mov v8 L0x7fffffffd0c0;
+mov %v8 [L0x7fffffffd0c0, L0x7fffffffd0c4, L0x7fffffffd0c8, L0x7fffffffd0cc];
+
 (* add	x9, x4, #0x40                               #! PC = 0x555555550d04 *)
 add x9 x4 0x40@uint64;
 (* lsl	x9, x9, #2                                  #! PC = 0x555555550d08 *)
@@ -584,7 +763,8 @@ split dcH x9 x9 (64-2); shl x9 x9 2;
 (* add	x9, x6, x9                                  #! PC = 0x555555550d0c *)
 add x9 x6 x9;
 (* ldr	q9, [x9]                                    #! EA = L0x7fffffffd140; Value = 0x0000004100000040; PC = 0x555555550d10 *)
-mov v9 L0x7fffffffd140;
+mov %v9 [L0x7fffffffd140, L0x7fffffffd144, L0x7fffffffd148, L0x7fffffffd14c];
+
 (* add	x10, x4, #0x60                              #! PC = 0x555555550d14 *)
 add x10 x4 0x60@uint64;
 (* lsl	x10, x10, #2                                #! PC = 0x555555550d18 *)
@@ -592,7 +772,8 @@ split dcH x10 x10 (64-2); shl x10 x10 2;
 (* add	x10, x6, x10                                #! PC = 0x555555550d1c *)
 add x10 x6 x10;
 (* ldr	q10, [x10]                                  #! EA = L0x7fffffffd1c0; Value = 0x0000006100000060; PC = 0x555555550d20 *)
-mov v10 L0x7fffffffd1c0;
+mov %v10 [L0x7fffffffd1c0, L0x7fffffffd1c4, L0x7fffffffd1c8, L0x7fffffffd1cc];
+
 (* add	x11, x4, #0x80                              #! PC = 0x555555550d24 *)
 add x11 x4 0x80@uint64;
 (* lsl	x11, x11, #2                                #! PC = 0x555555550d28 *)
@@ -600,31 +781,35 @@ split dcH x11 x11 (64-2); shl x11 x11 2;
 (* add	x11, x6, x11                                #! PC = 0x555555550d2c *)
 add x11 x6 x11;
 (* ldr	q11, [x11]                                  #! EA = L0x7fffffffd240; Value = 0x0000008100000080; PC = 0x555555550d30 *)
-mov v11 L0x7fffffffd240;
+mov %v11 [L0x7fffffffd240, L0x7fffffffd244, L0x7fffffffd248, L0x7fffffffd24c];
+
 (* add	x12, x4, #0xa0                              #! PC = 0x555555550d34 *)
-add x12 x4 0xa0@uint64;
+# add x12 x4 0xa0@uint64;
 (* lsl	x12, x12, #2                                #! PC = 0x555555550d38 *)
-split dcH x12 x12 (64-2); shl x12 x12 2;
+# split dcH x12 x12 (64-2); shl x12 x12 2;
 (* add	x12, x6, x12                                #! PC = 0x555555550d3c *)
-add x12 x6 x12;
+# add x12 x6 x12;
 (* ldr	q12, [x12]                                  #! EA = L0x7fffffffd2c0; Value = 0x000000a1000000a0; PC = 0x555555550d40 *)
-mov v12 L0x7fffffffd2c0;
+mov %v12 [L0x7fffffffd2c0, L0x7fffffffd2c4, L0x7fffffffd2c8, L0x7fffffffd2cc];
+
 (* add	x13, x4, #0xc0                              #! PC = 0x555555550d44 *)
-add x13 x4 0xc0@uint64;
+# add x13 x4 0xc0@uint64;
 (* lsl	x13, x13, #2                                #! PC = 0x555555550d48 *)
-split dcH x13 x13 (64-2); shl x13 x13 2;
+# split dcH x13 x13 (64-2); shl x13 x13 2;
 (* add	x13, x6, x13                                #! PC = 0x555555550d4c *)
-add x13 x6 x13;
+# add x13 x6 x13;
 (* ldr	q13, [x13]                                  #! EA = L0x7fffffffd340; Value = 0x000000c1000000c0; PC = 0x555555550d50 *)
-mov v13 L0x7fffffffd340;
+mov %v13 [L0x7fffffffd340, L0x7fffffffd344, L0x7fffffffd348, L0x7fffffffd34c];
+
 (* add	x14, x4, #0xe0                              #! PC = 0x555555550d54 *)
-add x14 x4 0xe0@uint64;
+# add x14 x4 0xe0@uint64;
 (* lsl	x14, x14, #2                                #! PC = 0x555555550d58 *)
-split dcH x14 x14 (64-2); shl x14 x14 2;
+# split dcH x14 x14 (64-2); shl x14 x14 2;
 (* add	x14, x6, x14                                #! PC = 0x555555550d5c *)
-add x14 x6 x14;
+# add x14 x6 x14;
 (* ldr	q14, [x14]                                  #! EA = L0x7fffffffd3c0; Value = 0x000000e1000000e0; PC = 0x555555550d60 *)
-mov v14 L0x7fffffffd3c0;
+mov %v14 [L0x7fffffffd3c0, L0x7fffffffd3c4, L0x7fffffffd3c8, L0x7fffffffd3cc];
+
 (* add	v15.4s, v7.4s, v11.4s                       #! PC = 0x555555550d64 *)
 add %v15 %v7 %v11;
 (* sub	v16.4s, v7.4s, v11.4s                       #! PC = 0x555555550d68 *)
@@ -678,11 +863,11 @@ sub %v14 %v18 %v22;
 (* add	v25.4s, v7.4s, v9.4s                        #! PC = 0x555555550dbc *)
 add %v25 %v7 %v9;
 (* str	q25, [x7]                                   #! EA = L0x7fffffffd040; PC = 0x555555550dc0 *)
-mov L0x7fffffffd040 v25;
+mov [L0x7fffffffd040, L0x7fffffffd044, L0x7fffffffd048, L0x7fffffffd04c] %v25;
 (* sub	v25.4s, v7.4s, v9.4s                        #! PC = 0x555555550dc4 *)
 sub %v25 %v7 %v9;
 (* str	q25, [x8]                                   #! EA = L0x7fffffffd0c0; PC = 0x555555550dc8 *)
-mov L0x7fffffffd0c0 v25;
+mov [L0x7fffffffd0c0, L0x7fffffffd0c4, L0x7fffffffd0c8, L0x7fffffffd0cc] %v25;
 (* sqrdmulh	v26.4s, v10.4s, v2.s[0]                #! PC = 0x555555550dcc *)
 broadcast %sqrdmulh 4 [%v2[0]]; smulj %LO %v10 %sqrdmulh;
 ssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;
@@ -713,45 +898,45 @@ mull %dc %mls %v26 %v0; sub %v14 %v14 %mls;
 (* add	v25.4s, v8.4s, v10.4s                       #! PC = 0x555555550df0 *)
 add %v25 %v8 %v10;
 (* str	q25, [x9]                                   #! EA = L0x7fffffffd140; PC = 0x555555550df4 *)
-mov L0x7fffffffd140 v25;
+mov [L0x7fffffffd140, L0x7fffffffd144, L0x7fffffffd148, L0x7fffffffd14c] %v25;
 (* sub	v25.4s, v8.4s, v10.4s                       #! PC = 0x555555550df8 *)
 sub %v25 %v8 %v10;
 (* str	q25, [x10]                                  #! EA = L0x7fffffffd1c0; PC = 0x555555550dfc *)
-mov L0x7fffffffd1c0 v25;
+mov [L0x7fffffffd1c0, L0x7fffffffd1c4, L0x7fffffffd1c8, L0x7fffffffd1cc] %v25;
 (* add	v25.4s, v11.4s, v13.4s                      #! PC = 0x555555550e00 *)
 add %v25 %v11 %v13;
 (* str	q25, [x11]                                  #! EA = L0x7fffffffd240; PC = 0x555555550e04 *)
-mov L0x7fffffffd240 v25;
+mov [L0x7fffffffd240, L0x7fffffffd244, L0x7fffffffd248, L0x7fffffffd24c] %v25;
 (* sub	v25.4s, v11.4s, v13.4s                      #! PC = 0x555555550e08 *)
 sub %v25 %v11 %v13;
 (* str	q25, [x12]                                  #! EA = L0x7fffffffd2c0; PC = 0x555555550e0c *)
-mov L0x7fffffffd2c0 v25;
+mov [L0x7fffffffd2c0, L0x7fffffffd2c4, L0x7fffffffd2c8, L0x7fffffffd2cc] %v25;
 (* add	v25.4s, v12.4s, v14.4s                      #! PC = 0x555555550e10 *)
 add %v25 %v12 %v14;
 (* str	q25, [x13]                                  #! EA = L0x7fffffffd340; PC = 0x555555550e14 *)
-mov L0x7fffffffd340 v25;
+mov [L0x7fffffffd340, L0x7fffffffd344, L0x7fffffffd348, L0x7fffffffd34c] %v25;
 (* sub	v25.4s, v12.4s, v14.4s                      #! PC = 0x555555550e18 *)
 sub %v25 %v12 %v14;
 (* str	q25, [x14]                                  #! EA = L0x7fffffffd3c0; PC = 0x555555550e1c *)
-mov L0x7fffffffd3c0 v25;
+mov [L0x7fffffffd3c0, L0x7fffffffd3c4, L0x7fffffffd3c8, L0x7fffffffd3cc] %v25;
 (* add	x4, x4, #0x4                                #! PC = 0x555555550e20 *)
-add x4 x4 0x4@uint64;
+# add x4 x4 0x4@uint64;
 
 
 (* #b	0x555555550b98 <p1stage1LoopStart>           #! PC = 0x555555550e24 *)
 #b	0x555555550b98 <p1stage1LoopStart>           #! 0x555555550e24 = 0x555555550e24;
 (* cmp	x4, #0x20                                   #! PC = 0x555555550b98 *)
-cmp	%%x4, #0x20                                   #! 0x555555550b98 = 0x555555550b98;
+# cmp	%%x4, #0x20                                   #! 0x555555550b98 = 0x555555550b98;
 (* #b.ge	0x555555550e28 <p1stage2>  // b.tcont     #! PC = 0x555555550b9c *)
 #b.ge	0x555555550e28 <p1stage2>  // b.tcont     #! 0x555555550b9c = 0x555555550b9c;
 (* add	x6, x0, #0x0                                #! PC = 0x555555550ba0 *)
-add x6 x0 0x0@uint64;
+# add x6 x0 0x0@uint64;
 (* add	x7, x4, #0x0                                #! PC = 0x555555550ba4 *)
-add x7 x4 0x0@uint64;
+# add x7 x4 0x0@uint64;
 (* lsl	x7, x7, #2                                  #! PC = 0x555555550ba8 *)
-split dcH x7 x7 (64-2); shl x7 x7 2;
+# split dcH x7 x7 (64-2); shl x7 x7 2;
 (* add	x7, x6, x7                                  #! PC = 0x555555550bac *)
-add x7 x6 x7;
+# add x7 x6 x7;
 (* ldr	q7, [x7]                                    #! EA = L0x7fffffffdc50; Value = 0x0000000500000004; PC = 0x555555550bb0 *)
 mov v7 L0x7fffffffdc50;
 (* add	x8, x4, #0x20                               #! PC = 0x555555550bb4 *)
