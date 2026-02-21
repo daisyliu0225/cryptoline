@@ -508,6 +508,9 @@ mov L0x7fffffffd43c Bff;
 (*constant initialization*)
 // for PRIME1_VEC
 mov L0x555555570850 (133199617)@int32;
+mov L0x555555570854 (133199617)@int32;
+mov L0x555555570858 (133199617)@int32;
+mov L0x55555557085c (133199617)@int32;
 
 // for PRIME1_INVR_VEC
 // mov (2824898817)@int32;
@@ -657,7 +660,7 @@ mov L0x555555570848 ( 717917907)@int32;mov L0x55555557084c ( 513630166)@int32;
 (* ldr	x4, 0x555555551698 <p1INTTEnd+20>           #! PC = 0x555555550b68 *)
 # ldr	%%x4, 0x555555551698 <p1INTTEnd+20>           #! 0x555555550b68 = 0x555555550b68;
 (* ldr	q0, [x4]                                    #! EA = L0x555555570850; Value = 0x07f0770107f07701; PC = 0x555555550b6c *)
-mov %v0 [L0x555555570850, L0x555555570850, L0x555555570850, L0x555555570850];
+mov %v0 [L0x555555570850, L0x555555570854, L0x555555570858, L0x55555557085c];
 
 (* add	x5, x4, x2                                  #! PC = 0x555555550b74 *)
 # add x5 x4 x2;
@@ -830,8 +833,8 @@ cast %v14@int32[4] %v14;
 mull %dc %mls %v26 %v0; cast %mls@int32[4] %mls; subs %dc %v14 %v14 %mls;
 
 assert eqmod %v10 (%v10o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
-       eqmod %v13 (%v13o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
-       eqmod %v14 (%v14o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
+       eqmod %v13 (%v13o0*[%v3[0], %v3[0], %v3[0], %v3[0]]) [Q,Q,Q,Q] /\
+       eqmod %v14 (%v14o0*[%v5[0], %v5[0], %v5[0], %v5[0]]) [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] < %v10 /\ %v10 < [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] < %v13 /\ %v13 < [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] < %v14 /\ %v14 < [Q,Q,Q,Q]
@@ -839,8 +842,8 @@ assert eqmod %v10 (%v10o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
        && true;
 
 assume eqmod %v10 (%v10o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
-       eqmod %v13 (%v13o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
-       eqmod %v14 (%v14o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
+       eqmod %v13 (%v13o0*[%v3[0], %v3[0], %v3[0], %v3[0]]) [Q,Q,Q,Q] /\
+       eqmod %v14 (%v14o0*[%v5[0], %v5[0], %v5[0], %v5[0]]) [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] < %v10 /\ %v10 < [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] < %v13 /\ %v13 < [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] < %v14 /\ %v14 < [Q,Q,Q,Q]
