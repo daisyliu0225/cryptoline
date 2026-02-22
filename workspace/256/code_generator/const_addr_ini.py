@@ -45,8 +45,26 @@ def convert_asm_to_mov(raw_text, target_address_hex):
 
 # --- 使用範例 ---
 
+data0 = """PRIME1_VEC:
+    .word 133199617
+    .word 133199617
+    .word 133199617
+    .word 133199617"""
+print("--- PRIME1_VEC 結果 ---")
+cmt0 = "// for PRIME1_VEC\n"
+output0 = convert_asm_to_mov(data0, "0x555555570450")
+
+data1 = """PRIME1_INVR_VEC:
+    .word 2824898817
+    .word 2824898817
+    .word 2824898817
+    .word 2824898817"""
+print("--- PRIME1_INVR_VEC 結果 ---")
+cmt1 = "// for PRIME1_INVR_VEC\n"
+output1 = convert_asm_to_mov(data1, "0x555555570450")
+
 # 1. 處理 OMEGA_PRIME1
-data1 = """
+data2 = """
 OMEGA_PRIME1:
     .word 1, 41266039, 78540094, 60096819, 3154693, 104293013, 82394379, 3356957
     .word 42360140, 5557235, 52966337, 51486447, 55383685, 36363166, 6624657, 54576737
@@ -66,11 +84,11 @@ OMEGA_PRIME1:
     .word 110855293, 82305866, 26189945, 106163638, 21203102, 129521379, 44529508, 31858376
 """
 print("--- OMEGA_PRIME1 結果 ---")
-cmt1 = "// for OMEGA_PRIME1\n"
-output1 = convert_asm_to_mov(data1, "0x555555570450")
+cmt2 = "// for OMEGA_PRIME1\n"
+output2 = convert_asm_to_mov(data2, "0x555555570450")
 
 # 2. 處理 OMEGA_BARRETT_PRIME1
-data2 = """
+data3 = """
 OMEGA_BARRETT_PRIME1:
     .word 16, 665303294, 1266246640, 968898702, 50860894, 1681442822, 1328386564, 54121854
     .word 682942714, 89595387, 853938961, 830079736, 892912161, 586257724, 106804680, 879902306
@@ -91,11 +109,14 @@ OMEGA_BARRETT_PRIME1:
 """
 print("--- OMEGA_BARRETT_PRIME1 結果 ---")
 # 假設這段要接在後面，或者你有新的地址
-cmt2 = "// for OMEGA_BARRETT_PRIME1\n"
-output2 = convert_asm_to_mov(data2, "0x555555570650")
+cmt3 = "// for OMEGA_BARRETT_PRIME1\n"
+output3 = convert_asm_to_mov(data3, "0x555555570650")
 
 file_name = "const_addr_ini.txt"
 with open(file_name, "w", encoding="utf-8") as f:
-    f.write(cmt1 + output1 + "\n\n" + cmt2 + output2)
+    f.write(cmt0 + output0 + "\n\n" + \
+            cmt1 + output1 + "\n\n" + \
+            cmt2 + output2 + "\n\n" + \
+            cmt3 + output3 )
 
 print(f"成功！內容已寫入 {file_name}")

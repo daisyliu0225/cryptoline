@@ -1,3 +1,191 @@
+pi@pi5:~/Desktop/PQC/cryptoline/workspace/256 $ cv -v -isafety -no_carry_constraint -enable_rewriting:eqmod -vo lex -debug draft2.cl
+Parsing CryptoLine file:                        [OK]            0.0401 seconds
+Checking well-formedness:                       [OK]            0.0116 seconds
+
+Procedure main
+==============
+Transforming to SSA form:                       [OK]            0.0022 seconds
+Normalizing specification:                      [OK]            0.0031 seconds
+Rewriting assignments:                          [OK]            0.0023 seconds
+Verifying program safety:
+        Cut 0
+             Round 1 (32 safety conditions, timeout = 300 seconds)
+                Safety condition #0             [OK]
+                Safety condition #1             [OK]
+                Safety condition #3             [OK]
+                Safety condition #2             [OK]
+                Safety condition #4             [OK]
+                Safety condition #5             [OK]
+                Safety condition #6             [OK]
+                Safety condition #7             [OK]
+                Safety condition #8             [OK]
+                Safety condition #9             [OK]
+                Safety condition #10            [OK]
+                Safety condition #11            [OK]
+                Safety condition #12            [OK]
+                Safety condition #13            [OK]
+                Safety condition #14            [OK]
+                Safety condition #15            [OK]
+                Safety condition #16            [OK]
+                Safety condition #17            [OK]
+                Safety condition #18            [OK]
+                Safety condition #19            [OK]
+                Safety condition #20            [OK]
+                Safety condition #21            [OK]
+                Safety condition #22            [OK]
+                Safety condition #23            [OK]
+                Safety condition #24            [OK]
+                Safety condition #25            [OK]
+                Safety condition #26            [OK]
+                Safety condition #27            [OK]
+                Safety condition #28            [OK]
+                Safety condition #29            [OK]
+                Safety condition #30            [OK]
+                Safety condition #31            [OK]
+        Cut 1
+             Round 1 (24 safety conditions, timeout = 300 seconds)
+                Safety condition #32            [OK]
+                Safety condition #35            [OK]
+                Safety condition #33            [OK]
+                Safety condition #34            [OK]
+                Safety condition #36            [OK]
+                Safety condition #38            [OK]
+                Safety condition #37            [OK]
+                Safety condition #39            [OK]
+                Safety condition #40            [OK]
+                Safety condition #41            [OK]
+                Safety condition #42            [OK]
+                Safety condition #44            [OK]
+                Safety condition #43            [OK]
+                Safety condition #45            [OK]
+                Safety condition #46            [OK]
+                Safety condition #47            [OK]
+                Safety condition #48            [OK]
+                Safety condition #49            [OK]
+                Safety condition #50            [OK]
+                Safety condition #51            [OK]
+                Safety condition #52            [OK]
+                Safety condition #53            [OK]
+                Safety condition #54            [OK]
+                Safety condition #55            [OK]
+        Cut 2
+             Round 1 (100 safety conditions, timeout = 300 seconds)
+                Safety condition #57            [OK]
+                Safety condition #58            [OK]
+                Safety condition #59            [OK]
+                Safety condition #56            [OK]
+                Safety condition #60            [OK]
+                Safety condition #61            [OK]
+                Safety condition #62            [OK]
+                Safety condition #63            [OK]
+                Safety condition #64            [OK]
+                Safety condition #65            [OK]
+                Safety condition #66            [OK]
+                Safety condition #67            [OK]
+                Safety condition #68            [OK]
+                Safety condition #69            [OK]
+                Safety condition #70            [OK]
+                Safety condition #71            [OK]
+                Safety condition #72            [OK]
+                Safety condition #73            [OK]
+                Safety condition #74            [OK]
+                Safety condition #75            [OK]
+                Safety condition #76            [OK]
+                Safety condition #77            [OK]
+                Safety condition #78            [OK]
+                Safety condition #79            [OK]
+                Safety condition #80            [OK]
+                Safety condition #81            [OK]
+                Safety condition #82            [OK]
+                Safety condition #83            [OK]
+                Safety condition #84            [OK]
+                Safety condition #85            [OK]
+                Safety condition #86            [OK]
+                Safety condition #87            [OK]
+                Safety condition #88            [OK]
+                Safety condition #89            [OK]
+                Safety condition #90            [OK]
+                Safety condition #91            [OK]
+                Safety condition #92            [OK]
+                Safety condition #93            [OK]
+                Safety condition #94            [OK]
+                Safety condition #95            [OK]
+                Safety condition #96            [OK]
+                Safety condition #97            [OK]
+                Safety condition #98            [OK]
+                Safety condition #99            [OK]
+                Safety condition #100           [OK]
+                Safety condition #101           [OK]
+                Safety condition #102           [OK]
+                Safety condition #103           [OK]
+                Safety condition #104           [OK]
+                Safety condition #105           [OK]
+                Safety condition #106           [OK]
+                Safety condition #108           [OK]
+                Safety condition #107           [OK]
+                Safety condition #109           [OK]
+                Safety condition #110           [OK]
+                Safety condition #111           [OK]
+                Safety condition #112           [OK]
+                Safety condition #113           [OK]
+                Safety condition #114           [OK]
+                Safety condition #115           [OK]
+                Safety condition #116           [OK]
+                Safety condition #117           [OK]
+                Safety condition #118           [OK]
+                Safety condition #119           [OK]
+                Safety condition #120           [OK]
+                Safety condition #121           [OK]
+                Safety condition #122           [OK]
+                Safety condition #123           [OK]
+                Safety condition #124           [OK]
+                Safety condition #125           [OK]
+                Safety condition #126           [OK]
+                Safety condition #127           [OK]
+                Safety condition #128           [OK]
+                Safety condition #129           [OK]
+                Safety condition #130           [OK]
+                Safety condition #131           [OK]
+                Safety condition #132           [OK]
+                Safety condition #136           [OK]
+                Safety condition #133           [OK]
+                Safety condition #137           [OK]
+                Safety condition #135           [OK]
+                Safety condition #140           [OK]
+                Safety condition #138           [OK]
+                Safety condition #142           [OK]
+                Safety condition #139           [OK]
+                Safety condition #144           [OK]
+                Safety condition #145           [OK]
+                Safety condition #141           [OK]
+                Safety condition #143           [OK]
+                Safety condition #148           [OK]
+                Safety condition #134           [OK]
+                Safety condition #146           [OK]
+                Safety condition #147           [OK]
+                Safety condition #152           [OK]
+                Safety condition #149           [OK]
+                Safety condition #153           [OK]
+                Safety condition #151           [OK]
+                Safety condition #150           [OK]
+                Safety condition #155           [OK]
+                Safety condition #154           [OK]
+        Overall                                 [OK]            54.9425 seconds
+Verifying range assertions:                     [OK]            0.0012 seconds
+Verifying range specification:                  [OK]            0.0086 seconds
+Rewriting value-preserved casting:              [OK]            0.0004 seconds
+Verifying algebraic assertions:                 [OK]            10.8170 seconds
+Verifying algebraic specification:              [OK]            0.0066 seconds
+
+Procedure Summary
+-----------------
+Procedure verification:                         [OK]            65.7916 seconds
+
+Summary
+=======
+Verification result:                            [OK]            65.8445 seconds
+
+
 (*A is the first number and B is the second number*)
 proc main (
 int32 A00,int32 A01,int32 A02,int32 A03,int32 A04,int32 A05,int32 A06,int32 A07,
@@ -197,7 +385,7 @@ int32 Q, int32 Q2, int32 NQ, int32 NQ2
   [NQ2,NQ2,NQ2,NQ2,NQ2,NQ2,NQ2,NQ2] < [Bf8,Bf9,Bfa,Bfb,Bfc,Bfd,Bfe,Bff] /\
   [Bf8,Bf9,Bfa,Bfb,Bfc,Bfd,Bfe,Bff] < [Q2,Q2,Q2,Q2,Q2,Q2,Q2,Q2]
   &&
-  Q2 = (133199617)@32 /\ NQ2 = (-133199617)@32 /\
+  Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
   [NQ2,NQ2,NQ2,NQ2,NQ2,NQ2,NQ2,NQ2] <s [A00,A01,A02,A03,A04,A05,A06,A07] /\
   [A00,A01,A02,A03,A04,A05,A06,A07] <s [Q2,Q2,Q2,Q2,Q2,Q2,Q2,Q2] /\
   [NQ2,NQ2,NQ2,NQ2,NQ2,NQ2,NQ2,NQ2] <s [A08,A09,A0a,A0b,A0c,A0d,A0e,A0f] /\
@@ -682,25 +870,18 @@ mov %v6 [L0x55555557065c, L0x55555557065c, L0x55555557065c, L0x55555557065c];
 
 (* ldr	q7, [x7]                                    #! EA = L0x7fffffffdc40; Value = 0x0000000100000000; PC = 0x555555550bb0 *)
 mov %v7 [L0x7fffffffdc40, L0x7fffffffdc44, L0x7fffffffdc48, L0x7fffffffdc4c];
-
 (* ldr	q8, [x8]                                    #! EA = L0x7fffffffdcc0; Value = 0x0000002100000020; PC = 0x555555550bc0 *)
 mov %v8 [L0x7fffffffdcc0, L0x7fffffffdcc4, L0x7fffffffdcc8, L0x7fffffffdccc];
-
 (* ldr	q9, [x9]                                    #! EA = L0x7fffffffdd40; Value = 0x0000004100000040; PC = 0x555555550bd0 *)
 mov %v9 [L0x7fffffffdd40, L0x7fffffffdd44, L0x7fffffffdd48, L0x7fffffffdd4c];
-
 (* ldr	q10, [x10]                                  #! EA = L0x7fffffffddc0; Value = 0x0000006100000060; PC = 0x555555550be0 *)
 mov %v10 [L0x7fffffffddc0, L0x7fffffffddc4, L0x7fffffffddc8, L0x7fffffffddcc];
-
 (* ldr	q11, [x11]                                  #! EA = L0x7fffffffde40; Value = 0x0000008100000080; PC = 0x555555550bf0 *)
 mov %v11 [L0x7fffffffde40, L0x7fffffffde44, L0x7fffffffde48, L0x7fffffffde4c];
-
 (* ldr	q12, [x12]                                  #! EA = L0x7fffffffdec0; Value = 0x000000a1000000a0; PC = 0x555555550c00 *)
 mov %v12 [L0x7fffffffdec0, L0x7fffffffdec4, L0x7fffffffdec8, L0x7fffffffdecc];
-
 (* ldr	q13, [x13]                                  #! EA = L0x7fffffffdf40; Value = 0x000000c1000000c0; PC = 0x555555550c10 *)
 mov %v13 [L0x7fffffffdf40, L0x7fffffffdf44, L0x7fffffffdf48, L0x7fffffffdf4c];
-
 (* ldr	q14, [x14]                                  #! EA = L0x7fffffffdfc0; Value = 0x000000e1000000e0; PC = 0x555555550c20 *)
 mov %v14 [L0x7fffffffdfc0, L0x7fffffffdfc4, L0x7fffffffdfc8, L0x7fffffffdfcc];
 
@@ -720,14 +901,56 @@ sub %v20 %v9 %v13;
 add %v21 %v10 %v14;
 (* sub	v22.4s, v10.4s, v14.4s                      #! PC = 0x555555550c40 *)
 sub %v22 %v10 %v14;
-(* add	v7.4s, v15.4s, v19.4s                       #! PC = 0x555555550c44 *)
-add %v7 %v15 %v19;
-(* sub	v8.4s, v15.4s, v19.4s                       #! PC = 0x555555550c48 *)
-sub %v8 %v15 %v19;
-(* add	v9.4s, v17.4s, v21.4s                       #! PC = 0x555555550c4c *)
-add %v9 %v17 %v21;
-(* sub	v10.4s, v17.4s, v21.4s                      #! PC = 0x555555550c50 *)
-sub %v10 %v17 %v21;
+
+assert [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v15 /\ %v15 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v16 /\ %v16 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v17 /\ %v17 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v18 /\ %v18 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v19 /\ %v19 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v20 /\ %v20 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v22 /\ %v22 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
+       prove with [algebra solver isl, precondition]
+       && true;
+
+assume [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v15 /\ %v15 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v16 /\ %v16 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v17 /\ %v17 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v18 /\ %v18 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v19 /\ %v19 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v20 /\ %v20 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v22 /\ %v22 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
+       &&[NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v15 /\ %v15 <s[Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v16 /\ %v16 <s[Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v17 /\ %v17 <s[Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v18 /\ %v18 <s[Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v19 /\ %v19 <s[Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v20 /\ %v20 <s[Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v21 /\ %v21 <s[Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v22 /\ %v22 <s[Q+Q2,Q+Q2,Q+Q2,Q+Q2];
+
+(* CUT 0 *)
+cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v15 /\ %v15 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v16 /\ %v16 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v17 /\ %v17 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v18 /\ %v18 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v19 /\ %v19 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v20 /\ %v20 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v22 /\ %v22 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
+    && 
+    Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v15 /\ %v15 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v16 /\ %v16 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v17 /\ %v17 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v18 /\ %v18 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v19 /\ %v19 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v20 /\ %v20 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v21 /\ %v21 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v22 /\ %v22 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
+    prove with [precondition];
 
 ghost %v20o0@int32[4], %v22o0@int32[4]:
   %v20o0 = %v20 /\ %v22o0 = %v22 
@@ -759,6 +982,12 @@ mull %dc %mls %v26 %v0; cast %mls@int32[4] %mls; subs %dc %v22 %v22 %mls;
 
 assert eqmod %v20 (%v20o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
        eqmod %v22 (%v22o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v15 /\ %v15 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v16 /\ %v16 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v17 /\ %v17 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v18 /\ %v18 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v19 /\ %v19 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
        [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] < %v22 /\ %v22 < [Q,Q,Q,Q]
        prove with [algebra solver isl, precondition]
@@ -766,12 +995,55 @@ assert eqmod %v20 (%v20o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
 
 assume eqmod %v20 (%v20o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
        eqmod %v22 (%v22o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v15 /\ %v15 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v16 /\ %v16 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v17 /\ %v17 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v18 /\ %v18 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v19 /\ %v19 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
        [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] < %v22 /\ %v22 < [Q,Q,Q,Q]
-       && 
+       &&
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v15 /\ %v15 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v16 /\ %v16 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v17 /\ %v17 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v18 /\ %v18 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v19 /\ %v19 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v21 /\ %v21 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
        [NQ,NQ,NQ,NQ] <s %v20 /\ %v20 <s [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] <s %v22 /\ %v22 <s [Q,Q,Q,Q];
 
+(* CUT 1 *)
+cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
+    eqmod %v20 (%v20o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
+    eqmod %v22 (%v22o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v15 /\ %v15 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v16 /\ %v16 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v17 /\ %v17 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v18 /\ %v18 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v19 /\ %v19 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] < %v22 /\ %v22 < [Q,Q,Q,Q]
+ && Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v15 /\ %v15 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v16 /\ %v16 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v17 /\ %v17 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v18 /\ %v18 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v19 /\ %v19 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v21 /\ %v21 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ,NQ,NQ,NQ] <s %v20 /\ %v20 <s [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] <s %v22 /\ %v22 <s [Q,Q,Q,Q]
+    prove with [precondition];
+
+(* add	v7.4s, v15.4s, v19.4s                       #! PC = 0x555555550c44 *)
+add %v7 %v15 %v19;
+(* sub	v8.4s, v15.4s, v19.4s                       #! PC = 0x555555550c48 *)
+sub %v8 %v15 %v19;
+(* add	v9.4s, v17.4s, v21.4s                       #! PC = 0x555555550c4c *)
+add %v9 %v17 %v21;
+(* sub	v10.4s, v17.4s, v21.4s                      #! PC = 0x555555550c50 *)
+sub %v10 %v17 %v21;
 
 (* add	v11.4s, v16.4s, v20.4s                      #! PC = 0x555555550c6c *)
 add %v11 %v16 %v20;
@@ -851,6 +1123,7 @@ assume eqmod %v10 (%v10o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] <s %v10 /\ %v10 <s [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] <s %v13 /\ %v13 <s [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] <s %v14 /\ %v14 <s [Q,Q,Q,Q];
+
 
 (* add	v25.4s, v8.4s, v10.4s                       #! PC = 0x555555550cb0 *)
 add %v25 %v8 %v10;
