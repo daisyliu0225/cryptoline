@@ -254,34 +254,21 @@ p1stage1LoopStart:
 
     // store j_0
     add v25.4S, v7.4S, v9.4S
-    str q25, [x7]
-
-    // store j_32
     sub v7.4S, v7.4S, v9.4S
-    str q7, [x8]
-    
-    // store j_64
     add v9.4S, v8.4S, v10.4S
-    str q9, [x9]
-
-    // store j_96
     sub v8.4S, v8.4S, v10.4S
-    str q8, [x10]
-
-    // store j_128
     add v10.4S, v11.4S, v13.4S
-    str q10, [x11]
-
-    // store j_160
     sub v11.4S, v11.4S, v13.4S
-    str q11, [x12]
-
-    // store j_192
     add v13.4S, v12.4S, v14.4S
-    str q13, [x13]
-
-    // store j_224
     sub v12.4S, v12.4S, v14.4S
+
+    str q25, [x7]
+    str q7, [x8]
+    str q9, [x9]
+    str q8, [x10]
+    str q10, [x11]
+    str q11, [x12]
+    str q13, [x13]
     str q12, [x14]
 
     // start operation 2 !!!

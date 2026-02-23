@@ -52,7 +52,7 @@ data0 = """PRIME1_VEC:
     .word 133199617"""
 print("--- PRIME1_VEC 結果 ---")
 cmt0 = "// for PRIME1_VEC\n"
-output0 = convert_asm_to_mov(data0, "0x555555570450")
+output0 = convert_asm_to_mov(data0, "0x555555570850")
 
 data1 = """PRIME1_INVR_VEC:
     .word 2824898817
@@ -61,7 +61,7 @@ data1 = """PRIME1_INVR_VEC:
     .word 2824898817"""
 print("--- PRIME1_INVR_VEC 結果 ---")
 cmt1 = "// for PRIME1_INVR_VEC\n"
-output1 = convert_asm_to_mov(data1, "0x555555570450")
+output1 = convert_asm_to_mov(data1, "0x555555570860")
 
 # 1. 處理 OMEGA_PRIME1
 data2 = """
