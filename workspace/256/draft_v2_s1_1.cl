@@ -826,7 +826,7 @@ assert eqmod %v20 (%v20o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
        [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
        [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
        [NQ,NQ,NQ,NQ] < %v22 /\ %v22 < [Q,Q,Q,Q]
-       prove with [algebra solver isl, precondition]
+       prove with [algebra solver isl, precondition, cuts[0]]
        && true;
 
 assume eqmod %v20 (%v20o0*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
@@ -873,7 +873,7 @@ cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
     [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v21 /\ %v21 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
     [NQ,NQ,NQ,NQ] <s %v20 /\ %v20 <s [Q,Q,Q,Q] /\
     [NQ,NQ,NQ,NQ] <s %v22 /\ %v22 <s [Q,Q,Q,Q]
-    prove with [cuts [1]];
+    prove with [precondition, cuts [1]];
 
 ghost %v15o0@int32[4], %v16o0@int32[4], %v17o0@int32[4], %v18o0@int32[4],
        %v19o0@int32[4],%v20o1@int32[4],%v21o0@int32[4],%v22o1@int32[4]:
