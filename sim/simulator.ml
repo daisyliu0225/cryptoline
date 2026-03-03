@@ -29,6 +29,8 @@ let slice_size = ref 20
 
 let vec_scalar_prefix = "VEC_"
 
+let find_truncate_at = ref 70
+
 type option_spec =
   OInt of (int -> unit)
 | OBool of (bool -> unit)
@@ -39,6 +41,19 @@ type option_kind =
     odesc : string;          (** the description the option *)
     ospec : option_spec;     (** specification of the option *)
     oprint : unit -> unit    (** print the current value of the option *)
+  }
+
+let option_find_truncate_at =
+  {
+    oname = "find_truncate_at";
+    odesc = "The maximum character limit for each printed instruction (0 for unlimited characters)";
+    ospec = OInt (
+        fun n ->
+          if n >= 0 then
+            find_truncate_at := n
+          else raise (InvalidArgument "The limit must be non-negative.")
+      );
+    oprint = fun _ -> Printf.printf "find_truncate_at = %d\n" !find_truncate_at
   }
 
 let option_num_prev_instrs_to_print =
@@ -97,7 +112,8 @@ let get_options () =
 
 let _ = List.iter register_option [
             option_num_prev_instrs_to_print; option_num_next_instrs_to_print;
-            option_rewrite_assignments; option_print_hexadecimal; option_slice_size
+            option_rewrite_assignments; option_print_hexadecimal; option_slice_size;
+            option_find_truncate_at
           ]
 
 (* Convert an argument to an integer. Raise InvalidArgument if the argument is not a valid integer. *)
@@ -174,15 +190,22 @@ let string_of_vec_var x =
 (* print from the value of x[0], i.e. vs[0] *)
 let string_of_vec_var_with_value x vs =
   let is_signed = typ_is_signed x.velmtyp in
-  let bits_values = tmap format_bits vs in
-  let int_values = tmap (format_as_int is_signed) vs in
-  Printf.sprintf "%s@%s[%d]: %s (%s %s)"
+  let signed_str = if is_signed then "signed" else "unsigned" in
+  let elm_bits_values = tmap format_bits vs in
+  let elm_int_values = tmap (format_as_int is_signed) vs in
+  let all_bits = tflatten vs in
+  let vec_bits_value = format_bits all_bits in
+  let vec_int_value = format_as_int is_signed all_bits in
+  Printf.sprintf "%s@%s[%d]:\n  - vec : %s (%s %s)\n  - elms: %s (%s %s)"
     x.vecname
     (string_of_typ x.velmtyp)
     x.velmnum
-    (String.concat " " bits_values)
-    (if is_signed then "signed" else "unsigned")
-    (String.concat " " int_values)
+    vec_bits_value
+    signed_str
+    vec_int_value
+    (String.concat " " elm_bits_values)
+    signed_str
+    (String.concat " " elm_int_values)
 
 let dump_map m =
   VM.iter (fun x v -> print_endline (string_of_var_with_value x v)) m
@@ -527,7 +550,15 @@ exception NoMoreInstr
 exception VarNotFound
 exception ValueNotFound
 
-let print_indexed_instr (k, i) = print_endline ("Instr #" ^ string_of_int k ^ ": " ^ string_of_instr i)
+let print_indexed_instr (k, i) =
+  let str_i =
+    let str = string_of_instr i in
+    let len = String.length str in
+    if !find_truncate_at > 0 && len > !find_truncate_at then
+      Printf.sprintf "%s..." (String.sub str 0 !find_truncate_at)
+    else
+      str in
+  Printf.printf "Instr #%d:\n  %s\n" k str_i
 
 class shellManager = fun m p ->
   let add_instr_id p = List.mapi (fun i instr -> (i, instr)) p in
