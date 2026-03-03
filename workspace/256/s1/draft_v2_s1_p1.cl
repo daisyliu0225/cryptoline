@@ -1118,8 +1118,37 @@ mov [L0x7fffffffe190, L0x7fffffffe194, L0x7fffffffe198, L0x7fffffffe19c] %v13;
 mov [L0x7fffffffe210, L0x7fffffffe214, L0x7fffffffe218, L0x7fffffffe21c] %v12;
 
 {
-  true
-  &&
-  true
+  [6*NQ,6*NQ,6*NQ,6*NQ] < [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] /\ 
+  [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] < [6*Q,6*Q,6*Q,6*Q] /\
+  [6*NQ,6*NQ,6*NQ,6*NQ] < [L0x7fffffffdf10, L0x7fffffffdf14, L0x7fffffffdf18, L0x7fffffffdf1c] /\ 
+  [L0x7fffffffdf10, L0x7fffffffdf14, L0x7fffffffdf18, L0x7fffffffdf1c] < [6*Q,6*Q,6*Q,6*Q] /\
+  [4*NQ,4*NQ,4*NQ,4*NQ] < [L0x7fffffffe010, L0x7fffffffe014, L0x7fffffffe018, L0x7fffffffe01c] /\ 
+  [L0x7fffffffe010, L0x7fffffffe014, L0x7fffffffe018, L0x7fffffffe01c] < [4*Q,4*Q,4*Q,4*Q] /\
+  [4*NQ,4*NQ,4*NQ,4*NQ] < [L0x7fffffffdf90, L0x7fffffffdf94, L0x7fffffffdf98, L0x7fffffffdf9c] /\ 
+  [L0x7fffffffdf90, L0x7fffffffdf94, L0x7fffffffdf98, L0x7fffffffdf9c] < [4*Q,4*Q,4*Q,4*Q] /\
+  [3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2] < [L0x7fffffffe090, L0x7fffffffe094, L0x7fffffffe098, L0x7fffffffe09c] /\
+  [L0x7fffffffe090, L0x7fffffffe094, L0x7fffffffe098, L0x7fffffffe09c] < [3*Q+Q2,3*Q+Q2,3*Q+Q2,3*Q+Q2] /\
+  [3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2] < [L0x7fffffffe110, L0x7fffffffe114, L0x7fffffffe118, L0x7fffffffe11c] /\
+  [L0x7fffffffe110, L0x7fffffffe114, L0x7fffffffe118, L0x7fffffffe11c] < [3*Q+Q2,3*Q+Q2,3*Q+Q2,3*Q+Q2] /\
+  [3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2] < [L0x7fffffffe210, L0x7fffffffe214, L0x7fffffffe218, L0x7fffffffe21c] /\
+  [L0x7fffffffe210, L0x7fffffffe214, L0x7fffffffe218, L0x7fffffffe21c] < [3*Q+Q2,3*Q+Q2,3*Q+Q2,3*Q+Q2] /\
+  [3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2] < [L0x7fffffffe190, L0x7fffffffe194, L0x7fffffffe198, L0x7fffffffe19c] /\
+  [L0x7fffffffe190, L0x7fffffffe194, L0x7fffffffe198, L0x7fffffffe19c] < [3*Q+Q2,3*Q+Q2,3*Q+Q2,3*Q+Q2]
+  &&[NQ*6@32,NQ*6@32,NQ*6@32,NQ*6@32] <s [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] /\
+  [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] <s [Q*6@32,Q*6@32,Q*6@32,Q*6@32] /\
+  [NQ*6@32,NQ*6@32,NQ*6@32,NQ*6@32] <s [L0x7fffffffdf10, L0x7fffffffdf14, L0x7fffffffdf18, L0x7fffffffdf1c] /\ 
+  [L0x7fffffffdf10, L0x7fffffffdf14, L0x7fffffffdf18, L0x7fffffffdf1c] <s [Q*6@32,Q*6@32,Q*6@32,Q*6@32] /\
+  [NQ*4@32,NQ*4@32,NQ*4@32,NQ*4@32] <s [L0x7fffffffe010, L0x7fffffffe014, L0x7fffffffe018, L0x7fffffffe01c] /\ 
+  [L0x7fffffffe010, L0x7fffffffe014, L0x7fffffffe018, L0x7fffffffe01c] <s [Q*4@32,Q*4@32,Q*4@32,Q*4@32] /\
+  [NQ*4@32,NQ*4@32,NQ*4@32,NQ*4@32] <s [L0x7fffffffdf90, L0x7fffffffdf94, L0x7fffffffdf98, L0x7fffffffdf9c] /\ 
+  [L0x7fffffffdf90, L0x7fffffffdf94, L0x7fffffffdf98, L0x7fffffffdf9c] <s [Q*4@32,Q*4@32,Q*4@32,Q*4@32] /\
+  [NQ*3@32+NQ2,NQ*3@32+NQ2,NQ*3@32+NQ2,NQ*3@32+NQ2] <s [L0x7fffffffe090, L0x7fffffffe094, L0x7fffffffe098, L0x7fffffffe09c] /\
+  [L0x7fffffffe090, L0x7fffffffe094, L0x7fffffffe098, L0x7fffffffe09c] <s [Q*3@32+Q2,Q*3@32+Q2,Q*3@32+Q2,Q*3@32+Q2] /\
+  [NQ*3@32+NQ2,NQ*3@32+NQ2,NQ*3@32+NQ2,NQ*3@32+NQ2] <s [L0x7fffffffe110, L0x7fffffffe114, L0x7fffffffe118, L0x7fffffffe11c] /\
+  [L0x7fffffffe110, L0x7fffffffe114, L0x7fffffffe118, L0x7fffffffe11c] <s [Q*3@32+Q2,Q*3@32+Q2,Q*3@32+Q2,Q*3@32+Q2] /\
+  [NQ*3@32+NQ2,NQ*3@32+NQ2,NQ*3@32+NQ2,NQ*3@32+NQ2] <s [L0x7fffffffe210, L0x7fffffffe214, L0x7fffffffe218, L0x7fffffffe21c] /\
+  [L0x7fffffffe210, L0x7fffffffe214, L0x7fffffffe218, L0x7fffffffe21c] <s [Q*3@32+Q2,Q*3@32+Q2,Q*3@32+Q2,Q*3@32+Q2] /\
+  [NQ*3@32+NQ2,NQ*3@32+NQ2,NQ*3@32+NQ2,NQ*3@32+NQ2] <s [L0x7fffffffe190, L0x7fffffffe194, L0x7fffffffe198, L0x7fffffffe19c] /\
+  [L0x7fffffffe190, L0x7fffffffe194, L0x7fffffffe198, L0x7fffffffe19c] <s [Q*3@32+Q2,Q*3@32+Q2,Q*3@32+Q2,Q*3@32+Q2]
 }
 
