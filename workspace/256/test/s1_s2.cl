@@ -7759,7 +7759,7 @@ mov [L0x7fffffffd680, L0x7fffffffd684, L0x7fffffffd688, L0x7fffffffd68c] %v12;
 (* CUT 79 *)
 cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809
 && Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32
-   prove with [precondition, all cuts];
+   prove with [all cuts];
 
 
 // prime 1 stage 2 loop 1

@@ -1117,6 +1117,25 @@ mov [L0x7fffffffe190, L0x7fffffffe194, L0x7fffffffe198, L0x7fffffffe19c] %v13;
 (* str	q12, [x14]                                  #! EA = L0x7fffffffe210; PC = 0x555555550cdc *)
 mov [L0x7fffffffe210, L0x7fffffffe214, L0x7fffffffe218, L0x7fffffffe21c] %v12;
 
+assert and [
+       L0x7fffffffde90 = A00+A20+A40+A60+A80+Aa0+Ac0+Ae0 (mod Q), 
+       L0x7fffffffdf10 = A00-A20+A40-A60+A80-Aa0+Ac0-Ae0 (mod Q),
+       L0x7fffffffdf90 = A00+A20*(41266039)+A40*(41266039**2)+A60*(41266039**3)
+       +A80*(41266039**4)+Aa0*(41266039**5)+Ac0*(41266039**6)+Ae0*(41266039**7) (mod Q),
+       L0x7fffffffe010 = A00+A20*(-41266039)+A40*((-41266039)**2)+A60*((-41266039)**3)
+       +A80*((-41266039)**4)+Aa0*((-41266039)**5)+Ac0*((-41266039)**6)+Ae0*((-41266039)**7) (mod Q), 
+       L0x7fffffffe090 = A00+A20*(78540094)+A40*(78540094**2)+A60*(78540094**3)
+       +A80*(78540094**4)+Aa0*(78540094**5)+Ac0*(78540094**6)+Ae0*(78540094**7) (mod Q), 
+       L0x7fffffffe110 = A00+A20*(-78540094)+A40*((-78540094)**2)+A60*((-78540094)**3)
+       +A80*((-78540094)**4)+Aa0*((-78540094)**5)+Ac0*((-78540094)**6)+Ae0*((-78540094)**7) (mod Q), 
+       L0x7fffffffe190 = A00+A20*(60096819)+A40*(60096819**2)+A60*(60096819**3)
+       +A80*(60096819**4)+Aa0*(60096819**5)+Ac0*(60096819**6)+Ae0*(60096819**7) (mod Q), 
+       L0x7fffffffe210 = A00+A20*(-60096819)+A40*((-60096819)**2)+A60*((-60096819)**3)
+       +A80*((-60096819)**4)+Aa0*((-60096819)**5)+Ac0*((-60096819)**6)+Ae0*((-60096819)**7) (mod Q)
+]
+prove with [all cuts, all ghosts]
+&& true;
+
 {
   [6*NQ,6*NQ,6*NQ,6*NQ] < [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] /\ 
   [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] < [6*Q,6*Q,6*Q,6*Q] /\
@@ -1134,7 +1153,8 @@ mov [L0x7fffffffe210, L0x7fffffffe214, L0x7fffffffe218, L0x7fffffffe21c] %v12;
   [L0x7fffffffe210, L0x7fffffffe214, L0x7fffffffe218, L0x7fffffffe21c] < [3*Q+Q2,3*Q+Q2,3*Q+Q2,3*Q+Q2] /\
   [3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2,3*NQ+NQ2] < [L0x7fffffffe190, L0x7fffffffe194, L0x7fffffffe198, L0x7fffffffe19c] /\
   [L0x7fffffffe190, L0x7fffffffe194, L0x7fffffffe198, L0x7fffffffe19c] < [3*Q+Q2,3*Q+Q2,3*Q+Q2,3*Q+Q2]
-  &&[NQ*6@32,NQ*6@32,NQ*6@32,NQ*6@32] <s [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] /\
+  &&
+  [NQ*6@32,NQ*6@32,NQ*6@32,NQ*6@32] <s [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] /\
   [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] <s [Q*6@32,Q*6@32,Q*6@32,Q*6@32] /\
   [NQ*6@32,NQ*6@32,NQ*6@32,NQ*6@32] <s [L0x7fffffffdf10, L0x7fffffffdf14, L0x7fffffffdf18, L0x7fffffffdf1c] /\ 
   [L0x7fffffffdf10, L0x7fffffffdf14, L0x7fffffffdf18, L0x7fffffffdf1c] <s [Q*6@32,Q*6@32,Q*6@32,Q*6@32] /\
