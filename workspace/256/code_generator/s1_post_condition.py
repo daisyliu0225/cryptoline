@@ -15,7 +15,7 @@ def generate_code(base_L_str, base_var_str):
     ]
     
     # 變數的中間固定字元
-    h_vals = ['0', '2', '4', '6', '8', 'a', 'c', 'e']
+    h_vals = ['1', '3', '5', '7', '9', 'b', 'd', 'f']
     
     lines = []
     for block_idx, root in enumerate(roots):
@@ -65,6 +65,11 @@ def generate_code(base_L_str, base_var_str):
 
 # 寫檔時你可以直接連續呼叫：
 with open("output.txt", "w") as f:
-    f.write(generate_code("L0x7fffffffde90", "A00") + "\n\n")
-    f.write(generate_code("L0x7fffffffd290", "B00") + "\n\n")
-    f.write(generate_code("L0x7fffffffdea0", "A04") + "\n\n")
+    # f.write(generate_code("L0x7fffffffded0", "A10") + "\n\n")
+    # f.write(generate_code("L0x7fffffffd2d0", "B10") + "\n\n")
+    # f.write(generate_code("L0x7fffffffdee0", "A14") + "\n\n")
+    # f.write(generate_code("L0x7fffffffd2e0", "B14") + "\n\n")
+    # f.write(generate_code("L0x7fffffffdef0", "A18") + "\n\n")
+    # f.write(generate_code("L0x7fffffffd2f0", "B18") + "\n\n")
+    f.write(generate_code("L0x7fffffffdf00", "A1c") + "\n\n")
+    # f.write(generate_code("L0x7fffffffd300", "B1c") + "\n\n")
