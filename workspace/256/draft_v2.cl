@@ -7554,6 +7554,8 @@ add x4 x4 0x20@uint64;
 #b	0x555555550e2c <p1stage2LoopStart>           #! 0x5555555510fc = 0x5555555510fc;
 (* cmp	x4, #0x100                                  #! PC = 0x555555550e2c *)
 cmp	%%x4, #0x100                                  #! 0x555555550e2c = 0x555555550e2c;
+
+// prime 1 stage 2 loop 2
 (* #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! PC = 0x555555550e30 *)
 #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! 0x555555550e30 = 0x555555550e30;
 (* mov	x5, x4                                      #! PC = 0x555555550e34 *)
@@ -7988,6 +7990,8 @@ add x4 x4 0x20@uint64;
 #b	0x555555550e2c <p1stage2LoopStart>           #! 0x5555555510fc = 0x5555555510fc;
 (* cmp	x4, #0x100                                  #! PC = 0x555555550e2c *)
 cmp	%%x4, #0x100                                  #! 0x555555550e2c = 0x555555550e2c;
+
+// prime 1 stage 2 loop 3
 (* #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! PC = 0x555555550e30 *)
 #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! 0x555555550e30 = 0x555555550e30;
 (* mov	x5, x4                                      #! PC = 0x555555550e34 *)
@@ -8422,6 +8426,8 @@ add x4 x4 0x20@uint64;
 #b	0x555555550e2c <p1stage2LoopStart>           #! 0x5555555510fc = 0x5555555510fc;
 (* cmp	x4, #0x100                                  #! PC = 0x555555550e2c *)
 cmp	%%x4, #0x100                                  #! 0x555555550e2c = 0x555555550e2c;
+
+// prime 1 stage 2 loop 4
 (* #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! PC = 0x555555550e30 *)
 #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! 0x555555550e30 = 0x555555550e30;
 (* mov	x5, x4                                      #! PC = 0x555555550e34 *)
@@ -8856,6 +8862,8 @@ add x4 x4 0x20@uint64;
 #b	0x555555550e2c <p1stage2LoopStart>           #! 0x5555555510fc = 0x5555555510fc;
 (* cmp	x4, #0x100                                  #! PC = 0x555555550e2c *)
 cmp	%%x4, #0x100                                  #! 0x555555550e2c = 0x555555550e2c;
+
+// // prime 1 stage 2 loop 5
 (* #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! PC = 0x555555550e30 *)
 #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! 0x555555550e30 = 0x555555550e30;
 (* mov	x5, x4                                      #! PC = 0x555555550e34 *)
@@ -9290,6 +9298,8 @@ add x4 x4 0x20@uint64;
 #b	0x555555550e2c <p1stage2LoopStart>           #! 0x5555555510fc = 0x5555555510fc;
 (* cmp	x4, #0x100                                  #! PC = 0x555555550e2c *)
 cmp	%%x4, #0x100                                  #! 0x555555550e2c = 0x555555550e2c;
+
+// prime 1 stage 2 loop 6
 (* #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! PC = 0x555555550e30 *)
 #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! 0x555555550e30 = 0x555555550e30;
 (* mov	x5, x4                                      #! PC = 0x555555550e34 *)
@@ -9724,6 +9734,8 @@ add x4 x4 0x20@uint64;
 #b	0x555555550e2c <p1stage2LoopStart>           #! 0x5555555510fc = 0x5555555510fc;
 (* cmp	x4, #0x100                                  #! PC = 0x555555550e2c *)
 cmp	%%x4, #0x100                                  #! 0x555555550e2c = 0x555555550e2c;
+
+// prime 1 stage 2 loop 7
 (* #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! PC = 0x555555550e30 *)
 #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! 0x555555550e30 = 0x555555550e30;
 (* mov	x5, x4                                      #! PC = 0x555555550e34 *)
@@ -10158,6 +10170,8 @@ add x4 x4 0x20@uint64;
 #b	0x555555550e2c <p1stage2LoopStart>           #! 0x5555555510fc = 0x5555555510fc;
 (* cmp	x4, #0x100                                  #! PC = 0x555555550e2c *)
 cmp	%%x4, #0x100                                  #! 0x555555550e2c = 0x555555550e2c;
+
+// prime 1 stage 2 loop 8
 (* #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! PC = 0x555555550e30 *)
 #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! 0x555555550e30 = 0x555555550e30;
 (* mov	x5, x4                                      #! PC = 0x555555550e34 *)
@@ -10592,6 +10606,8 @@ add x4 x4 0x20@uint64;
 #b	0x555555550e2c <p1stage2LoopStart>           #! 0x5555555510fc = 0x5555555510fc;
 (* cmp	x4, #0x100                                  #! PC = 0x555555550e2c *)
 cmp	%%x4, #0x100                                  #! 0x555555550e2c = 0x555555550e2c;
+
+// end of stage 2
 (* #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! PC = 0x555555550e30 *)
 #b.ge	0x555555551100 <p1stage3>  // b.tcont     #! 0x555555550e30 = 0x555555550e30;
 (* ldr	x2, 0x5555555516a0 <p1INTTEnd+28>           #! PC = 0x555555551100 *)
