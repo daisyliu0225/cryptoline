@@ -58,5 +58,5 @@ def generate_to_file(filename, start_reg_hex, start_var, twiddle_factors):
     print(f"✅ 修正版任務完成！變數已對齊兩位 hex，輸出至 {filename}")
 
 # --- 執行 ---
-tf = [133173002, 68413797, 90187388, 117362868]
-generate_to_file("output.txt", "L0x7fffffffd490", "B80", [133173002, 68413797, 90187388, 117362868])
+tf = [83385064, 22754032, 41046853, 115167747]
+generate_to_file("output.txt", "L0x7fffffffd610", "Be0", tf)
