@@ -1,0 +1,17 @@
+(*
+mov [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] %v0;
+(* #! <- SP = 0x7fffffffe930 *)
+#! 0x7fffffffe930 = 0x7fffffffe930;
+(* #ret                                            #! PC = 0x555555550804 *)
+#ret                                            #! 0x555555550804 = 0x555555550804;
+
+{
+  true
+  &&
+  and [
+    Q = 133199617@32, Q2 = 66599809@32, NQ = (-133199617)@32, NQ2 = (-66599809)@32, 
+    [NQ, NQ, NQ, NQ] < [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c], 
+    [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c] < [Q,Q,Q,Q]
+  ]
+}
+*)

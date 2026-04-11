@@ -72,10 +72,10 @@ PRIME1_VEC:
     .word 133199617
 
 PRIME1_INVR_VEC:
-    .word 2824898817
-    .word 2824898817
-    .word 2824898817
-    .word 2824898817
+    .word -1470068479
+    .word -1470068479
+    .word -1470068479
+    .word -1470068479
 
 OMEGA_INV_PRIME1:
     .word 1
@@ -111,7 +111,6 @@ OMEGA_INV_BARRETT_PRIME1:
     .space  (64 * 4) // 64
     .word   16, 1633853481, 1311474162, 562940499, 290715144, 176481697, 1164747791, 312802222, 1267581341, 1278559060, 1701483014, 268111041, 1639108124, 1853250924, 2027760945, 1549583142, 2093361793, 435882055, 297578035, 1380576483, 1407908934, 2025387888, 1125652706, 57477935, 1317403911, 403842861, 825304699, 1077814356, 255324754, 87288125, 252761261, 21583610, 1178584945, 59301641, 1183910381, 108845908, 1780636409, 1485767596, 327463919, 446436903, 1561225923, 1831941779, 1362629208, 638943324, 188990905, 1659339348, 759213169, 844687859, 466040825, 820524116, 1007106206, 1160408233, 874387159, 1686568858, 1697777336, 1368649435, 2057888260, 1290121246, 686824366, 1403094946, 1044496164, 1223085271, 515483231, 1684852543, 1482180353, 1429565740, 1342773149, 305498242, 1485714135, 570564523, 252499757, 1013820271, 2040678967, 264873877, 1658349762, 171421714, 985111202, 190088544, 166556279, 468058659, 819097083, 1725241603, 876415586, 1385054902, 766011296, 1569377388, 294877937, 353921687, 1293544686, 1829437342, 1065298956, 1573705322, 693455886, 1402351450, 868635869, 862565244, 881237007, 1805640962, 1815262764, 781420874, 803124966, 1176751582, 767103485, 1884898894, 1254571486, 1180486812, 927790620, 216573687, 748001740, 678855792, 295198755, 1649394858, 2096622753, 360241804, 685021265, 99747806, 218744280, 298689619, 126814175, 1670539233, 1464540933, 450383431, 298698390, 2032361265, 429094, 614010902, 1833115998, 1815461100    
 
-
 .text
 .global NTT_PRIME1
 .global _NTT_PRIME1
@@ -129,6 +128,7 @@ _NTT_PRIME1:
 
     // load in the ww related registers
     // ww1
+    ldr q29, [x5]
     ldr q1, [x5, #4]  // ww1: v1
 
     // ww2
@@ -141,6 +141,7 @@ _NTT_PRIME1:
     add x5, x4, x3
 
     // mull1
+    ldr q30, [x5]
     ldr q2, [x5, #4]  // mull1: v2
 
     // mull2
@@ -225,6 +226,7 @@ p1stage1LoopStart:
     add v21.4S, v10.4S, v14.4S
     sub v22.4S, v10.4S, v14.4S
 
+
     // csg = BarrettMulNeon_n_PRIME1(csg, ww1, mull1)
     BarrettMul_n v20, v1, v2, v0, v20, v26
 
@@ -243,6 +245,8 @@ p1stage1LoopStart:
     add v13.4S, v18.4S, v22.4S
     sub v14.4S, v18.4S, v22.4S
 
+    BarrettMul_n v9, v29, v30, v0, v9, v26
+
     // d = BarrettMulNeon_n_PRIME1(d, ww1, mull1)
     BarrettMul_n v10, v1, v2, v0, v10, v26
 
@@ -254,34 +258,35 @@ p1stage1LoopStart:
 
     // store j_0
     add v25.4S, v7.4S, v9.4S
-    str q25, [x7]
 
     // store j_32
     sub v7.4S, v7.4S, v9.4S
-    str q7, [x8]
-    
+
     // store j_64
     add v9.4S, v8.4S, v10.4S
-    str q9, [x9]
 
     // store j_96
     sub v8.4S, v8.4S, v10.4S
-    str q8, [x10]
 
     // store j_128
     add v10.4S, v11.4S, v13.4S
-    str q10, [x11]
 
     // store j_160
     sub v11.4S, v11.4S, v13.4S
-    str q11, [x12]
 
     // store j_192
     add v13.4S, v12.4S, v14.4S
-    str q13, [x13]
 
     // store j_224
     sub v12.4S, v12.4S, v14.4S
+
+    str q25, [x7]
+    str q7, [x8]
+    str q9, [x9]
+    str q8, [x10]
+    str q10, [x11]
+    str q11, [x12]
+    str q13, [x13]
     str q12, [x14]
 
     // start operation 2 !!!
@@ -355,12 +360,13 @@ p1stage1LoopStart:
     add v21.4S, v10.4S, v14.4S
     sub v22.4S, v10.4S, v14.4S
 
+
     // csg = BarrettMulNeon_n_PRIME1(csg, ww1, mull1)
     BarrettMul_n v20, v1, v2, v0, v20, v26
 
     // dsh = BarrettMulNeon_n_PRIME1(dsh, ww1, mull1)
     BarrettMul_n v22, v1, v2, v0, v22, v26
-    
+
     // a, b, c, d
     add v7.4S, v15.4S, v19.4S
     sub v8.4S, v15.4S, v19.4S
@@ -373,6 +379,7 @@ p1stage1LoopStart:
     add v13.4S, v18.4S, v22.4S
     sub v14.4S, v18.4S, v22.4S
 
+    BarrettMul_n v9, v29, v30, v0, v9, v26
 
     // d = BarrettMulNeon_n_PRIME1(d, ww1, mull1)
     BarrettMul_n v10, v1, v2, v0, v10, v26
@@ -382,37 +389,38 @@ p1stage1LoopStart:
 
     // h = BarrettMulNeon_n_PRIME1(h, ww3, mull3)
     BarrettMul_n v14, v5, v6, v0, v14, v26
-    
+
     // store j_0
     add v25.4S, v7.4S, v9.4S
-    str q25, [x7]
 
     // store j_32
     sub v7.4S, v7.4S, v9.4S
-    str q7, [x8]
 
     // store j_64
     add v9.4S, v8.4S, v10.4S
-    str q9, [x9]
 
     // store j_96
     sub v8.4S, v8.4S, v10.4S
-    str q8, [x10]
 
     // store j_128
     add v10.4S, v11.4S, v13.4S
-    str q10, [x11]
 
     // store j_160
     sub v11.4S, v11.4S, v13.4S
-    str q11, [x12]
 
     // store j_192
     add v13.4S, v12.4S, v14.4S
-    str q13, [x13]
 
     // store j_224
     sub v12.4S, v12.4S, v14.4S
+    
+    str q25, [x7]
+    str q7, [x8]
+    str q9, [x9]
+    str q8, [x10]
+    str q10, [x11]
+    str q11, [x12]
+    str q13, [x13]
     str q12, [x14]
 
     add x4, x4, #4
@@ -574,12 +582,11 @@ p1stage2LoopStart:
 
     st1 {v19.4S, v20.4S, v21.4S, v22.4S}, [x9]
 
-    add v15.4S, v23.4S, v25.4S
-    sub v16.4S, v23.4S, v25.4S
-    add v17.4S, v24.4S, v26.4S
-    sub v18.4S, v24.4S, v26.4S
-
-    st1 {v15.4S, v16.4S, v17.4S, v18.4S}, [x10]
+    add v19.4S, v23.4S, v25.4S
+    sub v20.4S, v23.4S, v25.4S
+    add v21.4S, v24.4S, v26.4S
+    sub v22.4S, v24.4S, v26.4S
+    st1 {v19.4S, v20.4S, v21.4S, v22.4S}, [x10]
 
     // M2[0]
     add x8, x1, #0
@@ -661,11 +668,11 @@ p1stage2LoopStart:
 
     st1 {v19.4S, v20.4S, v21.4S, v22.4S}, [x9]
 
-    add v15.4S, v23.4S, v25.4S
-    sub v16.4S, v23.4S, v25.4S
-    add v17.4S, v24.4S, v26.4S
-    sub v18.4S, v24.4S, v26.4S
-    st1 {v15.4S, v16.4S, v17.4S, v18.4S}, [x10]
+    add v19.4S, v23.4S, v25.4S
+    sub v20.4S, v23.4S, v25.4S
+    add v21.4S, v24.4S, v26.4S
+    sub v22.4S, v24.4S, v26.4S
+    st1 {v19.4S, v20.4S, v21.4S, v22.4S}, [x10]
 
     add x4, x4, #32
     b p1stage2LoopStart
@@ -835,8 +842,13 @@ p1stage3LoopStart:
     // a = vector1_0, b = vector1_1...
     // apb, asb
 
+    // butterfly_2()
     add v14.4S, v10.4S, v11.4S
     sub v15.4S, v10.4S, v11.4S
+
+    // cpd, csd
+
+    // butterfly_2()
     add v16.4S, v12.4S, v13.4S
     sub v17.4S, v12.4S, v13.4S
 
@@ -1230,27 +1242,27 @@ p1stage5LoopStart:
     // store the variables back
     // a, e
     add v23.4S, v15.4S, v19.4S
-    sub v15.4S, v15.4S, v19.4S
+    sub v24.4S, v15.4S, v19.4S
     str q23, [x6]
-    str q15, [x10]
+    str q24, [x10]
 
     // c, g
-    add v19.4S, v17.4S, v21.4S
-    sub v17.4S, v17.4S, v21.4S
-    str q19, [x7]
-    str q17, [x11]
+    add v23.4S, v17.4S, v21.4S
+    sub v24.4S, v17.4S, v21.4S
+    str q23, [x7]
+    str q24, [x11]
 
     // b, f
-    add v21.4S, v16.4S, v20.4S
-    sub v16.4S, v16.4S, v20.4S
-    str q21, [x8]
-    str q16, [x12]
+    add v23.4S, v16.4S, v20.4S
+    sub v24.4S, v16.4S, v20.4S
+    str q23, [x8]
+    str q24, [x12]
 
     // d, h
-    add v20.4S, v18.4S, v22.4S
-    sub v18.4S, v18.4S, v22.4S
-    str q20, [x9]
-    str q18, [x13]
+    add v23.4S, v18.4S, v22.4S
+    sub v24.4S, v18.4S, v22.4S
+    str q23, [x9]
+    str q24, [x13]
 
     add x3, x3, #4
     b p1stage5LoopStart

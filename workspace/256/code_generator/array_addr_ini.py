@@ -20,12 +20,12 @@ def generate_asm_moves(start_addr_hex, total_count, addr):
     return "\n".join(rows)
 
 # 設定參數
-start_hex_A = "7fffffffde90"
+start_hex_A = "7fffffffdc90"
 count = 256  # 從 00 到 ff
 cmt1 = "// Initialize A array\n"
 output = generate_asm_moves(start_hex_A, count, "A")
 
-start_hex_B = "7fffffffd290"
+start_hex_B = "7fffffffd090"
 cmt2 = "// Initialize B array\n"
 output2 = generate_asm_moves(start_hex_B, count, "B")
 
