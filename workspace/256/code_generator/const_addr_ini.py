@@ -52,16 +52,16 @@ data0 = """PRIME1_VEC:
     .word 133199617"""
 print("--- PRIME1_VEC 結果 ---")
 cmt0 = "// for PRIME1_VEC\n"
-output0 = convert_asm_to_mov(data0, "0x555555570850")
+output0 = convert_asm_to_mov(data0, "0xc6075bf00830")
 
 data1 = """PRIME1_INVR_VEC:
-    .word 2824898817
-    .word 2824898817
-    .word 2824898817
-    .word 2824898817"""
+    .word -1470068479
+    .word -1470068479
+    .word -1470068479
+    .word -1470068479"""
 print("--- PRIME1_INVR_VEC 結果 ---")
 cmt1 = "// for PRIME1_INVR_VEC\n"
-output1 = convert_asm_to_mov(data1, "0x555555570860")
+output1 = convert_asm_to_mov(data1, "0xc6075bf00840")
 
 # 1. 處理 OMEGA_PRIME1
 data2 = """
@@ -85,7 +85,7 @@ OMEGA_PRIME1:
 """
 print("--- OMEGA_PRIME1 結果 ---")
 cmt2 = "// for OMEGA_PRIME1\n"
-output2 = convert_asm_to_mov(data2, "0x555555570450")
+output2 = convert_asm_to_mov(data2, "0xc6075bf00430")
 
 # 2. 處理 OMEGA_BARRETT_PRIME1
 data3 = """
@@ -110,7 +110,7 @@ OMEGA_BARRETT_PRIME1:
 print("--- OMEGA_BARRETT_PRIME1 結果 ---")
 # 假設這段要接在後面，或者你有新的地址
 cmt3 = "// for OMEGA_BARRETT_PRIME1\n"
-output3 = convert_asm_to_mov(data3, "0x555555570650")
+output3 = convert_asm_to_mov(data3, "0xc6075bf00630")
 
 file_name = "const_addr_ini.txt"
 with open(file_name, "w", encoding="utf-8") as f:

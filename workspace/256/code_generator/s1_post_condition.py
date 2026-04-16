@@ -65,7 +65,7 @@ def generate_code(base_L_str, base_var_str):
 
 # 寫檔時你可以直接連續呼叫：
 with open("output.txt", "w") as f:
-    f.write(generate_code("L0x7fffffffdcd0", "A10") + "\n\n")
+    f.write(generate_code("L0x7fffffffd0e0", "B14") + "\n\n")
     # f.write(generate_code("L0x7fffffffded0", "A10") + "\n\n")
     # f.write(generate_code("L0x7fffffffd2d0", "B10") + "\n\n")
     # f.write(generate_code("L0x7fffffffdee0", "A14") + "\n\n")
