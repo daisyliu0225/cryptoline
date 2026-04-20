@@ -10680,6 +10680,8 @@ add x4 x4 0x10@uint64;
 #b	0xc6075bee1308 <p1stage3LoopStart>           #! 0xc6075bee14b4 = 0xc6075bee14b4;
 (* cmp	x4, #0x100                                  #! PC = 0xc6075bee1308 *)
 cmp	%%x4, #0x100                                  #! 0xc6075bee1308 = 0xc6075bee1308;
+
+// stage 4 start
 (* #b.ge	0xc6075bee14b8 <p1stage4>  // b.tcont     #! PC = 0xc6075bee130c *)
 #b.ge	0xc6075bee14b8 <p1stage4>  // b.tcont     #! 0xc6075bee130c = 0xc6075bee130c;
 (* ldr	x1, 0xc6075bee1920 <p1INTTEnd+36>           #! PC = 0xc6075bee14b8 *)

@@ -647,6 +647,8 @@ mov L0xc6075bf00828 ( 717917907)@int32;mov L0xc6075bf0082c ( 513630166)@int32;
 
 (* NTT_PRIME1: *)
 // NTT_PRIME1:;
+(* #! -> SP = 0xfffffd039a70 *)
+#! 0xfffffd039a70 = 0xfffffd039a70;
 
 // note to self: this part different from s1
 // the first loop: A00~A1f (+-7Q)
