@@ -54,18 +54,27 @@ mov %v0 [L0x7fffffffde90, L0x7fffffffde94, L0x7fffffffde98, L0x7fffffffde9c];
 
 mov %v1 [L0x7fffffffd290, L0x7fffffffd294, L0x7fffffffd298, L0x7fffffffd29c];
 
+ghost %ori_v0@int32[4]: %ori_v0 = %v0 && %ori_v0 = %v0;
+
 (* ld1	{v2.4s}, [x2]                               #! EA = L0x555555570038; Value = 0x07f07701 0x07f07701 0x07f07701 0x07f07701; PC = 0x5555555507e8 *)
 mov %v2 [L0x555555570038, L0x55555557003c, L0x555555570040, L0x555555570044];
 (* ld1	{v3.4s}, [x3]                               #! EA = L0x555555570048; Value = 0xa8608901 0xa8608901 0xa8608901 0xa8608901; PC = 0x5555555507ec *)
 mov %v3 [L0x555555570048, L0x55555557004c, L0x555555570050, L0x555555570054];
+
 (* mul	v4.4s, v1.4s, v3.s[0]                       #! PC = 0x5555555507f0 *)
-broadcast %mul 4 [%v3[0]]; mull %dc %v4 %v1 %mul;
-(* mul	v5.4s, v0.4s, v4.4s                         #! PC = 0x5555555507f4 *)
+broadcast %mul 4 [%v3[0]]; 
+mull %dc %v4 %v1 %mul;
 cast %v4@int32[4] %v4;
+
+(* mul	v5.4s, v0.4s, v4.4s                         #! PC = 0x5555555507f4 *)
 mull %dc %v5 %v0 %v4;
+cast %v5@int32[4] %v5;
+
 (* sqdmulh	v0.4s, v0.4s, v1.4s                     #! PC = 0x5555555507f8 *)
 smulj %LO %v0 %v1;
-ssplit %LO0 %dc %LO 31; vpc %v0@sint32[4] %LO0;
+ssplit %LO0 %dc %LO 31; 
+vpc %v0@sint32[4] %LO0;
+
 (* sqdmulh	v4.4s, v5.4s, v2.4s                     #! PC = 0x5555555507fc *)
 cast %v5@int32[4] %v5;
 smulj %LO %v5 %v2;
@@ -84,7 +93,11 @@ assert true && and [
   2@33 * (sext (%v0[0]) 1) - ((sext (%v0o0[0]) 1) - (sext (%v4o0[0]) 1)) >=s (-1)@33
 ];
 
-{true && and [
+mov %R_inv [(4294967296)@int64, (4294967296)@int64, (4294967296)@int64, (4294967296)@int64];
+
+{
+  eqmod (%v0* %R_inv) (%ori_v0 * %v1) [Q,Q,Q,Q] 
+  && and [
   [NQ*7@32+NQ2, NQ*7@32+NQ2, NQ*7@32+NQ2, NQ*7@32+NQ2] <s %v0, 
   %v0 <s [Q*7@32+Q2,Q*7@32+Q2,Q*7@32+Q2,Q*7@32+Q2]
   ]

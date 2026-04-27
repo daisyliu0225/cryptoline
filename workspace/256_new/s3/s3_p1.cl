@@ -510,8 +510,8 @@ mov L0xc6075bf00830 ( 133199617)@int32;mov L0xc6075bf00834 ( 133199617)@int32;
 mov L0xc6075bf00838 ( 133199617)@int32;mov L0xc6075bf0083c ( 133199617)@int32;
 
 // for PRIME1_INVR_VEC
-mov L0xc6075bf00840 (1470068479)@int32;mov L0xc6075bf00844 (1470068479)@int32;
-mov L0xc6075bf00848 (1470068479)@int32;mov L0xc6075bf0084c (1470068479)@int32;
+mov L0xc6075bf00840 (-1470068479)@int32;mov L0xc6075bf00844 (-1470068479)@int32;
+mov L0xc6075bf00848 (-1470068479)@int32;mov L0xc6075bf0084c (-1470068479)@int32;
 
 // for OMEGA_PRIME1
 mov L0xc6075bf00430 (         1)@int32;mov L0xc6075bf00434 (  41266039)@int32;
@@ -1821,10 +1821,10 @@ assume [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v18 /\ %v18 < [11*Q+Q2,11*Q+
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v20 /\ %v20 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v21 /\ %v21 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2]
        && 
-       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v18 /\ %v18 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v19 /\ %v19 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v20 /\ %v20 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v21 /\ %v21 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2];
+       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v18 /\ %v18 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v19 /\ %v19 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v20 /\ %v20 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v21 /\ %v21 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2];
 
 (* CUT 2 *)
 cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
@@ -1836,10 +1836,10 @@ cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
     [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v21 /\ %v21 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] 
     && 
     Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
-    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v18 /\ %v18 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v19 /\ %v19 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v20 /\ %v20 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v21 /\ %v21 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2]
+    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v18 /\ %v18 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v19 /\ %v19 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v20 /\ %v20 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v21 /\ %v21 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2]
     prove with [all cuts];
 
 (* ld2	{v5.4s-v6.4s}, [x13]                        #! EA = L0xc6075bf00430; Value = 0x00000001 0x0275ab77 0x04ae6d3e 0x03950133; PC = 0xc6075bee136c *)
@@ -1879,45 +1879,45 @@ cast %mls@int32[4] %mls;
 subs %dc %v21 %v21 %mls;
 
 assert eqmod %v20 (%v20_s3l1_0 * %v5) [Q,Q,Q,Q] /\
-       eqmod %v21 (%v21_s2l1_0 * %v6) [Q,Q,Q,Q] /\
+       eqmod %v21 (%v21_s3l1_0 * %v6) [Q,Q,Q,Q] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v18 /\ %v18 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v19 /\ %v19 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
-       [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
-       [NQ,NQ,NQ,NQ] < %v21 /\ %v21 < [Q,Q,Q,Q]
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v20 /\ %v20 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
        prove with [algebra solver isl, all cuts]
        && true;
 
 assume eqmod %v20 (%v20_s3l1_0 * %v5) [Q,Q,Q,Q] /\
-       eqmod %v21 (%v21_s2l1_0 * %v6) [Q,Q,Q,Q] /\
+       eqmod %v21 (%v21_s3l1_0 * %v6) [Q,Q,Q,Q] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v18 /\ %v18 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v19 /\ %v19 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
-       [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
-       [NQ,NQ,NQ,NQ] < %v21 /\ %v21 < [Q,Q,Q,Q]
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v20 /\ %v20 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
        &&
        [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v18 /\ %v18 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
        [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v19 /\ %v19 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-       [NQ,NQ,NQ,NQ] <s %v20 /\ %v20 <s [Q,Q,Q,Q] /\
-       [NQ,NQ,NQ,NQ] <s %v21 /\ %v21 <s [Q,Q,Q,Q];
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v20 /\ %v20 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v21 /\ %v21 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2];
 
 (* CUT 3 *)
 cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
     eqmod %v20 (%v20_s3l1_0 * %v5) [Q,Q,Q,Q] /\
-    eqmod %v21 (%v21_s2l1_0 * %v6) [Q,Q,Q,Q] /\
+    eqmod %v21 (%v21_s3l1_0 * %v6) [Q,Q,Q,Q] /\
     [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v18 /\ %v18 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
     [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v19 /\ %v19 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
-    [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
-    [NQ,NQ,NQ,NQ] < %v21 /\ %v21 < [Q,Q,Q,Q]
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v20 /\ %v20 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
     && 
     Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
     [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v18 /\ %v18 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
     [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v19 /\ %v19 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-    [NQ,NQ,NQ,NQ] <s %v20 /\ %v20 <s [Q,Q,Q,Q] /\
-    [NQ,NQ,NQ,NQ] <s %v21 /\ %v21 <s [Q,Q,Q,Q]
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v20 /\ %v20 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v21 /\ %v21 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
     prove with [all cuts];
 
 ghost %v18_s3l1_0@int32[4], %v19_s3l1_0@int32[4], %v20_s3l1_1@int32[4], %v21_s3l1_1@int32[4]:
-    %v18_s3l1_0 = %v18 /\ %v19_s3l1_0 = %v19 /\ %v20_s3l1_1 = %v20 /\ v21_s3l1_1 = %v21
-    && %v18_s3l1_0 = %v18 /\ %v19_s3l1_0 = %v19 /\ %v20_s3l1_1 = %v20 /\ v21_s3l1_1 = %v21;
+       %v18_s3l1_0 = %v18 /\ %v19_s3l1_0 = %v19 /\ %v20_s3l1_1 = %v20 /\ %v21_s3l1_1 = %v21
+       && %v18_s3l1_0 = %v18 /\ %v19_s3l1_0 = %v19 /\ %v20_s3l1_1 = %v20 /\ %v21_s3l1_1 = %v21;
 
 (* add	v10.4s, v18.4s, v20.4s                      #! PC = 0xc6075bee1390 *)
 add %v10 %v18 %v20;
@@ -1928,37 +1928,37 @@ add %v12 %v19 %v21;
 (* sub	v13.4s, v19.4s, v21.4s                      #! PC = 0xc6075bee139c *)
 sub %v13 %v19 %v21;
 
-assert [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v10 /\ %v10 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v11 /\ %v11 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v12 /\ %v12 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v13 /\ %v13 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2]
+assert [13*NQ,13*NQ,13*NQ,13*NQ] < %v10 /\ %v10 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v11 /\ %v11 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v12 /\ %v12 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v13 /\ %v13 < [13*Q,13*Q,13*Q,13*Q]
        prove with [algebra solver isl, precondition]
        && true;
 
-assume [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v10 /\ %v10 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v11 /\ %v11 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v12 /\ %v12 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v13 /\ %v13 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2]
+assume [13*NQ,13*NQ,13*NQ,13*NQ] < %v10 /\ %v10 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v11 /\ %v11 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v12 /\ %v12 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v13 /\ %v13 < [13*Q,13*Q,13*Q,13*Q]
        && 
-       [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v10 /\ %v10 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-       [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v11 /\ %v11 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-       [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v12 /\ %v12 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-       [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v13 /\ %v13 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2];
+       [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v10 /\ %v10 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+       [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v11 /\ %v11 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+       [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v12 /\ %v12 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+       [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v13 /\ %v13 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32];
 
 (* CUT 4 *)
 cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
     %v10 = %v18_s3l1_0 + %v20_s3l1_1 /\ %v11 = %v18_s3l1_0 - %v20_s3l1_1 /\ 
     %v12 = %v19_s3l1_0 + %v21_s3l1_1 /\ %v13 = %v19_s3l1_0 - %v21_s3l1_1 /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v10 /\ %v10 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v11 /\ %v11 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v12 /\ %v12 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v13 /\ %v13 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2]
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v10 /\ %v10 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v11 /\ %v11 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v12 /\ %v12 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v13 /\ %v13 < [13*Q,13*Q,13*Q,13*Q]
     && 
     Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v10 /\ %v10 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v11 /\ %v11 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v12 /\ %v12 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v13 /\ %v13 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2]
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v10 /\ %v10 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v11 /\ %v11 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v12 /\ %v12 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v13 /\ %v13 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32]
     prove with [all cuts];
 
 // operation for B
@@ -2074,10 +2074,10 @@ assume [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v18 /\ %v18 < [11*Q+Q2,11*Q+
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v20 /\ %v20 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v21 /\ %v21 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2]
        && 
-       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v18 /\ %v18 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v19 /\ %v19 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v20 /\ %v20 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v21 /\ %v21 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2];
+       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v18 /\ %v18 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v19 /\ %v19 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v20 /\ %v20 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+       [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v21 /\ %v21 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2];
 
 (* CUT 6 *)
 cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
@@ -2089,10 +2089,10 @@ cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
     [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v21 /\ %v21 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] 
     && 
     Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
-    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v18 /\ %v18 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v19 /\ %v19 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v20 /\ %v20 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] < %v21 /\ %v21 < [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2]
+    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v18 /\ %v18 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v19 /\ %v19 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v20 /\ %v20 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
+    [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v21 /\ %v21 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2]
     prove with [all cuts];
 
 ghost %v20_s3l1_2@int32[4], %v21_s3l1_2@int32[4]:
@@ -2124,45 +2124,45 @@ cast %mls@int32[4] %mls;
 subs %dc %v21 %v21 %mls;
 
 assert eqmod %v20 (%v20_s3l1_2 * %v5) [Q,Q,Q,Q] /\
-       eqmod %v21 (%v21_s2l1_2 * %v6) [Q,Q,Q,Q] /\
+       eqmod %v21 (%v21_s3l1_2 * %v6) [Q,Q,Q,Q] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v18 /\ %v18 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v19 /\ %v19 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
-       [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
-       [NQ,NQ,NQ,NQ] < %v21 /\ %v21 < [Q,Q,Q,Q]
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v20 /\ %v20 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
        prove with [algebra solver isl, all cuts]
        && true;
 
 assume eqmod %v20 (%v20_s3l1_2 * %v5) [Q,Q,Q,Q] /\
-       eqmod %v21 (%v21_s2l1_2 * %v6) [Q,Q,Q,Q] /\
+       eqmod %v21 (%v21_s3l1_2 * %v6) [Q,Q,Q,Q] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v18 /\ %v18 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
        [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v19 /\ %v19 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
-       [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
-       [NQ,NQ,NQ,NQ] < %v21 /\ %v21 < [Q,Q,Q,Q]
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v20 /\ %v20 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
        &&
        [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v18 /\ %v18 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
        [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v19 /\ %v19 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-       [NQ,NQ,NQ,NQ] <s %v20 /\ %v20 <s [Q,Q,Q,Q] /\
-       [NQ,NQ,NQ,NQ] <s %v21 /\ %v21 <s [Q,Q,Q,Q];
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v20 /\ %v20 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+       [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v21 /\ %v21 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2];
 
 (* CUT 7 *)
 cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
     eqmod %v20 (%v20_s3l1_2 * %v5) [Q,Q,Q,Q] /\
-    eqmod %v21 (%v21_s2l1_2 * %v6) [Q,Q,Q,Q] /\
+    eqmod %v21 (%v21_s3l1_2 * %v6) [Q,Q,Q,Q] /\
     [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v18 /\ %v18 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
     [11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2,11*NQ+NQ2] < %v19 /\ %v19 < [11*Q+Q2,11*Q+Q2,11*Q+Q2,11*Q+Q2] /\
-    [NQ,NQ,NQ,NQ] < %v20 /\ %v20 < [Q,Q,Q,Q] /\
-    [NQ,NQ,NQ,NQ] < %v21 /\ %v21 < [Q,Q,Q,Q]
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v20 /\ %v20 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] < %v21 /\ %v21 < [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
     && 
     Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
     [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v18 /\ %v18 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
     [NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2,NQ*11@32+NQ2] <s %v19 /\ %v19 <s [Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2,Q*11@32+Q2] /\
-    [NQ,NQ,NQ,NQ] <s %v20 /\ %v20 <s [Q,Q,Q,Q] /\
-    [NQ,NQ,NQ,NQ] <s %v21 /\ %v21 <s [Q,Q,Q,Q]
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v20 /\ %v20 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2] /\
+    [NQ+NQ2,NQ+NQ2,NQ+NQ2,NQ+NQ2] <s %v21 /\ %v21 <s [Q+Q2,Q+Q2,Q+Q2,Q+Q2]
     prove with [all cuts];
 
 ghost %v18_s3l1_1@int32[4], %v19_s3l1_1@int32[4], %v20_s3l1_3@int32[4], %v21_s3l1_3@int32[4]:
-    %v18_s3l1_1 = %v18 /\ %v19_s3l1_1 = %v19 /\ %v20_s3l1_3 = %v20 /\ v21_s3l1_3 = %v21
-    && %v18_s3l1_1 = %v18 /\ %v19_s3l1_1 = %v19 /\ %v20_s3l1_3 = %v20 /\ v21_s3l1_3 = %v21;
+    %v18_s3l1_1 = %v18 /\ %v19_s3l1_1 = %v19 /\ %v20_s3l1_3 = %v20 /\ %v21_s3l1_3 = %v21
+    && %v18_s3l1_1 = %v18 /\ %v19_s3l1_1 = %v19 /\ %v20_s3l1_3 = %v20 /\ %v21_s3l1_3 = %v21;
 
 (* add	v14.4s, v18.4s, v20.4s                      #! PC = 0xc6075bee13f0 *)
 add %v14 %v18 %v20;
@@ -2173,22 +2173,22 @@ add %v16 %v19 %v21;
 (* sub	v17.4s, v19.4s, v21.4s                      #! PC = 0xc6075bee13fc *)
 sub %v17 %v19 %v21;
 
-assert [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v14 /\ %v14 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v15 /\ %v15 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v16 /\ %v16 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v17 /\ %v17 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2]
+assert [13*NQ,13*NQ,13*NQ,13*NQ] < %v14 /\ %v14 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v15 /\ %v15 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v16 /\ %v16 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v17 /\ %v17 < [13*Q,13*Q,13*Q,13*Q]
        prove with [algebra solver isl, precondition]
        && true;
 
-assume [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v14 /\ %v14 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v15 /\ %v15 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v16 /\ %v16 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-       [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v17 /\ %v17 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2]
+assume [13*NQ,13*NQ,13*NQ,13*NQ] < %v14 /\ %v14 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v15 /\ %v15 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v16 /\ %v16 < [13*Q,13*Q,13*Q,13*Q] /\
+       [13*NQ,13*NQ,13*NQ,13*NQ] < %v17 /\ %v17 < [13*Q,13*Q,13*Q,13*Q]
        && 
-       [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v14 /\ %v14 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-       [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v15 /\ %v15 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-       [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v16 /\ %v16 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-       [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v17 /\ %v17 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2];
+       [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v14 /\ %v14 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+       [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v15 /\ %v15 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+       [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v16 /\ %v16 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+       [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v17 /\ %v17 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32];
 
 (* CUT 8 *)
 cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
@@ -2196,123 +2196,409 @@ cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
     %v12 = %v19_s3l1_0 + %v21_s3l1_1 /\ %v13 = %v19_s3l1_0 - %v21_s3l1_1 /\
     %v14 = %v18_s3l1_1 + %v20_s3l1_3 /\ %v15 = %v18_s3l1_1 - %v20_s3l1_3 /\
     %v16 = %v19_s3l1_1 + %v21_s3l1_3 /\ %v17 = %v19_s3l1_1 - %v21_s3l1_3 /\ 
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v10 /\ %v10 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v11 /\ %v11 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v12 /\ %v12 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v13 /\ %v13 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v14 /\ %v14 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v15 /\ %v15 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v16 /\ %v16 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2] /\
-    [12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2,12*NQ+NQ2] < %v17 /\ %v17 < [12*Q+Q2,12*Q+Q2,12*Q+Q2,12*Q+Q2]
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v10 /\ %v10 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v11 /\ %v11 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v12 /\ %v12 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v13 /\ %v13 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v14 /\ %v14 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v15 /\ %v15 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v16 /\ %v16 < [13*Q,13*Q,13*Q,13*Q] /\
+    [13*NQ,13*NQ,13*NQ,13*NQ] < %v17 /\ %v17 < [13*Q,13*Q,13*Q,13*Q]
     && 
     Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v10 /\ %v10 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v11 /\ %v11 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v12 /\ %v12 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v13 /\ %v13 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v14 /\ %v14 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v15 /\ %v15 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v16 /\ %v16 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2] /\
-    [NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2,NQ*12@32+NQ2] < %v17 /\ %v17 < [Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2,Q*12@32+Q2]
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v10 /\ %v10 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v11 /\ %v11 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v12 /\ %v12 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v13 /\ %v13 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v14 /\ %v14 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v15 /\ %v15 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v16 /\ %v16 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32] /\
+    [NQ*13@32,NQ*13@32,NQ*13@32,NQ*13@32] <s %v17 /\ %v17 <s [Q*13@32,Q*13@32,Q*13@32,Q*13@32]
     prove with [all cuts];
 
 ghost %v10_s3l1_1@int32[4], %v11_s3l1_1@int32[4], %v12_s3l1_2@int32[4], %v13_s3l1_2@int32[4]:
        %v10_s3l1_1 = %v10 /\ %v11_s3l1_1 = %v11 /\ %v12_s3l1_2 = %v12 /\ %v13_s3l1_2 = %v13
        && %v10_s3l1_1 = %v10 /\ %v11_s3l1_1 = %v11 /\ %v12_s3l1_2 = %v12 /\ %v13_s3l1_2 = %v13;
 
-// point multiplication (DoublMul)
+// point multiplication start!
 (* mul	v23.4s, v14.4s, v9.s[0]                     #! PC = 0xc6075bee1400 *)
-broadcast %mul 4 [%v9[0]]; mul %v23 %v14 %mul;
-(* mul	v24.4s, v10.4s, v23.4s                      #! PC = 0xc6075bee1404 *)
+broadcast %mul 4 [%v9[0]];
+mull %dc %v23 %v14 %mul;
 cast %v23@int32[4] %v23;
+
+(* mul	v24.4s, v10.4s, v23.4s                      #! PC = 0xc6075bee1404 *)
 mull %dc %v24 %v10 %v23;
+cast %v24@int32[4] %v24;
+
 (* sqdmulh	v10.4s, v10.4s, v14.4s                  #! PC = 0xc6075bee1408 *)
 smulj %LO %v10 %v14;
-ssplit %LO0 %dc %LO 31; 
-vpc %v10@sint32[4] %LO0;
-(* sqdmulh	v23.4s, v24.4s, v0.4s                   #! PC = 0xc6075bee140c *)
-cast %v24@int32[4] %v24;
-smulj %LO %v24 %v0;
-ssplit %LO0 %dc %LO 31; 
-vpc %v23@sint32[4] %LO0;
-(* shsub	v10.4s, v10.4s, v23.4s                    #! PC = 0xc6075bee1410 *)
-cast %v10@int33[4] %v10;
-cast %v23@int33[4] %v23;
-sub %tmp %v10 %v23;
-spl %v10 %dc %tmp 1;
+ghost %abfull_s3l1_0@int64[4]:
+  %abfull_s3l1_0 = %LO && %abfull_s3l1_0 = %LO;
 
+ssplit %LO0 %ablo %LO 31;
+ghost %abhi_s3l1_0@int64[4]:
+  %abhi_s3l1_0 = %LO0 && %abhi_s3l1_0 = %LO0;
+vpc %z@sint32[4] %LO0;
+
+(* sqdmulh	v23.4s, v24.4s, v0.4s                   #! PC = 0xc6075bee140c *)
+smulj %LO %v24 %v0;
+ghost %mqfull_s3l1_0@int64[4]:
+  %mqfull_s3l1_0 = %LO && %mqfull_s3l1_0 = %LO;
+
+ssplit %LO0 %mqlo %LO 31;
+ghost %mqhi_s3l1_0@int64[4]:
+  %mqhi_s3l1_0 = %LO0 && %mqhi_s3l1_0 = %LO0;
+vpc %c@sint32[4] %LO0;
+
+(* shsub	v10.4s, v10.4s, v23.4s                    #! PC = 0xc6075bee1410 *)
+cast %z_33@int33[4] %z;
+cast %c_33@int33[4] %c;
+sub %tmpo %z_33 %c_33;
+spl %result_33 %dc %tmpo 1;
+mov [bit0, bit1, bit2, bit3] %dc;
+mov %bit [bit0, bit1, bit2, bit3];
+cast [] %v10@int32[4] %result_33;
+
+// the following are the ghost code
+cast %tmpo_64@int64[4] %tmpo;
+cast %ablo_32@int32[4] %ablo;
+cast %mqlo_32@int32[4] %mqlo;
+cast %ablo_64@int64[4] %ablo_32;
+cast %mqlo_64@int64[4] %mqlo_32;
+
+cmov %tlbit %bit
+     [2147483648@uint32, 2147483648@uint32, 2147483648@uint32, 2147483648@uint32]
+     [0@uint32, 0@uint32, 0@uint32, 0@uint32];
+cast %tlbit_64@int64[4] %tlbit;
+
+assert true && and [
+  %tmpo_64 - %abhi_s3l1_0 + %mqhi_s3l1_0 = [0@64, 0@64, 0@64, 0@64]
+];
+assume and [
+  %tmpo_64 - %abhi_s3l1_0 + %mqhi_s3l1_0 = [0, 0, 0, 0]
+] && true;
+
+assert true && and [
+  %abfull_s3l1_0 - %abhi_s3l1_0 * [2147483648@64, 2147483648@64, 2147483648@64, 2147483648@64] - %ablo_64 = [0@64, 0@64, 0@64, 0@64],
+  %mqfull_s3l1_0 - %mqhi_s3l1_0 * [2147483648@64, 2147483648@64, 2147483648@64, 2147483648@64] - %mqlo_64 = [0@64, 0@64, 0@64, 0@64]
+];
+assume and [
+  %abfull_s3l1_0 = %abhi_s3l1_0 * [2147483648, 2147483648, 2147483648, 2147483648] + %ablo_64,
+  %mqfull_s3l1_0 = %mqhi_s3l1_0 * [2147483648, 2147483648, 2147483648, 2147483648] + %mqlo_64
+] && true;
+
+add %tL_sum %ablo_64 %tlbit_64;
+sub %tL_64 %tL_sum %mqlo_64;
+
+assert eqmod %tL_64
+             [0, 0, 0, 0]
+             [4294967296, 4294967296, 4294967296, 4294967296]
+        && true;
+assert true && and [
+  [(-2147483647)@64, (-2147483647)@64, (-2147483647)@64, (-2147483647)@64] <=s %tL_64,
+  %tL_64 <=s [4294967295@64, 4294967295@64, 4294967295@64, 4294967295@64]
+];
+assume and [
+  %tL_64 = [0, 0, 0, 0]
+] && true;
+
+// second point multiplication
 (* mul	v23.4s, v15.4s, v9.s[0]                     #! PC = 0xc6075bee1414 *)
-broadcast %mul 4 [%v9[0]]; mul %v23 %v15 %mul;
-(* mul	v24.4s, v11.4s, v23.4s                      #! PC = 0xc6075bee1418 *)
+broadcast %mul 4 [%v9[0]];
+mull %dc %v23 %v15 %mul;
 cast %v23@int32[4] %v23;
+
+(* mul	v24.4s, v11.4s, v23.4s                      #! PC = 0xc6075bee1418 *)
 mull %dc %v24 %v11 %v23;
+cast %v24@int32[4] %v24;
+
 (* sqdmulh	v11.4s, v11.4s, v15.4s                  #! PC = 0xc6075bee141c *)
 smulj %LO %v11 %v15;
-ssplit %LO0 %dc %LO 31; vpc %v11@sint32[4] %LO0;
-(* sqdmulh	v23.4s, v24.4s, v0.4s                   #! PC = 0xc6075bee1420 *)
-cast %v24@int32[4] %v24;
-smulj %LO %v24 %v0;
-ssplit %LO0 %dc %LO 31; vpc %v23@sint32[4] %LO0;
-(* shsub	v11.4s, v11.4s, v23.4s                    #! PC = 0xc6075bee1424 *)
-cast %v11@int33[4] %v11;
-cast %v23@int33[4] %v23;
-sub %tmp %v11 %v23;
-spl %v11 %dc %tmp 1;
+ghost %abfull_s3l1_1@int64[4]:
+  %abfull_s3l1_1 = %LO && %abfull_s3l1_1 = %LO;
 
+ssplit %LO0 %ablo %LO 31;
+ghost %abhi_s3l1_1@int64[4]:
+  %abhi_s3l1_1 = %LO0 && %abhi_s3l1_1 = %LO0;
+vpc %z@sint32[4] %LO0;
+
+(* sqdmulh	v23.4s, v24.4s, v0.4s                   #! PC = 0xc6075bee1420 *)
+smulj %LO %v24 %v0;
+ghost %mqfull_s3l1_1@int64[4]:
+  %mqfull_s3l1_1 = %LO && %mqfull_s3l1_1 = %LO;
+
+ssplit %LO0 %mqlo %LO 31;
+ghost %mqhi_s3l1_1@int64[4]:
+  %mqhi_s3l1_1 = %LO0 && %mqhi_s3l1_1 = %LO0;
+vpc %c@sint32[4] %LO0;
+
+(* shsub	v11.4s, v11.4s, v23.4s                    #! PC = 0xc6075bee1424 *)
+cast %z_33@int33[4] %z;
+cast %c_33@int33[4] %c;
+sub %tmpo %z_33 %c_33;
+spl %result_33 %dc %tmpo 1;
+mov [bit0, bit1, bit2, bit3] %dc;
+mov %bit [bit0, bit1, bit2, bit3];
+cast [] %v11@int32[4] %result_33;
+
+cast %tmpo_64@int64[4] %tmpo;
+cast %ablo_32@int32[4] %ablo;
+cast %mqlo_32@int32[4] %mqlo;
+cast %ablo_64@int64[4] %ablo_32;
+cast %mqlo_64@int64[4] %mqlo_32;
+
+cmov %tlbit %bit
+     [2147483648@uint32, 2147483648@uint32, 2147483648@uint32, 2147483648@uint32]
+     [0@uint32, 0@uint32, 0@uint32, 0@uint32];
+cast %tlbit_64@int64[4] %tlbit;
+
+assert true && and [
+  %tmpo_64 - %abhi_s3l1_1 + %mqhi_s3l1_1 = [0@64, 0@64, 0@64, 0@64]
+];
+assume and [
+  %tmpo_64 - %abhi_s3l1_1 + %mqhi_s3l1_1 = [0, 0, 0, 0]
+] && true;
+
+assert true && and [
+  %abfull_s3l1_1 - %abhi_s3l1_1 * [2147483648@64, 2147483648@64, 2147483648@64, 2147483648@64] - %ablo_64 = [0@64, 0@64, 0@64, 0@64],
+  %mqfull_s3l1_1 - %mqhi_s3l1_1 * [2147483648@64, 2147483648@64, 2147483648@64, 2147483648@64] - %mqlo_64 = [0@64, 0@64, 0@64, 0@64]
+];
+assume and [
+  %abfull_s3l1_1 = %abhi_s3l1_1 * [2147483648, 2147483648, 2147483648, 2147483648] + %ablo_64,
+  %mqfull_s3l1_1 = %mqhi_s3l1_1 * [2147483648, 2147483648, 2147483648, 2147483648] + %mqlo_64
+] && true;
+
+add %tL_sum %ablo_64 %tlbit_64;
+sub %tL_64 %tL_sum %mqlo_64;
+
+assert eqmod %tL_64
+             [0, 0, 0, 0]
+             [4294967296, 4294967296, 4294967296, 4294967296]
+        && true;
+assert true && and [
+  [(-2147483647)@64, (-2147483647)@64, (-2147483647)@64, (-2147483647)@64] <=s %tL_64,
+  %tL_64 <=s [4294967295@64, 4294967295@64, 4294967295@64, 4294967295@64]
+];
+assume and [
+  %tL_64 = [0, 0, 0, 0]
+] && true;
+
+// third point multiplication
 (* mul	v23.4s, v16.4s, v9.s[0]                     #! PC = 0xc6075bee1428 *)
-broadcast %mul 4 [%v9[0]]; mul %v23 %v16 %mul;
-(* mul	v24.4s, v12.4s, v23.4s                      #! PC = 0xc6075bee142c *)
+broadcast %mul 4 [%v9[0]];
+mull %dc %v23 %v16 %mul;
 cast %v23@int32[4] %v23;
+
+
+(* mul	v24.4s, v12.4s, v23.4s                      #! PC = 0xc6075bee142c *)
 mull %dc %v24 %v12 %v23;
+cast %v24@int32[4] %v24;
+
 (* sqdmulh	v12.4s, v12.4s, v16.4s                  #! PC = 0xc6075bee1430 *)
 smulj %LO %v12 %v16;
-ssplit %LO0 %dc %LO 31; vpc %v12@sint32[4] %LO0;
-(* sqdmulh	v23.4s, v24.4s, v0.4s                   #! PC = 0xc6075bee1434 *)
-cast %v24@int32[4] %v24;
-smulj %LO %v24 %v0;
-ssplit %LO0 %dc %LO 31; vpc %v23@sint32[4] %LO0;
-(* shsub	v12.4s, v12.4s, v23.4s                    #! PC = 0xc6075bee1438 *)
-cast %v12@int33[4] %v12;
-cast %v23@int33[4] %v23;
-sub %tmp %v12 %v23;
-spl %v12 %dc %tmp 1;
+ghost %abfull_s3l1_2@int64[4]:
+  %abfull_s3l1_2 = %LO && %abfull_s3l1_2 = %LO;
 
+ssplit %LO0 %ablo %LO 31;
+ghost %abhi_s3l1_2@int64[4]:
+  %abhi_s3l1_2 = %LO0 && %abhi_s3l1_2 = %LO0;
+vpc %z@sint32[4] %LO0;
+
+(* sqdmulh	v23.4s, v24.4s, v0.4s                   #! PC = 0xc6075bee1434 *)
+smulj %LO %v24 %v0;
+ghost %mqfull_s3l1_2@int64[4]:
+  %mqfull_s3l1_2 = %LO && %mqfull_s3l1_2 = %LO;
+
+ssplit %LO0 %mqlo %LO 31;
+ghost %mqhi_s3l1_2@int64[4]:
+  %mqhi_s3l1_2 = %LO0 && %mqhi_s3l1_2 = %LO0;
+vpc %c@sint32[4] %LO0;
+
+(* shsub	v12.4s, v12.4s, v23.4s                    #! PC = 0xc6075bee1438 *)
+cast %z_33@int33[4] %z;
+cast %c_33@int33[4] %c;
+sub %tmpo %z_33 %c_33;
+spl %result_33 %dc %tmpo 1;
+mov [bit0, bit1, bit2, bit3] %dc;
+mov %bit [bit0, bit1, bit2, bit3];
+cast [] %v12@int32[4] %result_33;
+
+cast %tmpo_64@int64[4] %tmpo;
+cast %ablo_32@int32[4] %ablo;
+cast %mqlo_32@int32[4] %mqlo;
+cast %ablo_64@int64[4] %ablo_32;
+cast %mqlo_64@int64[4] %mqlo_32;
+
+cmov %tlbit %bit
+     [2147483648@uint32, 2147483648@uint32, 2147483648@uint32, 2147483648@uint32]
+     [0@uint32, 0@uint32, 0@uint32, 0@uint32];
+cast %tlbit_64@int64[4] %tlbit;
+
+assert true && and [
+  %tmpo_64 - %abhi_s3l1_2 + %mqhi_s3l1_2 = [0@64, 0@64, 0@64, 0@64]
+];
+assume and [
+  %tmpo_64 - %abhi_s3l1_2 + %mqhi_s3l1_2 = [0, 0, 0, 0]
+] && true;
+
+assert true && and [
+  %abfull_s3l1_2 - %abhi_s3l1_2 * [2147483648@64, 2147483648@64, 2147483648@64, 2147483648@64] - %ablo_64 = [0@64, 0@64, 0@64, 0@64],
+  %mqfull_s3l1_2 - %mqhi_s3l1_2 * [2147483648@64, 2147483648@64, 2147483648@64, 2147483648@64] - %mqlo_64 = [0@64, 0@64, 0@64, 0@64]
+];
+assume and [
+  %abfull_s3l1_2 = %abhi_s3l1_2 * [2147483648, 2147483648, 2147483648, 2147483648] + %ablo_64,
+  %mqfull_s3l1_2 = %mqhi_s3l1_2 * [2147483648, 2147483648, 2147483648, 2147483648] + %mqlo_64
+] && true;
+
+add %tL_sum %ablo_64 %tlbit_64;
+sub %tL_64 %tL_sum %mqlo_64;
+
+assert eqmod %tL_64
+             [0, 0, 0, 0]
+             [4294967296, 4294967296, 4294967296, 4294967296]
+        && true;
+assert true && and [
+  [(-2147483647)@64, (-2147483647)@64, (-2147483647)@64, (-2147483647)@64] <=s %tL_64,
+  %tL_64 <=s [4294967295@64, 4294967295@64, 4294967295@64, 4294967295@64]
+];
+assume and [
+  %tL_64 = [0, 0, 0, 0]
+] && true;
+
+// fourth point multiplication
 (* mul	v23.4s, v17.4s, v9.s[0]                     #! PC = 0xc6075bee143c *)
-broadcast %mul 4 [%v9[0]]; mul %v23 %v17 %mul;
-(* mul	v24.4s, v13.4s, v23.4s                      #! PC = 0xc6075bee1440 *)
+broadcast %mul 4 [%v9[0]];
+mull %dc %v23 %v17 %mul;
 cast %v23@int32[4] %v23;
+
+(* mul	v24.4s, v13.4s, v23.4s                      #! PC = 0xc6075bee1440 *)
 mull %dc %v24 %v13 %v23;
+cast %v24@int32[4] %v24;
+
 (* sqdmulh	v13.4s, v13.4s, v17.4s                  #! PC = 0xc6075bee1444 *)
 smulj %LO %v13 %v17;
-ssplit %LO0 %dc %LO 31; vpc %v13@sint32[4] %LO0;
-(* sqdmulh	v23.4s, v24.4s, v0.4s                   #! PC = 0xc6075bee1448 *)
-cast %v24@int32[4] %v24;
-smulj %LO %v24 %v0;
-ssplit %LO0 %dc %LO 31; vpc %v23@sint32[4] %LO0;
-(* shsub	v13.4s, v13.4s, v23.4s                    #! PC = 0xc6075bee144c *)
-cast %v13@int33[4] %v13;
-cast %v23@int33[4] %23;
-sub %tmp %v13 %v23;
-spl %v13 %dc %tmp 1;
+ghost %abfull_s3l1_3@int64[4]:
+  %abfull_s3l1_3 = %LO && %abfull_s3l1_3 = %LO;
 
-// TODO
-assert 
-assume 
+ssplit %LO0 %ablo %LO 31;
+ghost %abhi_s3l1_3@int64[4]:
+  %abhi_s3l1_3 = %LO0 && %abhi_s3l1_3 = %LO0;
+vpc %z@sint32[4] %LO0;
+
+(* sqdmulh	v23.4s, v24.4s, v0.4s                   #! PC = 0xc6075bee1448 *)
+smulj %LO %v24 %v0;
+ghost %mqfull_s3l1_3@int64[4]:
+  %mqfull_s3l1_3 = %LO && %mqfull_s3l1_3 = %LO;
+
+ssplit %LO0 %mqlo %LO 31;
+ghost %mqhi_s3l1_3@int64[4]:
+  %mqhi_s3l1_3 = %LO0 && %mqhi_s3l1_3 = %LO0;
+vpc %c@sint32[4] %LO0;
+
+(* shsub	v13.4s, v13.4s, v23.4s                    #! PC = 0xc6075bee144c *)
+cast %z_33@int33[4] %z;
+cast %c_33@int33[4] %c;
+sub %tmpo %z_33 %c_33;
+spl %result_33 %dc %tmpo 1;
+mov [bit0, bit1, bit2, bit3] %dc;
+mov %bit [bit0, bit1, bit2, bit3];
+cast [] %v13@int32[4] %result_33;
+
+cast %tmpo_64@int64[4] %tmpo;
+cast %ablo_32@int32[4] %ablo;
+cast %mqlo_32@int32[4] %mqlo;
+cast %ablo_64@int64[4] %ablo_32;
+cast %mqlo_64@int64[4] %mqlo_32;
+
+cmov %tlbit %bit
+     [2147483648@uint32, 2147483648@uint32, 2147483648@uint32, 2147483648@uint32]
+     [0@uint32, 0@uint32, 0@uint32, 0@uint32];
+cast %tlbit_64@int64[4] %tlbit;
+
+assert true && and [
+  %tmpo_64 - %abhi_s3l1_3 + %mqhi_s3l1_3 = [0@64, 0@64, 0@64, 0@64]
+];
+assume and [
+  %tmpo_64 - %abhi_s3l1_3 + %mqhi_s3l1_3 = [0, 0, 0, 0]
+] && true;
+
+assert true && and [
+  %abfull_s3l1_3 - %abhi_s3l1_3 * [2147483648@64, 2147483648@64, 2147483648@64, 2147483648@64] - %ablo_64 = [0@64, 0@64, 0@64, 0@64],
+  %mqfull_s3l1_3 - %mqhi_s3l1_3 * [2147483648@64, 2147483648@64, 2147483648@64, 2147483648@64] - %mqlo_64 = [0@64, 0@64, 0@64, 0@64]
+];
+assume and [
+  %abfull_s3l1_3 = %abhi_s3l1_3 * [2147483648, 2147483648, 2147483648, 2147483648] + %ablo_64,
+  %mqfull_s3l1_3 = %mqhi_s3l1_3 * [2147483648, 2147483648, 2147483648, 2147483648] + %mqlo_64
+] && true;
+
+add %tL_sum %ablo_64 %tlbit_64;
+sub %tL_64 %tL_sum %mqlo_64;
+
+assert eqmod %tL_64
+             [0, 0, 0, 0]
+             [4294967296, 4294967296, 4294967296, 4294967296]
+        && true;
+assert true && and [
+  [(-2147483647)@64, (-2147483647)@64, (-2147483647)@64, (-2147483647)@64] <=s %tL_64,
+  %tL_64 <=s [4294967295@64, 4294967295@64, 4294967295@64, 4294967295@64]
+];
+assume and [
+  %tL_64 = [0, 0, 0, 0]
+] && true;
+
+// 45591164 is the R inverse
+
+assert and [
+       eqmod %v10 (%v10_s3l1_1 * %v14 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q],
+       eqmod %v11 (%v11_s3l1_1 * %v15 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q],
+       eqmod %v12 (%v12_s3l1_2 * %v16 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q],
+       eqmod %v13 (%v13_s3l1_2 * %v17 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q] 
+       ]
+       prove with [precondition, all ghosts, all cuts]
+       && true;
+
+assert [NQ*7+NQ2,NQ*7+NQ2,NQ*7+NQ2,NQ*7+NQ2] < %v10 /\ %v10 < [Q*7+Q2,Q*7+Q2,Q*7+Q2,Q*7+Q2] /\
+       [NQ*7+NQ2,NQ*7+NQ2,NQ*7+NQ2,NQ*7+NQ2] < %v11 /\ %v11 < [Q*7+Q2,Q*7+Q2,Q*7+Q2,Q*7+Q2] /\
+       [NQ*7+NQ2,NQ*7+NQ2,NQ*7+NQ2,NQ*7+NQ2] < %v12 /\ %v12 < [Q*7+Q2,Q*7+Q2,Q*7+Q2,Q*7+Q2] /\
+       [NQ*7+NQ2,NQ*7+NQ2,NQ*7+NQ2,NQ*7+NQ2] < %v13 /\ %v13 < [Q*7+Q2,Q*7+Q2,Q*7+Q2,Q*7+Q2]
+       prove with [algebra solver isl, all ghosts, all cuts]
+       && true;
+
+assume eqmod %v10 (%v10_s3l1_1 * %v14 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q] /\
+       eqmod %v11 (%v11_s3l1_1 * %v15 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q] /\
+       eqmod %v12 (%v12_s3l1_2 * %v16 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q] /\
+       eqmod %v13 (%v13_s3l1_2 * %v17 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q] /\
+       [NQ*7,NQ*7,NQ*7,NQ*7] < %v10 /\ %v10 < [Q*7,Q*7,Q*7,Q*7] /\
+       [NQ*7,NQ*7,NQ*7,NQ*7] < %v11 /\ %v11 < [Q*7,Q*7,Q*7,Q*7] /\
+       [NQ*7,NQ*7,NQ*7,NQ*7] < %v12 /\ %v12 < [Q*7,Q*7,Q*7,Q*7] /\
+       [NQ*7,NQ*7,NQ*7,NQ*7] < %v13 /\ %v13 < [Q*7,Q*7,Q*7,Q*7]
+       &&
+       [NQ*7@32,NQ*7@32,NQ*7@32,NQ*7@32] <s %v10 /\ %v10 <s [Q*7@32,Q*7@32,Q*7@32,Q*7@32] /\
+       [NQ*7@32,NQ*7@32,NQ*7@32,NQ*7@32] <s %v11 /\ %v11 <s [Q*7@32,Q*7@32,Q*7@32,Q*7@32] /\
+       [NQ*7@32,NQ*7@32,NQ*7@32,NQ*7@32] <s %v12 /\ %v12 <s [Q*7@32,Q*7@32,Q*7@32,Q*7@32] /\
+       [NQ*7@32,NQ*7@32,NQ*7@32,NQ*7@32] <s %v13 /\ %v13 <s [Q*7@32,Q*7@32,Q*7@32,Q*7@32];
+
+
 (* CUT 9 *)
 cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
-    eqmod %v16 (%v16_s3l1_0 * %v3) [Q,Q,Q,Q] /\
-    eqmod %v17 (%v17_s3l1_0 * %v3) [Q,Q,Q,Q] /\
-    [10*NQ+NQ2,10*NQ+NQ2,10*NQ+NQ2,10*NQ+NQ2] < %v14 /\ %v14 < [10*Q+Q2,10*Q+Q2,10*Q+Q2,10*Q+Q2] /\
-    [10*NQ+NQ2,10*NQ+NQ2,10*NQ+NQ2,10*NQ+NQ2] < %v15 /\ %v15 < [10*Q+Q2,10*Q+Q2,10*Q+Q2,10*Q+Q2] /\
-    [NQ,NQ,NQ,NQ] < %v16 /\ %v16 < [Q,Q,Q,Q] /\
-    [NQ,NQ,NQ,NQ] < %v17 /\ %v17 < [Q,Q,Q,Q]
+    eqmod %v10 (%v10_s3l1_1 * %v14 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q] /\
+    eqmod %v11 (%v11_s3l1_1 * %v15 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q] /\
+    eqmod %v12 (%v12_s3l1_2 * %v16 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q] /\
+    eqmod %v13 (%v13_s3l1_2 * %v17 * [45591164, 45591164, 45591164, 45591164]) [Q,Q,Q,Q] /\
+    [NQ*7,NQ*7,NQ*7,NQ*7] < %v10 /\ %v10 < [Q*7,Q*7,Q*7,Q*7] /\
+    [NQ*7,NQ*7,NQ*7,NQ*7] < %v11 /\ %v11 < [Q*7,Q*7,Q*7,Q*7] /\
+    [NQ*7,NQ*7,NQ*7,NQ*7] < %v12 /\ %v12 < [Q*7,Q*7,Q*7,Q*7] /\
+    [NQ*7,NQ*7,NQ*7,NQ*7] < %v13 /\ %v13 < [Q*7,Q*7,Q*7,Q*7]
  && Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
-    [NQ*10@32+NQ2,NQ*10@32+NQ2,NQ*10@32+NQ2,NQ*10@32+NQ2] <s %v14 /\ %v14 <s [Q*10@32+Q2,Q*10@32+Q2,Q*10@32+Q2,Q*10@32+Q2] /\
-    [NQ*10@32+NQ2,NQ*10@32+NQ2,NQ*10@32+NQ2,NQ*10@32+NQ2] <s %v15 /\ %v15 <s [Q*10@32+Q2,Q*10@32+Q2,Q*10@32+Q2,Q*10@32+Q2] /\
-    [NQ,NQ,NQ,NQ] <s %v16 /\ %v16 <s [Q,Q,Q,Q] /\
-    [NQ,NQ,NQ,NQ] <s %v17 /\ %v17 <s [Q,Q,Q,Q]
+    [NQ*7@32,NQ*7@32,NQ*7@32,NQ*7@32] <s %v10 /\ %v10 <s [Q*7@32,Q*7@32,Q*7@32,Q*7@32] /\
+    [NQ*7@32,NQ*7@32,NQ*7@32,NQ*7@32] <s %v11 /\ %v11 <s [Q*7@32,Q*7@32,Q*7@32,Q*7@32] /\
+    [NQ*7@32,NQ*7@32,NQ*7@32,NQ*7@32] <s %v12 /\ %v12 <s [Q*7@32,Q*7@32,Q*7@32,Q*7@32] /\
+    [NQ*7@32,NQ*7@32,NQ*7@32,NQ*7@32] <s %v13 /\ %v13 <s [Q*7@32,Q*7@32,Q*7@32,Q*7@32]
     prove with [precondition, all cuts];
 
+ghost %v10_s3l1_2@int32[4], %v11_s3l1_2@int32[4], %v12_s3l1_3@int32[4], %v13_s3l1_3@int32[4]:
+       %v10_s3l1_2 = %v10 /\ %v11_s3l1_2 = %v11 /\ %v12_s3l1_3 = %v12 /\ %v13_s3l1_3 = %v13
+       && %v10_s3l1_2 = %v10 /\ %v11_s3l1_2 = %v11 /\ %v12_s3l1_3 = %v12 /\ %v13_s3l1_3 = %v13;
 
 (* add	v14.4s, v10.4s, v11.4s                      #! PC = 0xc6075bee1450 *)
 add %v14 %v10 %v11;
@@ -2323,15 +2609,40 @@ add %v16 %v12 %v13;
 (* sub	v17.4s, v12.4s, v13.4s                      #! PC = 0xc6075bee145c *)
 sub %v17 %v12 %v13;
 
+(*assert [15*NQ,15*NQ,15*NQ,15*NQ] < %v14 /\ %v14 < [15*Q,15*Q,15*Q,15*Q] /\
+       [15*NQ,15*NQ,15*NQ,15*NQ] < %v15 /\ %v15 < [15*Q,15*Q,15*Q,15*Q] /\
+       [15*NQ,15*NQ,15*NQ,15*NQ] < %v16 /\ %v16 < [15*Q,15*Q,15*Q,15*Q] /\
+       [15*NQ,15*NQ,15*NQ,15*NQ] < %v17 /\ %v17 < [15*Q,15*Q,15*Q,15*Q]
+       prove with [algebra solver isl, precondition]
+       && true;*)
+
+assume [15*NQ,15*NQ,15*NQ,15*NQ] < %v14 /\ %v14 < [15*Q,15*Q,15*Q,15*Q] /\
+       [15*NQ,15*NQ,15*NQ,15*NQ] < %v15 /\ %v15 < [15*Q,15*Q,15*Q,15*Q] /\
+       [15*NQ,15*NQ,15*NQ,15*NQ] < %v16 /\ %v16 < [15*Q,15*Q,15*Q,15*Q] /\
+       [15*NQ,15*NQ,15*NQ,15*NQ] < %v17 /\ %v17 < [15*Q,15*Q,15*Q,15*Q]
+       && 
+       [NQ*15@32,NQ*15@32,NQ*15@32,NQ*15@32] <s %v14 /\ %v14 <s [Q*15@32,Q*15@32,Q*15@32,Q*15@32] /\
+       [NQ*15@32,NQ*15@32,NQ*15@32,NQ*15@32] <s %v15 /\ %v15 <s [Q*15@32,Q*15@32,Q*15@32,Q*15@32] /\
+       [NQ*15@32,NQ*15@32,NQ*15@32,NQ*15@32] <s %v16 /\ %v16 <s [Q*15@32,Q*15@32,Q*15@32,Q*15@32] /\
+       [NQ*15@32,NQ*15@32,NQ*15@32,NQ*15@32] <s %v17 /\ %v17 <s [Q*15@32,Q*15@32,Q*15@32,Q*15@32];
+
+ghost %v14_s3l1_1@int32[4], %v15_s3l1_1@int32[4], %v16_s3l1_2@int32[4], %v17_s3l1_2@int32[4]:
+       %v14_s3l1_1 = %v14 /\ %v15_s3l1_1 = %v15 /\ %v16_s3l1_2 = %v16 /\ %v17_s3l1_2 = %v17
+       && %v14_s3l1_1 = %v14 /\ %v15_s3l1_1 = %v15 /\ %v16_s3l1_2 = %v16 /\ %v17_s3l1_2 = %v17;
+
 (* sqrdmulh	v23.4s, v14.4s, v30.s[0]               #! PC = 0xc6075bee1460 *)
 broadcast %sqrdmulh 4 [%v30[0]]; smulj %LO %v14 %sqrdmulh;
 ssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;
 vpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;
 add %v23 %LO11 %LO01;
 (* mul	v14.4s, v14.4s, v29.s[0]                    #! PC = 0xc6075bee1464 *)
-broadcast %mul 4 [%v29[0]]; mul %v14 %v14 %mul;
+broadcast %mul 4 [%v29[0]]; 
+mull %dc %v14 %v14 %mul;
+cast %v14@int32[4] %v14;
 (* mls	v14.4s, v23.4s, v0.4s                       #! PC = 0xc6075bee1468 *)
-mull %dc %mls %v23 %v0; sub %v14 %v14 %mls;
+mull %dc %mls %v23 %v0; 
+cast %mls@int32[4] %mls;
+subs %dc %v14 %v14 %mls;
 
 (* sqrdmulh	v23.4s, v15.4s, v30.s[0]               #! PC = 0xc6075bee146c *)
 broadcast %sqrdmulh 4 [%v30[0]]; smulj %LO %v15 %sqrdmulh;
@@ -2339,9 +2650,13 @@ ssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;
 vpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;
 add %v23 %LO11 %LO01;
 (* mul	v15.4s, v15.4s, v29.s[0]                    #! PC = 0xc6075bee1470 *)
-broadcast %mul 4 [%v29[0]]; mul %v15 %v15 %mul;
+broadcast %mul 4 [%v29[0]]; 
+mull %dc %v15 %v15 %mul;
+cast %v15@int32[4] %v15;
 (* mls	v15.4s, v23.4s, v0.4s                       #! PC = 0xc6075bee1474 *)
-mull %dc %mls %v23 %v0; sub %v15 %v15 %mls;
+mull %dc %mls %v23 %v0; 
+cast %mls@int32[4] %mls;
+subs %dc %v15 %v15 %mls;
 
 (* sqrdmulh	v23.4s, v16.4s, v30.s[0]               #! PC = 0xc6075bee1478 *)
 broadcast %sqrdmulh 4 [%v30[0]]; smulj %LO %v16 %sqrdmulh;
@@ -2349,9 +2664,13 @@ ssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;
 vpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;
 add %v23 %LO11 %LO01;
 (* mul	v16.4s, v16.4s, v29.s[0]                    #! PC = 0xc6075bee147c *)
-broadcast %mul 4 [%v29[0]]; mul %v16 %v16 %mul;
+broadcast %mul 4 [%v29[0]]; 
+mull %dc %v16 %v16 %mul;
+cast %v16@int32[4] %v16;
 (* mls	v16.4s, v23.4s, v0.4s                       #! PC = 0xc6075bee1480 *)
-mull %dc %mls %v23 %v0; sub %v16 %v16 %mls;
+mull %dc %mls %v23 %v0; 
+cast %mls@int32[4] %mls;
+subs %dc %v16 %v16 %mls;
 
 (* sqrdmulh	v23.4s, v17.4s, v30.s[0]               #! PC = 0xc6075bee1484 *)
 broadcast %sqrdmulh 4 [%v30[0]]; smulj %LO %v17 %sqrdmulh;
@@ -2359,9 +2678,58 @@ ssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;
 vpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;
 add %v23 %LO11 %LO01;
 (* mul	v17.4s, v17.4s, v29.s[0]                    #! PC = 0xc6075bee1488 *)
-broadcast %mul 4 [%v29[0]]; mul %v17 %v17 %mul;
+broadcast %mul 4 [%v29[0]]; 
+mull %dc %v17 %v17 %mul;
+cast %v17@int32[4] %v17;
 (* mls	v17.4s, v23.4s, v0.4s                       #! PC = 0xc6075bee148c *)
-mull %dc %mls %v23 %v0; sub %v17 %v17 %mls;
+mull %dc %mls %v23 %v0; 
+cast %mls@int32[4] %mls;
+subs %dc %v17 %v17 %mls;
+
+(*assert eqmod %v14 (%v14_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v15 (%v15_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v16 (%v16_s3l1_2*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v17 (%v17_s3l1_2*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v14 /\ %v14 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v15 /\ %v15 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v16 /\ %v16 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v17 /\ %v17 < [Q,Q,Q,Q]
+       prove with [algebra solver isl, precondition]
+       && true;*)
+
+assume eqmod %v14 (%v14_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v15 (%v15_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v16 (%v16_s3l1_2*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v17 (%v17_s3l1_2*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v14 /\ %v14 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v15 /\ %v15 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v16 /\ %v16 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v17 /\ %v17 < [Q,Q,Q,Q]
+       &&
+       [NQ,NQ,NQ,NQ] <s %v14 /\ %v14 <s [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] <s %v15 /\ %v15 <s [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] <s %v16 /\ %v16 <s [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] <s %v17 /\ %v17 <s [Q,Q,Q,Q];
+
+(* CUT 10 *)
+(*cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
+    eqmod %v14 (%v14_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+    eqmod %v15 (%v15_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+    eqmod %v16 (%v16_s3l1_2*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+    eqmod %v17 (%v17_s3l1_2*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] < %v14 /\ %v14 < [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] < %v15 /\ %v15 < [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] < %v16 /\ %v16 < [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] < %v17 /\ %v17 < [Q,Q,Q,Q]
+ && Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
+    [NQ,NQ,NQ,NQ] <s %v14 /\ %v14 <s [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] <s %v15 /\ %v15 <s [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] <s %v16 /\ %v16 <s [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] <s %v17 /\ %v17 <s [Q,Q,Q,Q]
+    prove with [precondition, all cuts];*)
+
+ghost %v17_s3l1_3@int32[4]:
+       %v17_s3l1_3 = %v17 && %v17_s3l1_3 = %v17;
 
 (* sqrdmulh	v23.4s, v17.4s, v2.s[0]                #! PC = 0xc6075bee1490 *)
 broadcast %sqrdmulh 4 [%v2[0]]; smulj %LO %v17 %sqrdmulh;
@@ -2369,9 +2737,55 @@ ssplit %LO1 %LO0 %LO 31; usplit %LO00 %dc %LO0 30;
 vpc %LO01@sint32[4] %LO00; vpc %LO11@sint32[4] %LO1;
 add %v23 %LO11 %LO01;
 (* mul	v17.4s, v17.4s, v1.s[0]                     #! PC = 0xc6075bee1494 *)
-broadcast %mul 4 [%v1[0]]; mul %v17 %v17 %mul;
+broadcast %mul 4 [%v1[0]]; 
+mull %dc %v17 %v17 %mul;
+cast %v17@int32[4] %v17;
 (* mls	v17.4s, v23.4s, v0.4s                       #! PC = 0xc6075bee1498 *)
-mull %dc %mls %v23 %v0; sub %v17 %v17 %mls;
+mull %dc %mls %v23 %v0; 
+cast %mls@int32[4] %mls;
+subs %dc %v17 %v17 %mls;
+
+(*assert eqmod %v14 (%v14_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v15 (%v15_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v16 (%v16_s3l1_2*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v17 (%v17_s3l1_3*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v14 /\ %v14 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v15 /\ %v15 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v16 /\ %v16 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v17 /\ %v17 < [Q,Q,Q,Q]
+       prove with [algebra solver isl, precondition]
+       && true;*)
+
+assume eqmod %v14 (%v14_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v15 (%v15_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v16 (%v16_s3l1_2*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+       eqmod %v17 (%v17_s3l1_3*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v14 /\ %v14 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v15 /\ %v15 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v16 /\ %v16 < [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] < %v17 /\ %v17 < [Q,Q,Q,Q]
+       &&
+       [NQ,NQ,NQ,NQ] <s %v14 /\ %v14 <s [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] <s %v15 /\ %v15 <s [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] <s %v16 /\ %v16 <s [Q,Q,Q,Q] /\
+       [NQ,NQ,NQ,NQ] <s %v17 /\ %v17 <s [Q,Q,Q,Q];
+
+(* CUT 11 *)
+cut Q = 133199617 /\ Q2 = 66599809 /\ NQ = -133199617 /\ NQ2 = -66599809 /\
+    eqmod %v14 (%v14_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+    eqmod %v15 (%v15_s3l1_1*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+    eqmod %v16 (%v16_s3l1_2*[%v29[0], %v29[0], %v29[0], %v29[0]]) [Q,Q,Q,Q] /\
+    eqmod %v17 (%v17_s3l1_3*[%v1[0], %v1[0], %v1[0], %v1[0]]) [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] < %v14 /\ %v14 < [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] < %v15 /\ %v15 < [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] < %v16 /\ %v16 < [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] < %v17 /\ %v17 < [Q,Q,Q,Q]
+ && Q = 133199617@32 /\ Q2 = 66599809@32 /\ NQ = (-133199617)@32 /\ NQ2 = (-66599809)@32 /\
+    [NQ,NQ,NQ,NQ] <s %v14 /\ %v14 <s [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] <s %v15 /\ %v15 <s [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] <s %v16 /\ %v16 <s [Q,Q,Q,Q] /\
+    [NQ,NQ,NQ,NQ] <s %v17 /\ %v17 <s [Q,Q,Q,Q]
+    prove with [precondition, all cuts];
 
 (* add	v10.4s, v14.4s, v16.4s                      #! PC = 0xc6075bee149c *)
 add %v10 %v14 %v16;
@@ -2382,10 +2796,28 @@ add %v11 %v15 %v17;
 (* sub	v13.4s, v15.4s, v17.4s                      #! PC = 0xc6075bee14a8 *)
 sub %v13 %v15 %v17;
 
+(*assert [2*NQ,2*NQ,2*NQ,2*NQ] < %v10 /\ %v10 < [2*Q,2*Q,2*Q,2*Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v11 /\ %v11 < [2*Q,2*Q,2*Q,2*Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v12 /\ %v12 < [2*Q,2*Q,2*Q,2*Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v13 /\ %v13 < [2*Q,2*Q,2*Q,2*Q]
+       prove with [algebra solver isl, precondition]
+       && true;*)
 
+assume [2*NQ,2*NQ,2*NQ,2*NQ] < %v10 /\ %v10 < [2*Q,2*Q,2*Q,2*Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v11 /\ %v11 < [2*Q,2*Q,2*Q,2*Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v12 /\ %v12 < [2*Q,2*Q,2*Q,2*Q] /\
+       [2*NQ,2*NQ,2*NQ,2*NQ] < %v13 /\ %v13 < [2*Q,2*Q,2*Q,2*Q]
+       && 
+       [NQ*2@32,NQ*2@32,NQ*2@32,NQ*2@32] <s %v10 /\ %v10 <s [Q*2@32,Q*2@32,Q*2@32,Q*2@32] /\
+       [NQ*2@32,NQ*2@32,NQ*2@32,NQ*2@32] <s %v11 /\ %v11 <s [Q*2@32,Q*2@32,Q*2@32,Q*2@32] /\
+       [NQ*2@32,NQ*2@32,NQ*2@32,NQ*2@32] <s %v12 /\ %v12 <s [Q*2@32,Q*2@32,Q*2@32,Q*2@32] /\
+       [NQ*2@32,NQ*2@32,NQ*2@32,NQ*2@32] <s %v13 /\ %v13 <s [Q*2@32,Q*2@32,Q*2@32,Q*2@32];
 
 (* st4	{v10.4s-v13.4s}, [x7]                       #! EA = L0xfffffd03a680; PC = 0xc6075bee14ac *)
-st4	{%%v10.4s-%%v13.4s}, %%L0xfffffd03a680                       #! L0xfffffd03a680 = L0xfffffd03a680; 0xc6075bee14ac = 0xc6075bee14ac;
+mov [L0xfffffd03a680, L0xfffffd03a690, L0xfffffd03a6a0, L0xfffffd03a6b0] %v10;
+mov [L0xfffffd03a684, L0xfffffd03a694, L0xfffffd03a6a4, L0xfffffd03a6b4] %v11;
+mov [L0xfffffd03a688, L0xfffffd03a698, L0xfffffd03a6a8, L0xfffffd03a6b8] %v12;
+mov [L0xfffffd03a68c, L0xfffffd03a69c, L0xfffffd03a6ac, L0xfffffd03a6bc] %v13;
 
 {
     true && true
