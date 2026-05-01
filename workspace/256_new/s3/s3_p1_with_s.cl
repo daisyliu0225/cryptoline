@@ -1,3 +1,385 @@
+(*ubuntu@bed910ed8481:~/cryptoline/workspace/256_new/s3$ cv -v -isafety -debug -no_carry_constraint -enable_rewriting:eqmod s3_p1.cl
+Parsing CryptoLine file:                        [OK]            0.0589 seconds
+Checking well-formedness:                       [OK]            0.0175 seconds
+
+Procedure main
+==============
+Transforming to SSA form:                       [OK]            0.0070 seconds
+Normalizing specification:                      [OK]            0.0138 seconds
+Rewriting assignments:                          [OK]            0.0099 seconds
+Verifying program safety:
+        Cut 0
+             Round 1 (24 safety conditions, timeout = 300 seconds)
+                Safety condition #0             [OK]
+                Safety condition #3             [OK]
+                Safety condition #2             [OK]
+                Safety condition #1             [OK]
+                Safety condition #4             [OK]
+                Safety condition #8             [OK]
+                Safety condition #9             [OK]
+                Safety condition #10            [OK]
+                Safety condition #11            [OK]
+                Safety condition #12            [OK]
+                Safety condition #13            [OK]
+                Safety condition #14            [OK]
+                Safety condition #15            [OK]
+                Safety condition #6             [OK]
+                Safety condition #16            [OK]
+                Safety condition #7             [OK]
+                Safety condition #5             [OK]
+                Safety condition #17            [OK]
+                Safety condition #20            [OK]
+                Safety condition #21            [OK]
+                Safety condition #22            [OK]
+                Safety condition #23            [OK]
+                Safety condition #18            [OK]
+                Safety condition #19            [OK]
+        Cut 1
+             Round 1 (16 safety conditions, timeout = 300 seconds)
+                Safety condition #25            [OK]
+                Safety condition #26            [OK]
+                Safety condition #27            [OK]
+                Safety condition #24            [OK]
+                Safety condition #28            [OK]
+                Safety condition #29            [OK]
+                Safety condition #30            [OK]
+                Safety condition #31            [OK]
+                Safety condition #32            [OK]
+                Safety condition #33            [OK]
+                Safety condition #34            [OK]
+                Safety condition #35            [OK]
+                Safety condition #36            [OK]
+                Safety condition #37            [OK]
+                Safety condition #38            [OK]
+                Safety condition #39            [OK]
+        Cut 2
+             Round 1 (24 safety conditions, timeout = 300 seconds)
+                Safety condition #40            [OK]
+                Safety condition #42            [OK]
+                Safety condition #43            [OK]
+                Safety condition #41            [OK]
+                Safety condition #44            [OK]
+                Safety condition #45            [OK]
+                Safety condition #47            [OK]
+                Safety condition #48            [OK]
+                Safety condition #49            [OK]
+                Safety condition #50            [OK]
+                Safety condition #51            [OK]
+                Safety condition #52            [OK]
+                Safety condition #53            [OK]
+                Safety condition #54            [OK]
+                Safety condition #55            [OK]
+                Safety condition #57            [OK]
+                Safety condition #46            [OK]
+                Safety condition #60            [OK]
+                Safety condition #58            [OK]
+                Safety condition #61            [OK]
+                Safety condition #62            [OK]
+                Safety condition #63            [OK]
+                Safety condition #56            [OK]
+                Safety condition #59            [OK]
+        Cut 3
+             Round 1 (16 safety conditions, timeout = 300 seconds)
+                Safety condition #65            [OK]
+                Safety condition #64            [OK]
+                Safety condition #67            [OK]
+                Safety condition #66            [OK]
+                Safety condition #68            [OK]
+                Safety condition #69            [OK]
+                Safety condition #70            [OK]
+                Safety condition #71            [OK]
+                Safety condition #72            [OK]
+                Safety condition #73            [OK]
+                Safety condition #74            [OK]
+                Safety condition #75            [OK]
+                Safety condition #76            [OK]
+                Safety condition #77            [OK]
+                Safety condition #78            [OK]
+                Safety condition #79            [OK]
+        Cut 4
+             Round 1 (24 safety conditions, timeout = 300 seconds)
+                Safety condition #80            [OK]
+                Safety condition #82            [OK]
+                Safety condition #81            [OK]
+                Safety condition #83            [OK]
+                Safety condition #84            [OK]
+                Safety condition #88            [OK]
+                Safety condition #89            [OK]
+                Safety condition #90            [OK]
+                Safety condition #91            [OK]
+                Safety condition #92            [OK]
+                Safety condition #93            [OK]
+                Safety condition #94            [OK]
+                Safety condition #95            [OK]
+                Safety condition #96            [OK]
+                Safety condition #87            [OK]
+                Safety condition #86            [OK]
+                Safety condition #85            [OK]
+                Safety condition #100           [OK]
+                Safety condition #101           [OK]
+                Safety condition #102           [OK]
+                Safety condition #103           [OK]
+                Safety condition #98            [OK]
+                Safety condition #99            [OK]
+                Safety condition #97            [OK]
+        Cut 5
+             Round 1 (16 safety conditions, timeout = 300 seconds)
+                Safety condition #104           [OK]
+                Safety condition #106           [OK]
+                Safety condition #107           [OK]
+                Safety condition #105           [OK]
+                Safety condition #108           [OK]
+                Safety condition #109           [OK]
+                Safety condition #110           [OK]
+                Safety condition #111           [OK]
+                Safety condition #112           [OK]
+                Safety condition #113           [OK]
+                Safety condition #114           [OK]
+                Safety condition #115           [OK]
+                Safety condition #116           [OK]
+                Safety condition #117           [OK]
+                Safety condition #118           [OK]
+                Safety condition #119           [OK]
+        Cut 6
+             Round 1 (24 safety conditions, timeout = 300 seconds)
+                Safety condition #120           [OK]
+                Safety condition #122           [OK]
+                Safety condition #123           [OK]
+                Safety condition #121           [OK]
+                Safety condition #124           [OK]
+                Safety condition #125           [OK]
+                Safety condition #127           [OK]
+                Safety condition #128           [OK]
+                Safety condition #129           [OK]
+                Safety condition #130           [OK]
+                Safety condition #131           [OK]
+                Safety condition #132           [OK]
+                Safety condition #133           [OK]
+                Safety condition #134           [OK]
+                Safety condition #135           [OK]
+                Safety condition #126           [OK]
+                Safety condition #137           [OK]
+                Safety condition #138           [OK]
+                Safety condition #139           [OK]
+                Safety condition #140           [OK]
+                Safety condition #141           [OK]
+                Safety condition #142           [OK]
+                Safety condition #143           [OK]
+                Safety condition #136           [OK]
+        Cut 7
+             Round 1 (16 safety conditions, timeout = 300 seconds)
+                Safety condition #144           [OK]
+                Safety condition #147           [OK]
+                Safety condition #146           [OK]
+                Safety condition #145           [OK]
+                Safety condition #148           [OK]
+                Safety condition #149           [OK]
+                Safety condition #150           [OK]
+                Safety condition #151           [OK]
+                Safety condition #152           [OK]
+                Safety condition #153           [OK]
+                Safety condition #154           [OK]
+                Safety condition #155           [OK]
+                Safety condition #156           [OK]
+                Safety condition #157           [OK]
+                Safety condition #158           [OK]
+                Safety condition #159           [OK]
+        Cut 8
+             Round 1 (80 safety conditions, timeout = 300 seconds)
+                Safety condition #163           [OK]
+                Safety condition #160           [OK]
+                Safety condition #162           [OK]
+                Safety condition #161           [OK]
+                Safety condition #165           [OK]
+                Safety condition #166           [OK]
+                Safety condition #168           [OK]
+                Safety condition #169           [OK]
+                Safety condition #170           [OK]
+                Safety condition #171           [OK]
+                Safety condition #172           [OK]
+                Safety condition #164           [OK]
+                Safety condition #173           [OK]
+                Safety condition #174           [OK]
+                Safety condition #176           [OK]
+                Safety condition #175           [OK]
+                Safety condition #177           [OK]
+                Safety condition #178           [OK]
+                Safety condition #167           [OK]
+                Safety condition #179           [OK]
+                Safety condition #180           [OK]
+                Safety condition #183           [OK]
+                Safety condition #182           [OK]
+                Safety condition #181           [OK]
+                Safety condition #186           [OK]
+                Safety condition #187           [OK]
+                Safety condition #188           [OK]
+                Safety condition #190           [OK]
+                Safety condition #184           [OK]
+                Safety condition #191           [OK]
+                Safety condition #193           [OK]
+                Safety condition #192           [OK]
+                Safety condition #195           [OK]
+                Safety condition #194           [OK]
+                Safety condition #185           [OK]
+                Safety condition #197           [OK]
+                Safety condition #196           [OK]
+                Safety condition #199           [OK]
+                Safety condition #198           [OK]
+                Safety condition #189           [OK]
+                Safety condition #200           [OK]
+                Safety condition #201           [OK]
+                Safety condition #204           [OK]
+                Safety condition #205           [OK]
+                Safety condition #202           [OK]
+                Safety condition #207           [OK]
+                Safety condition #203           [OK]
+                Safety condition #210           [OK]
+                Safety condition #211           [OK]
+                Safety condition #212           [OK]
+                Safety condition #213           [OK]
+                Safety condition #214           [OK]
+                Safety condition #215           [OK]
+                Safety condition #208           [OK]
+                Safety condition #216           [OK]
+                Safety condition #206           [OK]
+                Safety condition #217           [OK]
+                Safety condition #219           [OK]
+                Safety condition #218           [OK]
+                Safety condition #209           [OK]
+                Safety condition #220           [OK]
+                Safety condition #223           [OK]
+                Safety condition #222           [OK]
+                Safety condition #224           [OK]
+                Safety condition #221           [OK]
+                Safety condition #225           [OK]
+                Safety condition #226           [OK]
+                Safety condition #228           [OK]
+                Safety condition #229           [OK]
+                Safety condition #231           [OK]
+                Safety condition #232           [OK]
+                Safety condition #230           [OK]
+                Safety condition #234           [OK]
+                Safety condition #233           [OK]
+                Safety condition #227           [OK]
+                Safety condition #236           [OK]
+                Safety condition #235           [OK]
+                Safety condition #238           [OK]
+                Safety condition #237           [OK]
+                Safety condition #239           [OK]
+        Cut 9
+             Round 1 (16 safety conditions, timeout = 300 seconds)
+                Safety condition #243           [OK]
+                Safety condition #240           [OK]
+                Safety condition #241           [OK]
+                Safety condition #242           [OK]
+                Safety condition #244           [OK]
+                Safety condition #245           [OK]
+                Safety condition #246           [OK]
+                Safety condition #247           [OK]
+                Safety condition #248           [OK]
+                Safety condition #249           [OK]
+                Safety condition #250           [OK]
+                Safety condition #251           [OK]
+                Safety condition #252           [OK]
+                Safety condition #253           [OK]
+                Safety condition #254           [OK]
+                Safety condition #255           [OK]
+        Cut 10
+             Round 1 (48 safety conditions, timeout = 300 seconds)
+                Safety condition #256           [OK]
+                Safety condition #258           [OK]
+                Safety condition #257           [OK]
+                Safety condition #259           [OK]
+                Safety condition #260           [OK]
+                Safety condition #261           [OK]
+                Safety condition #262           [OK]
+                Safety condition #263           [OK]
+                Safety condition #264           [OK]
+                Safety condition #265           [OK]
+                Safety condition #266           [OK]
+                Safety condition #267           [OK]
+                Safety condition #268           [OK]
+                Safety condition #269           [OK]
+                Safety condition #270           [OK]
+                Safety condition #271           [OK]
+                Safety condition #272           [OK]
+                Safety condition #273           [OK]
+                Safety condition #274           [OK]
+                Safety condition #275           [OK]
+                Safety condition #276           [OK]
+                Safety condition #277           [OK]
+                Safety condition #278           [OK]
+                Safety condition #279           [OK]
+                Safety condition #280           [OK]
+                Safety condition #281           [OK]
+                Safety condition #282           [OK]
+                Safety condition #283           [OK]
+                Safety condition #284           [OK]
+                Safety condition #285           [OK]
+                Safety condition #286           [OK]
+                Safety condition #287           [OK]
+                Safety condition #288           [OK]
+                Safety condition #289           [OK]
+                Safety condition #290           [OK]
+                Safety condition #291           [OK]
+                Safety condition #292           [OK]
+                Safety condition #293           [OK]
+                Safety condition #294           [OK]
+                Safety condition #295           [OK]
+                Safety condition #296           [OK]
+                Safety condition #297           [OK]
+                Safety condition #298           [OK]
+                Safety condition #299           [OK]
+                Safety condition #300           [OK]
+                Safety condition #301           [OK]
+                Safety condition #302           [OK]
+                Safety condition #303           [OK]
+        Cut 11
+             Round 1 (12 safety conditions, timeout = 300 seconds)
+                Safety condition #304           [OK]
+                Safety condition #307           [OK]
+                Safety condition #305           [OK]
+                Safety condition #306           [OK]
+                Safety condition #308           [OK]
+                Safety condition #309           [OK]
+                Safety condition #311           [OK]
+                Safety condition #312           [OK]
+                Safety condition #313           [OK]
+                Safety condition #314           [OK]
+                Safety condition #315           [OK]
+                Safety condition #310           [OK]
+        Cut 12
+             Round 1 (16 safety conditions, timeout = 300 seconds)
+                Safety condition #316           [OK]
+                Safety condition #318           [OK]
+                Safety condition #317           [OK]
+                Safety condition #319           [OK]
+                Safety condition #320           [OK]
+                Safety condition #321           [OK]
+                Safety condition #322           [OK]
+                Safety condition #323           [OK]
+                Safety condition #324           [OK]
+                Safety condition #325           [OK]
+                Safety condition #326           [OK]
+                Safety condition #327           [OK]
+                Safety condition #328           [OK]
+                Safety condition #329           [OK]
+                Safety condition #330           [OK]
+                Safety condition #331           [OK]
+        Overall                                 [OK]            100.1725 seconds
+Verifying range assertions:                     [OK]            1180.6316 seconds
+Verifying range specification:                  [OK]            0.0325 seconds
+Rewriting value-preserved casting:              [OK]            0.0022 seconds
+Verifying algebraic assertions:                 [OK]            49.6712 seconds
+Verifying algebraic specification:              [OK]            9.3452 seconds
+
+Procedure Summary
+-----------------
+Procedure verification:                         [OK]            1339.8905 seconds
+
+Summary
+=======
+Verification result:                            [OK]            1339.9672 seconds *)
 proc main (
 int32 A00,int32 A01,int32 A02,int32 A03,int32 A04,int32 A05,int32 A06,int32 A07,
 int32 A08,int32 A09,int32 A0a,int32 A0b,int32 A0c,int32 A0d,int32 A0e,int32 A0f,
@@ -2823,40 +3205,6 @@ mov [L0xfffffd03a680, L0xfffffd03a690, L0xfffffd03a6a0, L0xfffffd03a6b0] %v10;
 mov [L0xfffffd03a684, L0xfffffd03a694, L0xfffffd03a6a4, L0xfffffd03a6b4] %v11;
 mov [L0xfffffd03a688, L0xfffffd03a698, L0xfffffd03a6a8, L0xfffffd03a6b8] %v12;
 mov [L0xfffffd03a68c, L0xfffffd03a69c, L0xfffffd03a6ac, L0xfffffd03a6bc] %v13;
-
-(* CUT 12*)
-cut and [
-    Q = 133199617, Q2 = 66599809, NQ = -133199617, NQ2 = -66599809, 
-    eqmod L0xfffffd03a680 (45591164 * (((A00 + A02 + A01 + A03) * (B00 + B02 + B01 + B03)) + ((A00 + A02 - A01 - A03) * (B00 + B02 - B01 - B03)) + ((A00 - A02 + 41266039 * (A01 - A03)) * (B00 - B02 + 41266039 * (B01 - B03))) + ((A00 - A02 - 41266039 * (A01 - A03)) * (B00 - B02 - 41266039 * (B01 - B03))))) [Q], 
-    eqmod L0xfffffd03a684 (45591164 * ((((A00 + A02 + A01 + A03) * (B00 + B02 + B01 + B03)) - ((A00 + A02 - A01 - A03) * (B00 + B02 - B01 - B03))) + 91933578 * (((A00 - A02 + 41266039 * (A01 - A03)) * (B00 - B02 + 41266039 * (B01 - B03))) - ((A00 - A02 - 41266039 * (A01 - A03)) * (B00 - B02 - 41266039 * (B01 - B03)))))) [Q], 
-    eqmod L0xfffffd03a688 (45591164 * (((A00 + A02 + A01 + A03) * (B00 + B02 + B01 + B03)) + ((A00 + A02 - A01 - A03) * (B00 + B02 - B01 - B03)) - ((A00 - A02 + 41266039 * (A01 - A03)) * (B00 - B02 + 41266039 * (B01 - B03))) - ((A00 - A02 - 41266039 * (A01 - A03)) * (B00 - B02 - 41266039 * (B01 - B03))))) [Q], 
-    eqmod L0xfffffd03a68c (45591164 * ((((A00 + A02 + A01 + A03) * (B00 + B02 + B01 + B03)) - ((A00 + A02 - A01 - A03) * (B00 + B02 - B01 - B03))) - 91933578 * (((A00 - A02 + 41266039 * (A01 - A03)) * (B00 - B02 + 41266039 * (B01 - B03))) - ((A00 - A02 - 41266039 * (A01 - A03)) * (B00 - B02 - 41266039 * (B01 - B03)))))) [Q], 
-    eqmod L0xfffffd03a690 (45591164 * (((A04 + A06 * 41266039 + (A05 + A07 * 41266039) * 78540094) * (B04 + B06 * 41266039 + (B05 + B07 * 41266039) * 78540094)) + ((A04 + A06 * 41266039 - (A05 + A07 * 41266039) * 78540094) * (B04 + B06 * 41266039 - (B05 + B07 * 41266039) * 78540094)) + ((A04 - A06 * 41266039 + (A05 - A07 * 41266039) * 60096819) * (B04 - B06 * 41266039 + (B05 - B07 * 41266039) * 60096819)) + ((A04 - A06 * 41266039 - (A05 - A07 * 41266039) * 60096819) * (B04 - B06 * 41266039 - (B05 - B07 * 41266039) * 60096819)))) [Q], 
-    eqmod L0xfffffd03a694 (45591164 * ((((A04 + A06 * 41266039 + (A05 + A07 * 41266039) * 78540094) * (B04 + B06 * 41266039 + (B05 + B07 * 41266039) * 78540094)) - ((A04 + A06 * 41266039 - (A05 + A07 * 41266039) * 78540094) * (B04 + B06 * 41266039 - (B05 + B07 * 41266039) * 78540094))) + 91933578 * (((A04 - A06 * 41266039 + (A05 - A07 * 41266039) * 60096819) * (B04 - B06 * 41266039 + (B05 - B07 * 41266039) * 60096819)) - ((A04 - A06 * 41266039 - (A05 - A07 * 41266039) * 60096819) * (B04 - B06 * 41266039 - (B05 - B07 * 41266039) * 60096819))))) [Q], 
-    eqmod L0xfffffd03a698 (45591164 * (((A04 + A06 * 41266039 + (A05 + A07 * 41266039) * 78540094) * (B04 + B06 * 41266039 + (B05 + B07 * 41266039) * 78540094)) + ((A04 + A06 * 41266039 - (A05 + A07 * 41266039) * 78540094) * (B04 + B06 * 41266039 - (B05 + B07 * 41266039) * 78540094)) - ((A04 - A06 * 41266039 + (A05 - A07 * 41266039) * 60096819) * (B04 - B06 * 41266039 + (B05 - B07 * 41266039) * 60096819)) - ((A04 - A06 * 41266039 - (A05 - A07 * 41266039) * 60096819) * (B04 - B06 * 41266039 - (B05 - B07 * 41266039) * 60096819)))) [Q], 
-    eqmod L0xfffffd03a69c (45591164 * ((((A04 + A06 * 41266039 + (A05 + A07 * 41266039) * 78540094) * (B04 + B06 * 41266039 + (B05 + B07 * 41266039) * 78540094)) - ((A04 + A06 * 41266039 - (A05 + A07 * 41266039) * 78540094) * (B04 + B06 * 41266039 - (B05 + B07 * 41266039) * 78540094))) - 91933578 * (((A04 - A06 * 41266039 + (A05 - A07 * 41266039) * 60096819) * (B04 - B06 * 41266039 + (B05 - B07 * 41266039) * 60096819)) - ((A04 - A06 * 41266039 - (A05 - A07 * 41266039) * 60096819) * (B04 - B06 * 41266039 - (B05 - B07 * 41266039) * 60096819))))) [Q], 
-    eqmod L0xfffffd03a6a0 (45591164 * (((A08 + A0a * 78540094 + (A09 + A0b * 78540094) * 3154693) * (B08 + B0a * 78540094 + (B09 + B0b * 78540094) * 3154693)) + ((A08 + A0a * 78540094 - (A09 + A0b * 78540094) * 3154693) * (B08 + B0a * 78540094 - (B09 + B0b * 78540094) * 3154693)) + ((A08 - A0a * 78540094 + (A09 - A0b * 78540094) * 104293013) * (B08 - B0a * 78540094 + (B09 - B0b * 78540094) * 104293013)) + ((A08 - A0a * 78540094 - (A09 - A0b * 78540094) * 104293013) * (B08 - B0a * 78540094 - (B09 - B0b * 78540094) * 104293013)))) [Q], 
-    eqmod L0xfffffd03a6a4 (45591164 * ((((A08 + A0a * 78540094 + (A09 + A0b * 78540094) * 3154693) * (B08 + B0a * 78540094 + (B09 + B0b * 78540094) * 3154693)) - ((A08 + A0a * 78540094 - (A09 + A0b * 78540094) * 3154693) * (B08 + B0a * 78540094 - (B09 + B0b * 78540094) * 3154693))) + 91933578 * (((A08 - A0a * 78540094 + (A09 - A0b * 78540094) * 104293013) * (B08 - B0a * 78540094 + (B09 - B0b * 78540094) * 104293013)) - ((A08 - A0a * 78540094 - (A09 - A0b * 78540094) * 104293013) * (B08 - B0a * 78540094 - (B09 - B0b * 78540094) * 104293013))))) [Q], 
-    eqmod L0xfffffd03a6a8 (45591164 * (((A08 + A0a * 78540094 + (A09 + A0b * 78540094) * 3154693) * (B08 + B0a * 78540094 + (B09 + B0b * 78540094) * 3154693)) + ((A08 + A0a * 78540094 - (A09 + A0b * 78540094) * 3154693) * (B08 + B0a * 78540094 - (B09 + B0b * 78540094) * 3154693)) - ((A08 - A0a * 78540094 + (A09 - A0b * 78540094) * 104293013) * (B08 - B0a * 78540094 + (B09 - B0b * 78540094) * 104293013)) - ((A08 - A0a * 78540094 - (A09 - A0b * 78540094) * 104293013) * (B08 - B0a * 78540094 - (B09 - B0b * 78540094) * 104293013)))) [Q], 
-    eqmod L0xfffffd03a6ac (45591164 * ((((A08 + A0a * 78540094 + (A09 + A0b * 78540094) * 3154693) * (B08 + B0a * 78540094 + (B09 + B0b * 78540094) * 3154693)) - ((A08 + A0a * 78540094 - (A09 + A0b * 78540094) * 3154693) * (B08 + B0a * 78540094 - (B09 + B0b * 78540094) * 3154693))) - 91933578 * (((A08 - A0a * 78540094 + (A09 - A0b * 78540094) * 104293013) * (B08 - B0a * 78540094 + (B09 - B0b * 78540094) * 104293013)) - ((A08 - A0a * 78540094 - (A09 - A0b * 78540094) * 104293013) * (B08 - B0a * 78540094 - (B09 - B0b * 78540094) * 104293013))))) [Q], 
-    eqmod L0xfffffd03a6b0 (45591164 * (((A0c + A0e * 60096819 + (A0d + A0f * 60096819) * 82394379) * (B0c + B0e * 60096819 + (B0d + B0f * 60096819) * 82394379)) + ((A0c + A0e * 60096819 - (A0d + A0f * 60096819) * 82394379) * (B0c + B0e * 60096819 - (B0d + B0f * 60096819) * 82394379)) + ((A0c - A0e * 60096819 + (A0d - A0f * 60096819) * 3356957) * (B0c - B0e * 60096819 + (B0d - B0f * 60096819) * 3356957)) + ((A0c - A0e * 60096819 - (A0d - A0f * 60096819) * 3356957) * (B0c - B0e * 60096819 - (B0d - B0f * 60096819) * 3356957)))) [Q], 
-    eqmod L0xfffffd03a6b4 (45591164 * ((((A0c + A0e * 60096819 + (A0d + A0f * 60096819) * 82394379) * (B0c + B0e * 60096819 + (B0d + B0f * 60096819) * 82394379)) - ((A0c + A0e * 60096819 - (A0d + A0f * 60096819) * 82394379) * (B0c + B0e * 60096819 - (B0d + B0f * 60096819) * 82394379))) + 91933578 * (((A0c - A0e * 60096819 + (A0d - A0f * 60096819) * 3356957) * (B0c - B0e * 60096819 + (B0d - B0f * 60096819) * 3356957)) - ((A0c - A0e * 60096819 - (A0d - A0f * 60096819) * 3356957) * (B0c - B0e * 60096819 - (B0d - B0f * 60096819) * 3356957))))) [Q], 
-    eqmod L0xfffffd03a6b8 (45591164 * (((A0c + A0e * 60096819 + (A0d + A0f * 60096819) * 82394379) * (B0c + B0e * 60096819 + (B0d + B0f * 60096819) * 82394379)) + ((A0c + A0e * 60096819 - (A0d + A0f * 60096819) * 82394379) * (B0c + B0e * 60096819 - (B0d + B0f * 60096819) * 82394379)) - ((A0c - A0e * 60096819 + (A0d - A0f * 60096819) * 3356957) * (B0c - B0e * 60096819 + (B0d - B0f * 60096819) * 3356957)) - ((A0c - A0e * 60096819 - (A0d - A0f * 60096819) * 3356957) * (B0c - B0e * 60096819 - (B0d - B0f * 60096819) * 3356957)))) [Q], 
-    eqmod L0xfffffd03a6bc (45591164 * ((((A0c + A0e * 60096819 + (A0d + A0f * 60096819) * 82394379) * (B0c + B0e * 60096819 + (B0d + B0f * 60096819) * 82394379)) - ((A0c + A0e * 60096819 - (A0d + A0f * 60096819) * 82394379) * (B0c + B0e * 60096819 - (B0d + B0f * 60096819) * 82394379))) - 91933578 * (((A0c - A0e * 60096819 + (A0d - A0f * 60096819) * 3356957) * (B0c - B0e * 60096819 + (B0d - B0f * 60096819) * 3356957)) - ((A0c - A0e * 60096819 - (A0d - A0f * 60096819) * 3356957) * (B0c - B0e * 60096819 - (B0d - B0f * 60096819) * 3356957))))) [Q]
- ]
- prove with [all cuts, all ghosts]
- && and [
-    Q = 133199617@32, Q2 = 66599809@32, NQ = (-133199617)@32, NQ2 = (-66599809)@32, 
-    [NQ*2@32,NQ*2@32,NQ*2@32,NQ*2@32] <s [L0xfffffd03a680, L0xfffffd03a690, L0xfffffd03a6a0, L0xfffffd03a6b0], 
-    [L0xfffffd03a680, L0xfffffd03a690, L0xfffffd03a6a0, L0xfffffd03a6b0] <s [Q*2@32,Q*2@32,Q*2@32,Q*2@32], 
-    [NQ*2@32,NQ*2@32,NQ*2@32,NQ*2@32] <s [L0xfffffd03a684, L0xfffffd03a694, L0xfffffd03a6a4, L0xfffffd03a6b4], 
-    [L0xfffffd03a684, L0xfffffd03a694, L0xfffffd03a6a4, L0xfffffd03a6b4] <s [Q*2@32,Q*2@32,Q*2@32,Q*2@32], 
-    [NQ*2@32,NQ*2@32,NQ*2@32,NQ*2@32] <s [L0xfffffd03a688, L0xfffffd03a698, L0xfffffd03a6a8, L0xfffffd03a6b8], 
-    [L0xfffffd03a688, L0xfffffd03a698, L0xfffffd03a6a8, L0xfffffd03a6b8] <s [Q*2@32,Q*2@32,Q*2@32,Q*2@32], 
-    [NQ*2@32,NQ*2@32,NQ*2@32,NQ*2@32] <s [L0xfffffd03a68c, L0xfffffd03a69c, L0xfffffd03a6ac, L0xfffffd03a6bc], 
-    [L0xfffffd03a68c, L0xfffffd03a69c, L0xfffffd03a6ac, L0xfffffd03a6bc] <s [Q*2@32,Q*2@32,Q*2@32,Q*2@32]
- ]
- prove with [all cuts, all ghosts, algebra solver isl];
 
 {
   and [
