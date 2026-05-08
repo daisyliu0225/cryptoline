@@ -12139,6 +12139,8 @@ mov v30 L0xc6075bf02860;
 mov x3 0x0@uint64;
 (* cmp	x3, #0x20                                   #! PC = 0xc6075bee164c *)
 cmp	%%x3, #0x20                                   #! 0xc6075bee164c = 0xc6075bee164c;
+
+// prime 1 stage 5 loop 1
 (* #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! PC = 0xc6075bee1650 *)
 #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! 0xc6075bee1650 = 0xc6075bee1650;
 (* mov	x5, #0x280                 	// #640         #! PC = 0xc6075bee1654 *)
@@ -12523,6 +12525,8 @@ add x3 x3 0x4@uint64;
 #b	0xc6075bee164c <p1stage5LoopStart>           #! 0xc6075bee18f8 = 0xc6075bee18f8;
 (* cmp	x3, #0x20                                   #! PC = 0xc6075bee164c *)
 cmp	%%x3, #0x20                                   #! 0xc6075bee164c = 0xc6075bee164c;
+
+// prime 1 stage 5 loop 2
 (* #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! PC = 0xc6075bee1650 *)
 #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! 0xc6075bee1650 = 0xc6075bee1650;
 (* mov	x5, #0x280                 	// #640         #! PC = 0xc6075bee1654 *)
@@ -12907,6 +12911,8 @@ add x3 x3 0x4@uint64;
 #b	0xc6075bee164c <p1stage5LoopStart>           #! 0xc6075bee18f8 = 0xc6075bee18f8;
 (* cmp	x3, #0x20                                   #! PC = 0xc6075bee164c *)
 cmp	%%x3, #0x20                                   #! 0xc6075bee164c = 0xc6075bee164c;
+
+// prime 1 stage 5 loop 3
 (* #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! PC = 0xc6075bee1650 *)
 #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! 0xc6075bee1650 = 0xc6075bee1650;
 (* mov	x5, #0x280                 	// #640         #! PC = 0xc6075bee1654 *)
@@ -13291,6 +13297,8 @@ add x3 x3 0x4@uint64;
 #b	0xc6075bee164c <p1stage5LoopStart>           #! 0xc6075bee18f8 = 0xc6075bee18f8;
 (* cmp	x3, #0x20                                   #! PC = 0xc6075bee164c *)
 cmp	%%x3, #0x20                                   #! 0xc6075bee164c = 0xc6075bee164c;
+
+// prime 1 stage 5 loop 4
 (* #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! PC = 0xc6075bee1650 *)
 #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! 0xc6075bee1650 = 0xc6075bee1650;
 (* mov	x5, #0x280                 	// #640         #! PC = 0xc6075bee1654 *)
@@ -13675,6 +13683,8 @@ add x3 x3 0x4@uint64;
 #b	0xc6075bee164c <p1stage5LoopStart>           #! 0xc6075bee18f8 = 0xc6075bee18f8;
 (* cmp	x3, #0x20                                   #! PC = 0xc6075bee164c *)
 cmp	%%x3, #0x20                                   #! 0xc6075bee164c = 0xc6075bee164c;
+
+// prime 1 stage 5 loop 5
 (* #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! PC = 0xc6075bee1650 *)
 #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! 0xc6075bee1650 = 0xc6075bee1650;
 (* mov	x5, #0x280                 	// #640         #! PC = 0xc6075bee1654 *)
@@ -14059,6 +14069,8 @@ add x3 x3 0x4@uint64;
 #b	0xc6075bee164c <p1stage5LoopStart>           #! 0xc6075bee18f8 = 0xc6075bee18f8;
 (* cmp	x3, #0x20                                   #! PC = 0xc6075bee164c *)
 cmp	%%x3, #0x20                                   #! 0xc6075bee164c = 0xc6075bee164c;
+
+// prime 1 stage 5 loop 6
 (* #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! PC = 0xc6075bee1650 *)
 #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! 0xc6075bee1650 = 0xc6075bee1650;
 (* mov	x5, #0x280                 	// #640         #! PC = 0xc6075bee1654 *)
@@ -14443,6 +14455,8 @@ add x3 x3 0x4@uint64;
 #b	0xc6075bee164c <p1stage5LoopStart>           #! 0xc6075bee18f8 = 0xc6075bee18f8;
 (* cmp	x3, #0x20                                   #! PC = 0xc6075bee164c *)
 cmp	%%x3, #0x20                                   #! 0xc6075bee164c = 0xc6075bee164c;
+
+// prime 1 stage 5 loop 7
 (* #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! PC = 0xc6075bee1650 *)
 #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! 0xc6075bee1650 = 0xc6075bee1650;
 (* mov	x5, #0x280                 	// #640         #! PC = 0xc6075bee1654 *)
@@ -14827,6 +14841,8 @@ add x3 x3 0x4@uint64;
 #b	0xc6075bee164c <p1stage5LoopStart>           #! 0xc6075bee18f8 = 0xc6075bee18f8;
 (* cmp	x3, #0x20                                   #! PC = 0xc6075bee164c *)
 cmp	%%x3, #0x20                                   #! 0xc6075bee164c = 0xc6075bee164c;
+
+// prime 1 stage 5 loop 8
 (* #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! PC = 0xc6075bee1650 *)
 #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! 0xc6075bee1650 = 0xc6075bee1650;
 (* mov	x5, #0x280                 	// #640         #! PC = 0xc6075bee1654 *)
@@ -15211,10 +15227,14 @@ add x3 x3 0x4@uint64;
 #b	0xc6075bee164c <p1stage5LoopStart>           #! 0xc6075bee18f8 = 0xc6075bee18f8;
 (* cmp	x3, #0x20                                   #! PC = 0xc6075bee164c *)
 cmp	%%x3, #0x20                                   #! 0xc6075bee164c = 0xc6075bee164c;
+
+// prime 1 stage 5 end
 (* #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! PC = 0xc6075bee1650 *)
 #b.ge	0xc6075bee18fc <p1INTTEnd>  // b.tcont    #! 0xc6075bee1650 = 0xc6075bee1650;
 (* #! <- SP = 0xfffffd039a70 *)
 #! 0xfffffd039a70 = 0xfffffd039a70;
+
+// 256 NTT end
 (* #ret                                            #! PC = 0xc6075bee18fc *)
 #ret                                            #! 0xc6075bee18fc = 0xc6075bee18fc;
 
